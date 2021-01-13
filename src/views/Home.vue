@@ -1,7 +1,8 @@
 <template>
-  <div class="home">
+  <div class="home bg-light">
     <Navbar :show="2" />
-    <b-container style="padding-top: 90px">
+    <b-container style="padding-top: 120px">
+      <Sort />
       <b-card class="shadow m-0 border-0">
         <Card />
         <Card />
@@ -22,13 +23,15 @@
 
 <script>
 import Navbar from '../components/_base/Navbar'
-import Footbar from '../components/_base/Footbar'
+import Sort from '../components/_base/SortBar'
 import Card from '../components/CardList'
+import Footbar from '../components/_base/Footbar'
 
 export default {
   name: 'Home',
   components: {
     Navbar,
+    Sort,
     Footbar,
     Card
   }

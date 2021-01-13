@@ -22,11 +22,19 @@
 * {
   font-family: 'b612regular';
 }
-
+input {
+  border: none;
+  background: none;
+}
+input:focus {
+  outline: none;
+}
 .button {
   border-radius: 10px;
   padding: 3px 12px;
   margin: 0 10px;
+  background: none;
+  border: none;
 }
 .button:focus {
   outline: none;
