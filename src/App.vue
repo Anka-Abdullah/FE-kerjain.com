@@ -59,7 +59,7 @@ input:focus {
   padding: 2px 15px;
   background-color: #ffc95d;
   color: #ffffff;
-  margin: 10px;
+  margin: 0px 10px 10px 0px;
 }
 
 @media (max-width: 600px) {

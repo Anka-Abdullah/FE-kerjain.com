@@ -1,7 +1,12 @@
 <template>
-  <div class="home bg-light">
+  <div class="home bg-light pt-5">
     <Navbar :show="2" />
-    <b-container style="padding-top: 120px">
+    <b-container fluid style="background: #5e50a1">
+      <b-container>
+        <h3 class="text-white py-3 mt-2"><strong>Top Jobs</strong></h3>
+      </b-container>
+    </b-container>
+    <b-container class="pt-5">
       <Sort />
       <b-card class="shadow m-0 border-0">
         <Card />

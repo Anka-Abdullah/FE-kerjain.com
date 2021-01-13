@@ -22,7 +22,7 @@
             <router-link to=""><b-icon icon="bell"></b-icon></router-link
             ><router-link to=""
               ><b-icon icon="chat-left-dots" class="mx-4"></b-icon></router-link
-            ><router-link to=""
+            ><router-link to="/profile"
               ><b-avatar src="https://placekitten.com/300/300"></b-avatar
             ></router-link>
           </h5>
