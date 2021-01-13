@@ -12,12 +12,19 @@
       <b-collapse id="nav-collapse" is-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <button class="button  button-white">Masuk</button>
-          <button class="button button-purple">Daftar</button>
-          <h5 class="m-0 mt-1">
-            <b-icon icon="bell"></b-icon
-            ><b-icon icon="chat-left-dots" class="mx-3"></b-icon>
-            <b-avatar src="https://placekitten.com/300/300"></b-avatar>
+          <button class="button  button-white my-1" v-if="show === 1">
+            Masuk
+          </button>
+          <button class="button button-purple my-1" v-if="show === 1">
+            Daftar
+          </button>
+          <h5 class="m-0 mt-1 text-center" v-if="show === 2">
+            <router-link to=""><b-icon icon="bell"></b-icon></router-link
+            ><router-link to=""
+              ><b-icon icon="chat-left-dots" class="mx-4"></b-icon></router-link
+            ><router-link to=""
+              ><b-avatar src="https://placekitten.com/300/300"></b-avatar
+            ></router-link>
           </h5>
         </b-navbar-nav>
       </b-collapse>
@@ -26,10 +33,8 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      show: 1
-    }
+  props: {
+    show: Number
   }
 }
 </script>
@@ -37,5 +42,13 @@ export default {
 .b-navbar {
   padding: 8px 60px;
   background-color: #ffffff !important;
+}
+a {
+  color: black;
+}
+@media (max-width: 600px) {
+  .b-navbar {
+    padding: 8px 10px;
+  }
 }
 </style>

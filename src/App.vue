@@ -22,9 +22,10 @@
 * {
   font-family: 'b612regular';
 }
+
 .button {
   border-radius: 10px;
-  padding: 4px 12px;
+  padding: 3px 12px;
   margin: 0 10px;
 }
 .button:focus {
@@ -42,5 +43,20 @@
   background-color: #5e50a1;
   border: 2px solid #5e50a1;
   color: #ffffff;
+}
+.skill {
+  border-radius: 7px;
+  display: inline-block;
+  border: 2px solid #ffaa00;
+  padding: 2px 15px;
+  background-color: #ffc95d;
+  color: #ffffff;
+  margin: 10px;
+}
+
+@media (max-width: 600px) {
+  .b-navbar {
+    padding: 16px 5px;
+  }
 }
 </style>
