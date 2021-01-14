@@ -165,12 +165,20 @@
 }
 
 @media (max-width: 576px) {
+  .row-1 {
+    margin-top: 5vh;
+  }
+
   .head-img {
     width: 350px;
   }
 
   .skill-talent {
     margin-left: 0px;
+  }
+
+  .head-img {
+    margin-top: 20px;
   }
 }
 </style>

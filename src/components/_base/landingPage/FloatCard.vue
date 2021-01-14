@@ -6,7 +6,7 @@
           <h1 class="text-head">Lorem ipsum dolor sit amet</h1>
         </div>
         <div>
-          <button class="button button-white">
+          <button class="button button-white ">
             Mulai Dari Sekarang
           </button>
         </div>
@@ -17,10 +17,14 @@
 
 <style scoped>
 .main {
-  padding: 50px 50px;
-  background-color: purple;
+  padding: 70px 70px;
+  background-color: #5e50a1;
   border-radius: 20px 0 20px 0;
   margin: 100px 0;
+  background-image: url('../../../assets/bg_float_card.png');
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: bottom;
 }
 
 .text-head {
