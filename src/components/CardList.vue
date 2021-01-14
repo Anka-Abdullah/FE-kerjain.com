@@ -21,6 +21,13 @@
     </b-row>
   </div>
 </template>
+<script>
+export default {
+  props: {
+    data: Object
+  }
+}
+</script>
 <style scoped>
 button {
   margin-top: 85px;
