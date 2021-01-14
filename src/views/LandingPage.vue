@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <Navbar :show="1" />
     <b-container>
       <b-row>
         <b-col>
