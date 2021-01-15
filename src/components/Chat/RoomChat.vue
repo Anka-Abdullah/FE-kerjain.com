@@ -8,22 +8,32 @@
       />
       <p class="user-name">User Name</p>
     </div>
-    <div class="room-body">
+    <b-col class="p-4">
+      <textarea class="w-50 my-3" rows="1">
+          Anka
+        </textarea
+      >
+      <textarea class="w-50 my-3" rows="1">
+          Anka
+        </textarea
+      >
+    </b-col>
+    <!-- <div class="room-body">
+      <div class="message-sender align-text-bottom">
+        Hello kjakjkaj
+      </div>
+      <div class="message-sender">
+        guys
+      </div>
+    </div> -->
+    <!-- <div class="room-body2">
       <div class="message-sender align-text-bottom">
         Hello
       </div>
       <div class="message-sender">
         guys
       </div>
-    </div>
-    <div class="room-body2">
-      <div class="message-sender align-text-bottom">
-        Hello
-      </div>
-      <div class="message-sender">
-        guys
-      </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -36,6 +46,10 @@ export default {
 }
 </script>
 <style scoped>
+textarea {
+  display: block;
+  left: 0;
+}
 .room-chat {
   background-color: white;
   height: 543px;

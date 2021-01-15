@@ -13,15 +13,19 @@
         <b-collapse id="nav-collapse" is-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <button class="button  button-white my-1" v-if="show === 1">
-              Masuk
-            </button>
-            <button class="button button-purple my-1" v-if="show === 1">
-              Daftar
-            </button>
+            <router-link to="/registeruser"
+              ><button class="button  button-white my-1" v-if="show === 1">
+                Masuk
+              </button></router-link
+            >
+            <router-link to="/loginuser"
+              ><button class="button button-purple my-1" v-if="show === 1">
+                Daftar
+              </button></router-link
+            >
             <h5 class="m-0 mt-1 text-center" v-if="show === 2">
               <router-link to=""><b-icon icon="bell"></b-icon></router-link
-              ><router-link to=""
+              ><router-link to="/chat"
                 ><b-icon
                   icon="chat-left-dots"
                   class="mx-4"
