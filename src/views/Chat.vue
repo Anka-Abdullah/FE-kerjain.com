@@ -5,7 +5,7 @@
       <b-container>
         <b-row>
           <b-col sm="3"><ListChat /></b-col>
-          <b-col sm="9">gengs </b-col>
+          <b-col sm="9"><RoomChat /> </b-col>
         </b-row>
       </b-container>
     </div>
@@ -16,12 +16,14 @@
 import Navbar from '../components/_base/Navbar'
 import Footer from '../components/_base/Footbar'
 import ListChat from '../components/Chat/ListChat'
+import RoomChat from '../components/Chat/RoomChat'
 export default {
   name: 'Chat',
   components: {
     Navbar,
     Footer,
-    ListChat
+    ListChat,
+    RoomChat
   }
 }
 </script>
