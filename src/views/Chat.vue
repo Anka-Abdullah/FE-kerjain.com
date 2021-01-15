@@ -32,4 +32,10 @@ export default {
   padding-top: 100px;
   height: 1000px;
 }
+
+@media only screen and (max-width: 600px) {
+  .chat {
+    margin-bottom: 300px;
+  }
+}
 </style>
