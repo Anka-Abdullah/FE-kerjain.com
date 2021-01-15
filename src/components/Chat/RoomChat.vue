@@ -8,32 +8,21 @@
       />
       <p class="user-name">User Name</p>
     </div>
-    <b-col class="p-4">
-      <textarea class="w-50 my-3" rows="1">
-          Anka
-        </textarea
-      >
-      <textarea class="w-50 my-3" rows="1">
-          Anka
-        </textarea
-      >
-    </b-col>
-    <!-- <div class="room-body">
-      <div class="message-sender align-text-bottom">
-        Hello kjakjkaj
-      </div>
-      <div class="message-sender">
-        guys
-      </div>
-    </div> -->
-    <!-- <div class="room-body2">
-      <div class="message-sender align-text-bottom">
-        Hello
-      </div>
-      <div class="message-sender">
-        guys
-      </div>
-    </div> -->
+    <div class="room-body"></div>
+    <div class="chat-type">
+      <b-form-textarea
+        id="textarea"
+        class="chat-area"
+        v-model="text"
+        placeholder="Enter something..."
+        rows="1"
+        max-rows="6"
+        style="overflow:hidden"
+      ></b-form-textarea>
+    </div>
+    <button class="send-button">
+      <img src="../../assets/send-icon.png" alt="" />
+    </button>
   </div>
 </template>
 <script>
@@ -85,5 +74,31 @@ textarea {
   bottom: 100px;
   position: absolute;
   left: 40px;
+}
+.chat-area {
+  position: absolute;
+  bottom: 35px;
+  border-radius: 30px;
+  overflow-y: hidden;
+  margin-left: 30px;
+  padding-top: 18px;
+  padding-left: 20px;
+  width: 85%;
+}
+.send-button {
+  position: absolute;
+  bottom: 45px;
+  height: 50px;
+  width: 50px;
+  border-radius: 40px;
+  background-color: #5e50a1;
+  border: none;
+  right: 30px;
+}
+@media only screen and (max-width: 600px) {
+  .room-chat {
+    margin-top: 60px;
+    height: 500px;
+  }
 }
 </style>
