@@ -55,6 +55,12 @@ const routes = [
     path: '/confirmpassword',
     name: 'ConfirmPassword',
     component: ConfirmPassword
+  },
+  {
+    path: '/editprofile',
+    name: 'EditProfile',
+    component: () =>
+      import(/* webpackChunkName: "editprofile" */ '../views/EditProfile.vue')
   }
 ]
 
