@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import LoginUser from '../views/auth/LoginUser.vue'
+import RegisterUser from '../views/auth/RegisterUser.vue'
+import ConfirmPassword from '../views/auth/ConfirmPassword.vue'
 import LandingPage from '../views/LandingPage.vue'
 
 Vue.use(VueRouter)
@@ -37,6 +40,21 @@ const routes = [
     name: 'Company',
     component: () =>
       import(/* webpackChunkName: "company" */ '../views/Company.vue')
+  },
+  {
+    path: '/loginuser',
+    name: 'LoginUser',
+    component: LoginUser
+  },
+  {
+    path: '/registeruser',
+    name: 'RegisterUser',
+    component: RegisterUser
+  },
+  {
+    path: '/confirmpassword',
+    name: 'ConfirmPassword',
+    component: ConfirmPassword
   },
   {
     path: '/editprofile',
