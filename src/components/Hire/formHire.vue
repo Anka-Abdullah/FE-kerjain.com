@@ -8,8 +8,9 @@
       </p>
       <div class="perpose">
         <p class="perpose-title">Tujuan tentang Pesan Ini</p>
-        <select class="perpose-select">
-          <option>Project</option>
+        <select class="perpose-select" v-model="form.perpose">
+          <option value="Project">Project</option>
+          <option value="Job Invitation">Job Invitation</option>
         </select>
       </div>
       <div class="name-hiring">
@@ -58,6 +59,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'formHire',
   data() {
@@ -72,8 +74,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['sendJobInvitations']),
     sendHiring() {
-      console.log(this.form)
+      this.sendJobInvitations(this.form)
     }
   }
 }
