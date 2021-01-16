@@ -39,7 +39,7 @@
           <br />
           <div class="centered">
             Anda belum punya akun?
-            <router-link to="/">Daftar disini</router-link>
+            <router-link to="/registeruser">Daftar disini</router-link>
           </div>
         </b-form>
       </div>

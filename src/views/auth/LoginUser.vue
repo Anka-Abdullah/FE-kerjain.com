@@ -49,14 +49,14 @@
             ></b-form-input>
           </b-form-group>
           <div class="righted">
-            <router-link to="/">Lupa kata sandi?</router-link>
+            <router-link to="/confirmpassword">Lupa kata sandi?</router-link>
           </div>
           <br />
           <button class="yellow" type="submit">Masuk</button>
           <br />
           <div class="centered">
             Anda belum punya akun?
-            <router-link to="/">Daftar disini</router-link>
+            <router-link to="/registeruser">Daftar disini</router-link>
           </div>
         </b-form>
       </div>

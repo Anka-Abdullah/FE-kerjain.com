@@ -67,7 +67,7 @@
           <br />
           <div class="centered">
             Anda sudah punya akun?
-            <router-link to="/">Masuk disini</router-link>
+            <router-link to="/loginuser">Masuk disini</router-link>
           </div>
         </b-form>
       </div>

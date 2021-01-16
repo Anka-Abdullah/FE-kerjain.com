@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Navbar from '../components/_base/Navbar'
 import Sort from '../components/_base/SortBar'
 import Card from '../components/CardList'
@@ -39,6 +40,37 @@ export default {
     Sort,
     Footbar,
     Card
+  },
+  created() {
+    this.resetPage()
+  },
+  computed: {
+    ...mapGetters({
+      users: 'getDataUsers',
+      page: 'getPage',
+      limit: 'getLimit',
+      rows: 'getTotalRows'
+    }),
+    currentPage: {
+      get() {
+        return this.page
+      },
+      set(newPage) {
+        return newPage
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['getUsers']),
+    ...mapMutations(['changePage', 'resetPages']),
+    handlePageChange(e) {
+      this.changePage(e)
+      this.getUsers()
+    },
+    resetPage() {
+      this.resetPages()
+      this.getUsers()
+    }
   }
 }
 </script>
