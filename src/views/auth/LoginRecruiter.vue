@@ -10,27 +10,47 @@
         </h3>
       </div>
       <div class="content-right">
-        <h4>Reset password</h4>
+        <h4>Halo, Pewpeople</h4>
         <p>
-          Enter your user account's verified email address and we will send you
-          a password reset link.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam natus
+          corrupti sunt fugit, eius odio!
         </p>
         <br />
         <b-form @submit.prevent="onSubmit">
-          <b-form-group id="input-group-1" label="Email" label-for="input-1">
+          <b-form-group
+            id="input-group-1"
+            label="Email"
+            label-for="input-1"
+            description="We'll never share your email with anyone else."
+          >
             <b-form-input
               id="input-1"
               v-model="form.user_email"
               type="email"
-              placeholder="Enter your email address"
+              placeholder="Enter your email"
               required
             ></b-form-input>
           </b-form-group>
           <br />
-          <button class="yellow" type="submit">
-            Send password reset email
-          </button>
+          <b-form-group id="input-group-2" label="Password" label-for="input-2">
+            <b-form-input
+              id="input-2"
+              v-model="form.user_password"
+              type="password"
+              placeholder="Enter your password"
+              required
+            ></b-form-input>
+          </b-form-group>
+          <div class="righted">
+            <router-link to="/">Lupa kata sandi?</router-link>
+          </div>
           <br />
+          <button class="yellow" type="submit">Login</button>
+          <br />
+          <div class="centered">
+            Anda belum punya akun?
+            <router-link to="/">Daftar disini</router-link>
+          </div>
         </b-form>
       </div>
     </b-container>

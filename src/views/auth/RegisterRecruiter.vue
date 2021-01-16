@@ -1,13 +1,6 @@
 <template>
   <div>
     <b-container class="login">
-      <div class="content-top centered">
-        <h4><b-icon icon="exclude"></b-icon>Kerjain</h4>
-        <br />
-        <h5>
-          Temukan developer berbakat & terbaik di berbagai bidang keahlian
-        </h5>
-      </div>
       <div class="content-left">
         <h4 class="m-0">
           <b-icon icon="exclude" class="mr-2"></b-icon>Kerjain
@@ -24,39 +17,75 @@
         </p>
         <br />
         <b-form @submit.prevent="onSubmit">
-          <b-form-group
-            id="input-group-1"
-            label="Email"
-            label-for="input-1"
-            description="We'll never share your email with anyone else."
-          >
+          <b-form-group label="Nama" label-for="Name">
             <b-form-input
-              id="input-1"
+              id="Name"
+              v-model="form.user_name"
+              type="text"
+              placeholder="Enter your name"
+              required
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Email" label-for="Email">
+            <b-form-input
+              id="Email"
               v-model="form.user_email"
               type="email"
-              placeholder="Masukkan alamat email"
+              placeholder="Enter your email"
               required
             ></b-form-input>
           </b-form-group>
-          <br />
-          <b-form-group id="input-group-2" label="Password" label-for="input-2">
+          <b-form-group label="Perusahaan" label-for="perusahaan">
             <b-form-input
-              id="input-2"
+              id="perusahaan"
+              v-model="form.user_name"
+              type="text"
+              placeholder="Masukkan nama perusahaan"
+              required
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Jabatan" label-for="jabatan">
+            <b-form-input
+              id="jabatan"
+              v-model="form.user_name"
+              type="text"
+              placeholder="Posisi di perusahaan Anda"
+              required
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Phone Number" label-for="Phone Number">
+            <b-form-input
+              id="Phone Number"
+              v-model="form.user_phone"
+              type="number"
+              placeholder="Enter your phone number"
+              required
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Password" label-for="password">
+            <b-form-input
+              id="password"
               v-model="form.user_password"
               type="password"
-              placeholder="Masukkan kata sandi"
+              placeholder="Enter your password"
               required
             ></b-form-input>
           </b-form-group>
-          <div class="righted">
-            <router-link to="/">Lupa kata sandi?</router-link>
-          </div>
+          <b-form-group label="Confirm password" label-for="Confirm password">
+            <b-form-input
+              id="Confirm password"
+              v-model="form.user_password"
+              type="password"
+              placeholder="Confirm your password"
+              required
+            ></b-form-input>
+          </b-form-group>
           <br />
-          <button class="yellow" type="submit">Masuk</button>
+          <button class="yellow" type="submit">Daftar</button>
           <br />
           <div class="centered">
-            Anda belum punya akun?
-            <router-link to="/">Daftar disini</router-link>
+            Anda sudah punya akun?
+            <router-link to="/">Masuk disini</router-link>
           </div>
         </b-form>
       </div>
@@ -65,8 +94,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   components: {},
   data() {
@@ -77,24 +104,10 @@ export default {
       }
     }
   },
-  computed: {},
   methods: {
-    ...mapActions(['loginUser']),
-    onSubmit() {
-      this.loginUser(this.form)
-        .then(result => {
-          console.log(result)
-          alert('success login')
-          // this.successToast(result.data.msg)
-          this.$router.push('/')
-        })
-        .catch(err => {
-          //   this.dangerToast(err.data.msg)
-          alert(err.data.msg)
-        })
-    },
-    toPageRegisterUser() {
-      this.$router.push('signUp')
+    onSubmit(event) {
+      event.preventDefault()
+      alert(JSON.stringify(this.form))
     }
   }
 }
@@ -108,7 +121,6 @@ export default {
   display: flex;
   font-family: 'Open Sans', sans-serif !important;
 }
-
 .content-left {
   padding: 40px;
   flex: 1;
@@ -120,7 +132,6 @@ export default {
 }
 .content-right {
   padding: 40px;
-  padding-top: 60px;
   flex: 1.2;
   font-family: 'Open Sans', sans-serif !important;
 }
@@ -155,27 +166,5 @@ h3 {
 }
 .m-0 {
   color: white;
-}
-.content-top {
-  padding: 40px;
-  background-image: url('../../assets/user-bg1.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: white;
-}
-
-@media (max-width: 800px) {
-  .content-left {
-    display: none !important;
-  }
-  .login {
-    display: inline;
-  }
-}
-
-@media (min-width: 800px) {
-  .content-top {
-    display: none !important;
-  }
 }
 </style>

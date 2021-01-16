@@ -22,7 +22,7 @@
               id="Name"
               v-model="form.user_name"
               type="text"
-              placeholder="Enter your name"
+              placeholder="Masukkan nama panjang"
               required
             ></b-form-input>
           </b-form-group>
@@ -31,7 +31,7 @@
               id="Email"
               v-model="form.user_email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Masukkan alamat email"
               required
             ></b-form-input>
           </b-form-group>
@@ -40,7 +40,7 @@
               id="Phone Number"
               v-model="form.user_phone"
               type="number"
-              placeholder="Enter your phone number"
+              placeholder="Masukkan no handphone"
               required
             ></b-form-input>
           </b-form-group>
@@ -49,21 +49,21 @@
               id="password"
               v-model="form.user_password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Masukkan kata sandi"
               required
             ></b-form-input>
           </b-form-group>
           <b-form-group label="Confirm password" label-for="Confirm password">
             <b-form-input
               id="Confirm password"
-              v-model="form.user_password"
+              v-model="form.confirm_pass"
               type="password"
-              placeholder="Confirm your password"
+              placeholder="Masukkan konfirmasi kata sandi"
               required
             ></b-form-input>
           </b-form-group>
           <br />
-          <button class="yellow" type="submit">Sign Up</button>
+          <button class="yellow" type="submit">Daftar</button>
           <br />
           <div class="centered">
             Anda sudah punya akun?
@@ -76,20 +76,38 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   components: {},
   data() {
     return {
       form: {
         user_email: '',
-        user_password: ''
+        user_password: '',
+        user_name: '',
+        user_phone: '',
+        confirm_pass: ''
       }
     }
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.form))
+    ...mapActions(['registerWorker']),
+    toPageLogin() {
+      this.$router.push('loginuser')
+    },
+    onSubmit() {
+      if (this.form.user_password !== this.form.confirm_pass) {
+        return alert('password harus sama')
+      } else {
+        this.registerWorker(this.form)
+          .then(result => {
+            this.successToast(result.data.msg)
+            this.$router.push('loginuser')
+          })
+          .catch(err => {
+            alert(err.data.msg)
+          })
+      }
     }
   }
 }
