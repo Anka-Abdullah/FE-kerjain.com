@@ -23,7 +23,7 @@ export default {
     loginUser(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_URL}workers/login`, payload)
+          .post('http://localhost:3000/workers/login', payload)
           .then(result => {
             context.commit('setUser', result.data.data)
             localStorage.setItem('token', result.data.data.token)
@@ -38,7 +38,7 @@ export default {
     loginRecruiter(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_URL}recruiter/login`, payload)
+          .post('http://localhost:3000/recruiter/login', payload)
           .then(result => {
             context.commit('setUser', result.data.data)
             localStorage.setItem('token', result.data.data.token)
@@ -123,8 +123,6 @@ export default {
           return response
         },
         function(error) {
-          // Any status codes that falls outside the range of 2xx cause this function to trigger
-          // Do something with response error
           if (
             (error.response.data.status === 403 &&
               error.response.data.status === 'invalid token') ||

@@ -7,7 +7,7 @@ export default {
     registerWorker(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_URL}workers/register`, payload)
+          .post('http://localhost:3000/workers/register', payload)
           .then(result => {
             resolve(result)
           })
@@ -19,7 +19,7 @@ export default {
     registerRecruiter(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post(`${process.env.VUE_APP_URL}recruiter/register`, payload)
+          .post('http://localhost:3000/recruiter/register', payload)
           .then(result => {
             resolve(result)
           })

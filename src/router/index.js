@@ -51,11 +51,6 @@ const routes = [
     component: LoginRecruiter
   },
   {
-    path: '/loginUser',
-    name: 'LoginUser',
-    component: LoginUser
-  },
-  {
     path: '/hire',
     name: 'Hire',
     component: () =>

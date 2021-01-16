@@ -27,17 +27,21 @@
               id="input-1"
               v-model="form.user_email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Masukkan aamat email"
               required
             ></b-form-input>
           </b-form-group>
           <br />
-          <b-form-group id="input-group-2" label="Password" label-for="input-2">
+          <b-form-group
+            id="input-group-2"
+            label="Kata sandi"
+            label-for="input-2"
+          >
             <b-form-input
               id="input-2"
               v-model="form.user_password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Masukkan kata sandi"
               required
             ></b-form-input>
           </b-form-group>
@@ -58,6 +62,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   components: {},
   data() {
@@ -69,9 +74,22 @@ export default {
     }
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.form))
+    ...mapActions(['loginRecruiter']),
+    onSubmit() {
+      this.loginUser(this.form)
+        .then(result => {
+          console.log(result)
+          alert('success login')
+          // this.successToast(result.data.msg)
+          this.$router.push('/')
+        })
+        .catch(err => {
+          //   this.dangerToast(err.data.msg)
+          alert(err.data.msg)
+        })
+    },
+    toPageRegisterUser() {
+      this.$router.push('signUp')
     }
   }
 }
