@@ -6,17 +6,17 @@ export default {
   mutations: {},
   actions: {
     sendJobInvitations(_context, payload) {
-      return new Promise(() => {
+      return new Promise((resolve, reject) => {
         axios
           .post(
             `http://${process.env.VUE_APP_ROOT_URL}/hiring/jobinvitation`,
             payload
           )
           .then(result => {
-            console.log(result)
+            resolve(result.data)
           })
           .catch(err => {
-            console.log(err)
+            reject(err)
           })
       })
     }

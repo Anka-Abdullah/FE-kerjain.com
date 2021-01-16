@@ -52,7 +52,7 @@
         ></b-form-textarea>
       </div>
       <div class="button-hire">
-        <button @click="sendHiring" class="hire-button">Hire</button>
+        <button class="hire-button">Hire</button>
       </div>
     </b-form>
   </div>
@@ -60,8 +60,10 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { alert } from '../../mixins/alert'
 export default {
   name: 'formHire',
+  mixins: [alert],
   data() {
     return {
       form: {
@@ -77,6 +79,12 @@ export default {
     ...mapActions(['sendJobInvitations']),
     sendHiring() {
       this.sendJobInvitations(this.form)
+        .then(result => {
+          this.successAlert(result.msg)
+        })
+        .catch(err => {
+          this.errorAlert(err.data.msg)
+        })
     }
   }
 }

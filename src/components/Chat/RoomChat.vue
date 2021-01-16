@@ -13,14 +13,14 @@
       <b-form-textarea
         id="textarea"
         class="chat-area"
-        v-model="text"
+        v-model="chat.chat_content"
         placeholder="Enter something..."
         rows="1"
         max-rows="6"
         style="overflow:hidden"
       ></b-form-textarea>
     </div>
-    <button class="send-button">
+    <button @click="chatSend" class="send-button">
       <img src="../../assets/send-icon.png" alt="" />
     </button>
   </div>
@@ -29,9 +29,17 @@
 export default {
   name: 'RoomChat',
   data() {
-    return {}
+    return {
+      chat: {
+        chat_content: ''
+      }
+    }
   },
-  methods: {}
+  methods: {
+    chatSend() {
+      console.log(this.chat.chat_content)
+    }
+  }
 }
 </script>
 <style scoped>
