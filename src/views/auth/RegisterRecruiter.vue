@@ -4,6 +4,9 @@
       <TopSide />
       <LeftSide />
       <div class="content-right">
+        <div class="righted">
+          <button class="btn-top" @click.prevent="toPage()">Pekerja</button>
+        </div>
         <h4>Halo, Pewpeople</h4>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam natus
@@ -91,11 +94,13 @@
 </template>
 
 <script>
+import { alert } from '../../mixins/alert'
 import { mapActions } from 'vuex'
 import LeftSide from '../../components/auth/LeftSide'
 import TopSide from '../../components/auth/TopSide'
 
 export default {
+  mixins: [alert],
   components: { LeftSide, TopSide },
   data() {
     return {
@@ -111,8 +116,8 @@ export default {
   },
   methods: {
     ...mapActions(['registerRecruiter']),
-    toPageLogin() {
-      this.$router.push('loginrecruiter')
+    toPage() {
+      this.$router.push('registeruser')
     },
     onSubmit() {
       if (this.form.user_password !== this.form.confirm_pass) {
@@ -120,11 +125,11 @@ export default {
       } else {
         this.registerRecruiter(this.form)
           .then(result => {
-            this.successToast(result.data.msg)
+            this.successAlert(result.data.msg)
             this.$router.push('loginrecruiter')
           })
           .catch(err => {
-            alert(err.data.msg)
+            this.errorAlert(err.data.msg)
           })
       }
     }
@@ -151,6 +156,7 @@ export default {
 }
 .content-right {
   padding: 40px;
+  padding-top: 20px;
   flex: 1.2;
   font-family: 'Open Sans', sans-serif !important;
 }
@@ -161,6 +167,12 @@ button {
   padding: 8px;
   border-radius: 5px;
   border: none;
+}
+.btn-top {
+  color: white !important;
+  background-color: #554b8e;
+  width: 100px;
+  margin-bottom: 25px;
 }
 .centered {
   padding: 25px;
