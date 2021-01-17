@@ -5,7 +5,7 @@
       <LeftSide />
       <div class="content-right">
         <div class="righted">
-          <button class="btn-top" @click.prevent="toPage()">Perekrut</button>
+          <button class="btn-top" @click.prevent="toPage()">Pekerja</button>
         </div>
         <h4>Halo, Pewpeople</h4>
         <p>
@@ -14,60 +14,43 @@
         </p>
         <br />
         <b-form @submit.prevent="onSubmit">
-          <b-form-group label="Nama" label-for="Name">
+          <b-form-group
+            id="input-group-1"
+            label="Email"
+            label-for="input-1"
+            description="We'll never share your email with anyone else."
+          >
             <b-form-input
-              id="Name"
-              v-model="form.user_name"
-              type="text"
-              placeholder="Masukkan nama panjang"
-              required
-            ></b-form-input>
-          </b-form-group>
-          <b-form-group label="Email" label-for="Email">
-            <b-form-input
-              id="Email"
+              id="input-1"
               v-model="form.user_email"
               type="email"
               placeholder="Masukkan alamat email"
               required
             ></b-form-input>
           </b-form-group>
-          <b-form-group label="No Handphone" label-for="Phone Number">
+          <br />
+          <b-form-group
+            id="input-group-2"
+            label="Kata sandi"
+            label-for="input-2"
+          >
             <b-form-input
-              id="Phone Number"
-              v-model="form.user_phone"
-              type="number"
-              placeholder="Masukkan no handphone"
-              required
-            ></b-form-input>
-          </b-form-group>
-          <b-form-group label="Kata sandi" label-for="password">
-            <b-form-input
-              id="password"
+              id="input-2"
               v-model="form.user_password"
               type="password"
               placeholder="Masukkan kata sandi"
               required
             ></b-form-input>
           </b-form-group>
-          <b-form-group
-            label="Konfirmasi kata sandi"
-            label-for="Confirm password"
-          >
-            <b-form-input
-              id="Confirm password"
-              v-model="form.confirm_pass"
-              type="password"
-              placeholder="Masukkan konfirmasi kata sandi"
-              required
-            ></b-form-input>
-          </b-form-group>
+          <div class="righted">
+            <router-link to="/">Lupa kata sandi?</router-link>
+          </div>
           <br />
-          <button class="yellow" type="submit">Daftar</button>
+          <button class="yellow" type="submit">Masuk</button>
           <br />
           <div class="centered">
-            Anda sudah punya akun?
-            <router-link to="/loginuser">Masuk disini</router-link>
+            Anda belum punya akun?
+            <router-link to="/registerrecruiter">Daftar disini</router-link>
           </div>
         </b-form>
       </div>
@@ -80,6 +63,7 @@ import { alert } from '../../mixins/alert'
 import { mapActions } from 'vuex'
 import LeftSide from '../../components/auth/LeftSide'
 import TopSide from '../../components/auth/TopSide'
+
 export default {
   mixins: [alert],
   components: { LeftSide, TopSide },
@@ -87,31 +71,24 @@ export default {
     return {
       form: {
         user_email: '',
-        user_password: '',
-        user_name: '',
-        user_phone: '',
-        confirm_pass: ''
+        user_password: ''
       }
     }
   },
   methods: {
-    ...mapActions(['registerWorker']),
-    toPage() {
-      this.$router.push('registerRecruiter')
-    },
+    ...mapActions(['loginRecruiter']),
     onSubmit() {
-      if (this.form.user_password !== this.form.confirm_pass) {
-        return alert('password harus sama')
-      } else {
-        this.registerWorker(this.form)
-          .then(result => {
-            this.successAlert(result.data.msg)
-            this.$router.push('loginuser')
-          })
-          .catch(err => {
-            this.errorAlert(err.data.msg)
-          })
-      }
+      this.loginRecruiter(this.form)
+        .then(result => {
+          this.successAlert(result.data.msg)
+          this.$router.push('/')
+        })
+        .catch(err => {
+          this.errorAlert(err.data.msg)
+        })
+    },
+    toPage() {
+      this.$router.push('loginUser')
     }
   }
 }
@@ -119,6 +96,7 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 .login {
   padding-top: 60px;
   padding-bottom: 60px;
@@ -155,7 +133,6 @@ button {
 h4 {
   font-weight: bold;
 }
-
 @media (max-width: 800px) {
   .login {
     display: inline;

@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import LoginRecruiter from '../views/auth/LoginRecruiter.vue'
 import LoginUser from '../views/auth/LoginUser.vue'
+import RegisterRecruiter from '../views/auth/RegisterRecruiter.vue'
 import RegisterUser from '../views/auth/RegisterUser.vue'
 import ConfirmPassword from '../views/auth/ConfirmPassword.vue'
+import ResetPassword from '../views/auth/ResetPassword.vue'
 import LandingPage from '../views/LandingPage.vue'
 
 Vue.use(VueRouter)
@@ -38,6 +41,16 @@ const routes = [
       import(/* webpackChunkName: "company" */ '../views/Company.vue')
   },
   {
+    path: '/registerRecruiter',
+    name: 'RegisterRecruiter',
+    component: RegisterRecruiter
+  },
+  {
+    path: '/loginRecruiter',
+    name: 'LoginRecruiter',
+    component: LoginRecruiter
+  },
+  {
     path: '/hire',
     name: 'Hire',
     component: () =>
@@ -63,6 +76,11 @@ const routes = [
     path: '/confirmpassword',
     name: 'ConfirmPassword',
     component: ConfirmPassword
+  },
+  {
+    path: '/resetpassword',
+    name: 'ResetPassword',
+    component: ResetPassword
   },
   {
     path: '/editprofile',

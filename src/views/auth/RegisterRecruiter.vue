@@ -5,7 +5,7 @@
       <LeftSide />
       <div class="content-right">
         <div class="righted">
-          <button class="btn-top" @click.prevent="toPage()">Perekrut</button>
+          <button class="btn-top" @click.prevent="toPage()">Pekerja</button>
         </div>
         <h4>Halo, Pewpeople</h4>
         <p>
@@ -19,7 +19,7 @@
               id="Name"
               v-model="form.user_name"
               type="text"
-              placeholder="Masukkan nama panjang"
+              placeholder="Masukkan nama"
               required
             ></b-form-input>
           </b-form-group>
@@ -32,12 +32,30 @@
               required
             ></b-form-input>
           </b-form-group>
+          <b-form-group label="Perusahaan" label-for="perusahaan">
+            <b-form-input
+              id="perusahaan"
+              v-model="form.user_name"
+              type="text"
+              placeholder="Masukkan nama perusahaan       "
+              required
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group label="Jabatan" label-for="jabatan">
+            <b-form-input
+              id="jabatan"
+              v-model="form.user_name"
+              type="text"
+              placeholder="Posisi di perusahaan Anda"
+              required
+            ></b-form-input>
+          </b-form-group>
           <b-form-group label="No Handphone" label-for="Phone Number">
             <b-form-input
               id="Phone Number"
               v-model="form.user_phone"
               type="number"
-              placeholder="Masukkan no handphone"
+              placeholder="Masukkan nomor handphone"
               required
             ></b-form-input>
           </b-form-group>
@@ -58,7 +76,7 @@
               id="Confirm password"
               v-model="form.confirm_pass"
               type="password"
-              placeholder="Masukkan konfirmasi kata sandi"
+              placeholder="Konfirmasi kata sandi"
               required
             ></b-form-input>
           </b-form-group>
@@ -67,7 +85,7 @@
           <br />
           <div class="centered">
             Anda sudah punya akun?
-            <router-link to="/loginuser">Masuk disini</router-link>
+            <router-link to="/loginrecruiter">Masuk disini</router-link>
           </div>
         </b-form>
       </div>
@@ -80,6 +98,7 @@ import { alert } from '../../mixins/alert'
 import { mapActions } from 'vuex'
 import LeftSide from '../../components/auth/LeftSide'
 import TopSide from '../../components/auth/TopSide'
+
 export default {
   mixins: [alert],
   components: { LeftSide, TopSide },
@@ -89,24 +108,25 @@ export default {
         user_email: '',
         user_password: '',
         user_name: '',
-        user_phone: '',
-        confirm_pass: ''
+        // user_phone: '',
+        confirm_pass: '',
+        user_job_type: ''
       }
     }
   },
   methods: {
-    ...mapActions(['registerWorker']),
+    ...mapActions(['registerRecruiter']),
     toPage() {
-      this.$router.push('registerRecruiter')
+      this.$router.push('registeruser')
     },
     onSubmit() {
       if (this.form.user_password !== this.form.confirm_pass) {
         return alert('password harus sama')
       } else {
-        this.registerWorker(this.form)
+        this.registerRecruiter(this.form)
           .then(result => {
             this.successAlert(result.data.msg)
-            this.$router.push('loginuser')
+            this.$router.push('loginrecruiter')
           })
           .catch(err => {
             this.errorAlert(err.data.msg)
@@ -124,6 +144,15 @@ export default {
   padding-bottom: 60px;
   display: flex;
   font-family: 'Open Sans', sans-serif !important;
+}
+.content-left {
+  padding: 40px;
+  flex: 1;
+  width: 100%;
+  height: 650px;
+  background-image: url('../../assets/user-bg1.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .content-right {
   padding: 40px;
@@ -155,7 +184,6 @@ button {
 h4 {
   font-weight: bold;
 }
-
 @media (max-width: 800px) {
   .login {
     display: inline;

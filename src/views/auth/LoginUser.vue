@@ -1,15 +1,12 @@
 <template>
   <div>
     <b-container class="login">
-      <div class="content-left">
-        <h4 class="m-0">
-          <b-icon icon="exclude" class="mr-2"></b-icon>Kerjain
-        </h4>
-        <h3>
-          Temukan developer berbakat & terbaik di berbagai bidang keahlian
-        </h3>
-      </div>
+      <TopSide />
+      <LeftSide />
       <div class="content-right">
+        <div class="righted">
+          <button class="btn-top" @click.prevent="toPage()">Perekrut</button>
+        </div>
         <h4>Halo, Pewpeople</h4>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam natus
@@ -27,17 +24,21 @@
               id="input-1"
               v-model="form.user_email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Masukkan alamat email"
               required
             ></b-form-input>
           </b-form-group>
           <br />
-          <b-form-group id="input-group-2" label="Password" label-for="input-2">
+          <b-form-group
+            id="input-group-2"
+            label="Kata sandi"
+            label-for="input-2"
+          >
             <b-form-input
               id="input-2"
               v-model="form.user_password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Masukkan kata sandi"
               required
             ></b-form-input>
           </b-form-group>
@@ -45,7 +46,7 @@
             <router-link to="/confirmpassword">Lupa kata sandi?</router-link>
           </div>
           <br />
-          <button class="yellow" type="submit">Login</button>
+          <button class="yellow" type="submit">Masuk</button>
           <br />
           <div class="centered">
             Anda belum punya akun?
@@ -58,8 +59,14 @@
 </template>
 
 <script>
+import { alert } from '../../mixins/alert'
+import { mapActions } from 'vuex'
+import LeftSide from '../../components/auth/LeftSide'
+import TopSide from '../../components/auth/TopSide'
+
 export default {
-  components: {},
+  mixins: [alert],
+  components: { LeftSide, TopSide },
   data() {
     return {
       form: {
@@ -68,10 +75,22 @@ export default {
       }
     }
   },
+  computed: {},
   methods: {
-    onSubmit(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.form))
+    ...mapActions(['loginUser']),
+    onSubmit() {
+      this.loginUser(this.form)
+        .then(result => {
+          this.successAlert(result.data.msg)
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err)
+          this.errorAlert(err.data.msg)
+        })
+    },
+    toPage() {
+      this.$router.push('loginrecruiter')
     }
   }
 }
@@ -85,18 +104,10 @@ export default {
   display: flex;
   font-family: 'Open Sans', sans-serif !important;
 }
-.content-left {
-  padding: 40px;
-  flex: 1;
-  width: 100%;
-  height: 650px;
-  background-image: url('../../assets/user-bg1.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+
 .content-right {
   padding: 40px;
-  padding-top: 60px;
+  padding-top: 20px;
   flex: 1.2;
   font-family: 'Open Sans', sans-serif !important;
 }
@@ -108,6 +119,12 @@ button {
   border-radius: 5px;
   border: none;
 }
+.btn-top {
+  color: white !important;
+  background-color: #554b8e;
+  width: 100px;
+  margin-bottom: 25px;
+}
 .centered {
   padding: 25px;
   text-align: center;
@@ -118,18 +135,10 @@ button {
 h4 {
   font-weight: bold;
 }
-h3 {
-  padding-top: 120px;
-  padding-right: 90px;
-  letter-spacing: 0.03em;
-  color: white;
-  font-weight: 600;
-  line-height: 2;
-}
-.mr-2 {
-  color: white;
-}
-.m-0 {
-  color: white;
+
+@media (max-width: 800px) {
+  .login {
+    display: inline;
+  }
 }
 </style>
