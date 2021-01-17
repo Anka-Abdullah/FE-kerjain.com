@@ -5,8 +5,10 @@
         <img src="../assets/user.png" width="200" class="rounded-circle m-0" />
       </b-col>
       <b-col lg="8" sm="12" class="py-4 px-0 content">
-        <h3><strong>Nama Orang</strong></h3>
-        <h6 class="text-secondary">Web Developer</h6>
+        <h3>
+          <strong>{{ data.user_name }}</strong>
+        </h3>
+        <h6 class="text-secondary">{{ data.user_field }}</h6>
         <h6 class="text-secondary mb-3">
           <b-icon icon="geo-alt" class="mr-2"></b-icon>Lorem Ipsum
         </h6>

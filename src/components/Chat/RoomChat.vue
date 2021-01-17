@@ -103,7 +103,7 @@ textarea {
   border: none;
   right: 30px;
 }
-@media only screen and (max-width: 600px) {
+@media (max-width: 600px) {
   .room-chat {
     margin-top: 60px;
     height: 500px;
