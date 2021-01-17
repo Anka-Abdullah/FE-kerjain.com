@@ -3,14 +3,14 @@ import axios from 'axios'
 export default {
   state: {
     users: [],
-    limit: 5,
+    limit: 6,
     page: 1,
-    totalRows: null,
-    isShow: false
+    search: '',
+    sort: '',
+    totalRows: null
   },
   mutations: {
     setUsers(state, payload) {
-      state.isShow = true
       state.users = payload.data
       state.totalRows = payload.pagination.totalData
     },
@@ -19,16 +19,29 @@ export default {
     },
     resetPages(state) {
       state.page = 1
+    },
+    setSearch(state, payload) {
+      state.search = payload
+    },
+    setSort(state, payload) {
+      state.sort = payload
     }
   },
   actions: {
     getUsers({ commit, state }) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`${state.page}${state.limit}`)
+          .get(
+            `http://localhost:3000/home/home?${
+              state.sort !== '' ? 'sort=' + state.sort : ''
+            }${state.search !== '' ? '&search=' + state.search : ''}&page=${
+              state.page
+            }&limit=${state.limit}`
+          )
           .then(result => {
+            resolve(result.data)
             commit('setUsers', result.data)
-            resolve(result)
+            console.log(state.users)
           })
           .catch(err => {
             reject(err)
@@ -38,20 +51,12 @@ export default {
     }
   },
   getters: {
-    getPage(state) {
-      return state.page
-    },
-    getLimit(state) {
-      return state.limit
-    },
-    getDataUsers(state) {
-      return state.users
-    },
-    getTotalRows(state) {
-      return state.totalRows
-    },
-    getShow(state) {
-      return state.isShow
-    }
+    getPage: state => state.page,
+    getLimit: state => state.limit,
+    setDataUsers: state => state.users,
+    getTotalRows: state => state.totalRows,
+    getShow: state => state.isShow,
+    setSearch: state => state.search,
+    setSort: state => state.sort
   }
 }

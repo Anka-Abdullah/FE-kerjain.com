@@ -9,9 +9,7 @@
     <b-container class="pt-5">
       <Sort />
       <b-card class="shadow m-0 border-0">
-        <Card />
-        <Card />
-        <Card />
+        <Card v-for="(item, index) in user" :key="index" :data="item" />
       </b-card>
       <b-pagination
         v-model="currentPage"
@@ -42,11 +40,12 @@ export default {
     Card
   },
   created() {
-    this.resetPage()
+    this.getUsers()
+    console.log(this.user)
   },
   computed: {
     ...mapGetters({
-      users: 'getDataUsers',
+      user: 'setDataUsers',
       page: 'getPage',
       limit: 'getLimit',
       rows: 'getTotalRows'
