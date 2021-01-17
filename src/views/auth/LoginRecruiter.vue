@@ -1,14 +1,8 @@
 <template>
   <div>
     <b-container class="login">
-      <div class="content-left">
-        <h4 class="m-0">
-          <b-icon icon="exclude" class="mr-2"></b-icon>Kerjain
-        </h4>
-        <h3>
-          Temukan developer berbakat & terbaik di berbagai bidang keahlian
-        </h3>
-      </div>
+      <TopSide />
+      <LeftSide />
       <div class="content-right">
         <h4>Halo, Pewpeople</h4>
         <p>
@@ -27,7 +21,7 @@
               id="input-1"
               v-model="form.user_email"
               type="email"
-              placeholder="Masukkan aamat email"
+              placeholder="Masukkan alamat email"
               required
             ></b-form-input>
           </b-form-group>
@@ -53,7 +47,7 @@
           <br />
           <div class="centered">
             Anda belum punya akun?
-            <router-link to="/">Daftar disini</router-link>
+            <router-link to="/registerrecruiter">Daftar disini</router-link>
           </div>
         </b-form>
       </div>
@@ -63,8 +57,11 @@
 
 <script>
 import { mapActions } from 'vuex'
+import LeftSide from '../../components/auth/LeftSide'
+import TopSide from '../../components/auth/TopSide'
+
 export default {
-  components: {},
+  components: { LeftSide, TopSide },
   data() {
     return {
       form: {
@@ -76,7 +73,7 @@ export default {
   methods: {
     ...mapActions(['loginRecruiter']),
     onSubmit() {
-      this.loginUser(this.form)
+      this.loginRecruiter(this.form)
         .then(result => {
           console.log(result)
           alert('success login')
@@ -97,6 +94,7 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 .login {
   padding-top: 60px;
   padding-bottom: 60px;
@@ -136,18 +134,9 @@ button {
 h4 {
   font-weight: bold;
 }
-h3 {
-  padding-top: 120px;
-  padding-right: 90px;
-  letter-spacing: 0.03em;
-  color: white;
-  font-weight: 600;
-  line-height: 2;
-}
-.mr-2 {
-  color: white;
-}
-.m-0 {
-  color: white;
+@media (max-width: 800px) {
+  .login {
+    display: inline;
+  }
 }
 </style>

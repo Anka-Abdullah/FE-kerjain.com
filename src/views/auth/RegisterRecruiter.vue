@@ -1,14 +1,8 @@
 <template>
   <div>
     <b-container class="login">
-      <div class="content-left">
-        <h4 class="m-0">
-          <b-icon icon="exclude" class="mr-2"></b-icon>Kerjain
-        </h4>
-        <h3>
-          Temukan developer berbakat & terbaik di berbagai bidang keahlian
-        </h3>
-      </div>
+      <TopSide />
+      <LeftSide />
       <div class="content-right">
         <h4>Halo, Pewpeople</h4>
         <p>
@@ -88,7 +82,7 @@
           <br />
           <div class="centered">
             Anda sudah punya akun?
-            <router-link to="/">Masuk disini</router-link>
+            <router-link to="/loginrecruiter">Masuk disini</router-link>
           </div>
         </b-form>
       </div>
@@ -98,8 +92,11 @@
 
 <script>
 import { mapActions } from 'vuex'
+import LeftSide from '../../components/auth/LeftSide'
+import TopSide from '../../components/auth/TopSide'
+
 export default {
-  components: {},
+  components: { LeftSide, TopSide },
   data() {
     return {
       form: {
@@ -175,18 +172,9 @@ button {
 h4 {
   font-weight: bold;
 }
-h3 {
-  padding-top: 120px;
-  padding-right: 90px;
-  letter-spacing: 0.03em;
-  color: white;
-  font-weight: 600;
-  line-height: 2;
-}
-.mr-2 {
-  color: white;
-}
-.m-0 {
-  color: white;
+@media (max-width: 800px) {
+  .login {
+    display: inline;
+  }
 }
 </style>
