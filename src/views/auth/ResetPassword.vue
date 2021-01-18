@@ -16,7 +16,7 @@
           a password reset link.
         </p>
         <br />
-        <b-form @submit.prevent="onSubmit">
+        <b-form>
           <b-form-group id="input-group-1" label="Email" label-for="input-1">
             <b-form-input
               id="input-1"
@@ -27,31 +27,54 @@
             ></b-form-input>
           </b-form-group>
           <br />
-          <button class="yellow" type="submit">
-            Send password reset email
-          </button>
+
+          <b-button class="btn" v-b-modal.modal-1
+            >Send Password reset email</b-button
+          >
           <br />
         </b-form>
+      </div>
+      <div>
+        <b-modal id="modal-1" hide-header hide-footer>
+          <div class="centered">
+            <h4>Request to Reset Your Account Password</h4>
+            <br />
+            <img src="../../assets/gembok.png" alt="" />
+            <br />
+            <p class="my-4">
+              The following is the button for you to reset the password
+            </p>
+            <button class="yellow" @click.prevent="onSubmit()">
+              Change password
+            </button>
+          </div>
+        </b-modal>
       </div>
     </b-container>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   components: {},
   data() {
     return {
       form: {
-        user_email: '',
-        user_password: ''
+        user_email: ''
       }
     }
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.form))
+    ...mapActions(['forgetPassUser']),
+    onSubmit() {
+      this.forgetPassUser(this.form)
+        .then(result => {
+          alert(result.data.msg + ', please check inbox in your inbox!')
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
     }
   }
 }
@@ -80,11 +103,19 @@ export default {
   flex: 1.2;
   font-family: 'Open Sans', sans-serif !important;
 }
-button {
+.btn {
   width: 100%;
   color: white;
   background-color: #fbb017;
   padding: 8px;
+  border-radius: 5px;
+  border: none;
+}
+.yellow {
+  /* width: 300px !important; */
+  color: white;
+  background-color: #fbb017;
+  padding: 8px 20px;
   border-radius: 5px;
   border: none;
 }

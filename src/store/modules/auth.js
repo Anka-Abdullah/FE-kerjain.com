@@ -11,9 +11,6 @@ export default {
       state.user = payload
       state.token = payload.token
     },
-    setUserByEmail(state, payload) {
-      state.user = payload
-    },
     delUser(state) {
       state.user = {}
       state.token = null
@@ -23,7 +20,7 @@ export default {
     loginUser(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://localhost:3000/workers/login', payload)
+          .post(`${process.env.VUE_APP_URL}workers/login`, payload)
           .then(result => {
             context.commit('setUser', result.data.data)
             localStorage.setItem('token', result.data.data.token)
@@ -38,7 +35,7 @@ export default {
     loginRecruiter(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://localhost:3000/recruiter/login', payload)
+          .post(`${process.env.VUE_APP_URL}recruiter/login`, payload)
           .then(result => {
             context.commit('setUser', result.data.data)
             localStorage.setItem('token', result.data.data.token)
@@ -46,34 +43,6 @@ export default {
           })
           .catch(error => {
             console.log(error.response)
-            reject(error.response)
-          })
-      })
-    },
-    getAllUser(context, payload) {
-      return new Promise((resolve, reject) => {
-        axios
-          .get(`${process.env.VUE_APP_URL}user/${payload}`)
-          .then(result => {
-            context.commit('setUserByEmail', result.data.data[0])
-            console.log(result)
-            resolve(result)
-          })
-          .catch(error => {
-            reject(error.response)
-          })
-      })
-    },
-    getUserById(context, payload) {
-      return new Promise((resolve, reject) => {
-        axios
-          .get(`${process.env.VUE_APP_URL}user/${payload}`)
-          .then(result => {
-            context.commit('setUserByEmail', result.data.data[0])
-            console.log(result)
-            resolve(result)
-          })
-          .catch(error => {
             reject(error.response)
           })
       })
@@ -96,7 +65,6 @@ export default {
     },
     logout(context) {
       localStorage.removeItem('token')
-      localStorage.removeItem('cart')
       context.commit('delUser')
       router.push('/loginuser')
     },
