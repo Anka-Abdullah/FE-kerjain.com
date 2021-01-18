@@ -17,6 +17,7 @@ import Navbar from '../components/_base/Navbar'
 import Footer from '../components/_base/Footbar'
 import UserInformation from '../components/Hire/UserInformation'
 import FormHire from '../components/Hire/formHire'
+import { mapActions } from 'vuex'
 export default {
   name: 'Hire',
   components: {
@@ -24,6 +25,14 @@ export default {
     Footer,
     UserInformation,
     FormHire
+  },
+  created() {
+    this.getUserInformation(this.$route.params.id)
+    this.getSkillById(this.$route.params.id)
+  },
+  methods: {
+    ...mapActions(['getUserInformation']),
+    ...mapActions(['getSkillById'])
   }
 }
 </script>

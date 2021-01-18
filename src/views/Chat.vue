@@ -1,6 +1,6 @@
 <template>
   <div class="chat-page" style="background-color:#F7F7F7;">
-    <Navbar />
+    <Navbar :show="2" />
     <div class="chat">
       <b-container>
         <b-row>
@@ -17,6 +17,7 @@ import Navbar from '../components/_base/Navbar'
 import Footer from '../components/_base/Footbar'
 import ListChat from '../components/Chat/ListChat'
 import RoomChat from '../components/Chat/RoomChat'
+import { mapActions } from 'vuex'
 export default {
   name: 'Chat',
   components: {
@@ -24,6 +25,12 @@ export default {
     Footer,
     ListChat,
     RoomChat
+  },
+  created() {
+    this.getAllChat()
+  },
+  methods: {
+    ...mapActions(['getAllChat'])
   }
 }
 </script>

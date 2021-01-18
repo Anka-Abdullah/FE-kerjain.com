@@ -58,7 +58,7 @@ const routes = [
     meta: { requiresVisitor: true }
   },
   {
-    path: '/hire',
+    path: '/hire/:id',
     name: 'Hire',
     component: () =>
       import(/* webpackChunkName: "company" */ '../views/Hire.vue'),

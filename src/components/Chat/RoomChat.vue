@@ -1,19 +1,31 @@
 <template>
-  <div class="room-chat">
+  <div class="room-chat" v-bind="chat.room_chat != ''">
     <div class="room-head">
       <img
         class="user-image"
         src="../../assets/gdpr_profile-picture 1.png"
         alt=""
       />
-      <p class="user-name">User Name</p>
+      <p class="user-name">{{ receiver }}</p>
     </div>
-    <div class="room-body"></div>
+    <div class="chat-body">
+      <div class="" v-for="(item, index) in detailChat" :key="index">
+        <p class="text-chatting" v-if="item.user_id_from == user.user_id">
+          {{ item.chat_content }}
+        </p>
+        <p class="text-chatting-to" v-else>{{ item.chat_content }}</p>
+        <p class="user-detail" v-if="item.user_id_from == user.user_id">
+          You <br />
+        </p>
+        <p class="user-detail-to" v-else>{{ receiver }} <br /></p>
+      </div>
+    </div>
     <div class="chat-type">
       <b-form-textarea
         id="textarea"
         class="chat-area"
         v-model="chat.chat_content"
+        v-bind="chat.room_chat != ''"
         placeholder="Enter something..."
         rows="1"
         max-rows="6"
@@ -26,18 +38,33 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'RoomChat',
   data() {
     return {
       chat: {
-        chat_content: ''
+        chat_content: '',
+        user_id_to: 0,
+        room_chat: 0
       }
     }
   },
+  created() {},
+  computed: {
+    ...mapGetters({
+      user: 'setUser',
+      detailChat: 'getDetailChat',
+      receiver: 'getReceiver'
+    })
+  },
   methods: {
+    ...mapActions(['sendChatting']),
     chatSend() {
-      console.log(this.chat.chat_content)
+      let count = this.detailChat.length
+      this.chat.user_id_to = this.detailChat[count - 1].user_id_to
+      this.chat.room_chat = this.detailChat[0].room_chat
+      this.sendChatting(this.chat)
     }
   }
 }
@@ -67,21 +94,24 @@ textarea {
   top: 10px;
   left: 85px;
 }
-.room-body {
+.chat-body {
   display: flex;
   flex-direction: column-reverse;
-  align-self: flex-end;
-  bottom: 100px;
-  position: absolute;
-  right: 40px;
+  overflow-y: scroll;
+  height: 400px;
+  padding-bottom: 40px;
 }
-.room-body2 {
-  display: flex;
-  flex-direction: column-reverse;
-  align-self: flex-end;
-  bottom: 100px;
-  position: absolute;
-  left: 40px;
+.text-chatting {
+  font-size: 13px !important;
+  max-width: 280px;
+  margin-right: 20px;
+  float: right;
+}
+.text-chatting-to {
+  font-size: 13px !important;
+  max-width: 280px;
+  float: left;
+  margin-left: 20px;
 }
 .chat-area {
   position: absolute;
@@ -102,6 +132,18 @@ textarea {
   background-color: #5e50a1;
   border: none;
   right: 30px;
+}
+.user-detail {
+  font-size: 11px;
+  font-weight: 700;
+  float: right;
+  margin-right: 20px;
+}
+.user-detail-to {
+  font-size: 11px;
+  font-weight: 700;
+  float: left;
+  margin-left: -20px;
 }
 @media (max-width: 600px) {
   .room-chat {
