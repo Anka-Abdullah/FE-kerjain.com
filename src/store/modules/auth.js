@@ -98,18 +98,16 @@ export default {
       localStorage.removeItem('token')
       localStorage.removeItem('cart')
       context.commit('delUser')
-      router.push('/login')
+      router.push('/loginuser')
     },
     interceptorRequest(context) {
       console.log('interceptor request works!')
       axios.interceptors.request.use(
         function(config) {
           config.headers.Authorization = `Bearer ${context.state.token}`
-          // Do something before request is sent
           return config
         },
         function(error) {
-          // Do something with request error
           return Promise.reject(error)
         }
       )
@@ -118,8 +116,6 @@ export default {
       console.log('interceptor request works!')
       axios.interceptors.response.use(
         function(response) {
-          // Any status code that lie within the range of 2xx cause this function to trigger
-          // Do something with response data
           return response
         },
         function(error) {
@@ -131,7 +127,6 @@ export default {
             error.response.data.status === 'jwt malformed'
           ) {
             context.dispatch('logout')
-            // alert('Sorry your token is not valid')
             alert(error.response.data.msg)
           }
           return Promise.reject(error)

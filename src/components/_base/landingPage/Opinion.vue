@@ -8,7 +8,19 @@
         <h5 class="head-text mt-3">Harry Styles</h5>
         <p class="job-text">Web Developer</p>
         <p class="desc-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Saya mendapatkan pekerjaan terbaik dengan kerjain
+        </p>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <div class="card-opinion text-center">
+        <div class="img-cover rounded-circle">
+          <img src="../../../assets/img_opinion_3.png" class="rounded-circle" />
+        </div>
+        <h5 class="head-text mt-3">Marshal</h5>
+        <p class="job-text">DevOps Engineer</p>
+        <p class="desc-text">
+          Kerjain menghubungakn talent terbaik dengan perusahaan kelas dunia
         </p>
       </div>
     </swiper-slide>
@@ -17,10 +29,10 @@
         <div class="img-cover rounded-circle">
           <img src="../../../assets/img_opinion_2.png" class="rounded-circle" />
         </div>
-        <h5 class="head-text mt-3">Niall Horan</h5>
-        <p class="job-text">Web Developer</p>
+        <h5 class="head-text mt-3">Freed Louis</h5>
+        <p class="job-text">Project Manager</p>
         <p class="desc-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Saya menemukan talent terbaik dari kerjain
         </p>
       </div>
     </swiper-slide>
@@ -30,21 +42,9 @@
           <img src="../../../assets/img_opinion_3.png" class="rounded-circle" />
         </div>
         <h5 class="head-text mt-3">Louis Tomlinson</h5>
-        <p class="job-text">Web Developer</p>
+        <p class="job-text">UI/UX Designer</p>
         <p class="desc-text">
-          Lorem ipsum dolor sit amet, consectetur
-        </p>
-      </div>
-    </swiper-slide>
-    <swiper-slide>
-      <div class="card-opinion text-center">
-        <div class="img-cover rounded-circle">
-          <img src="../../../assets/img_opinion_2.png" class="rounded-circle" />
-        </div>
-        <h5 class="head-text mt-3">Niall Horan</h5>
-        <p class="job-text">Web Developer</p>
-        <p class="desc-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Mudah, gratis dan sangat membantu
         </p>
       </div>
     </swiper-slide>
@@ -53,23 +53,22 @@
         <div class="img-cover rounded-circle">
           <img src="../../../assets/img_opinion_1.png" class="rounded-circle" />
         </div>
-        <h5 class="head-text mt-3">Harry Styles</h5>
-        <p class="job-text">Web Developer</p>
+        <h5 class="head-text mt-3">Leonardo D</h5>
+        <p class="job-text">Fullstack Developer</p>
         <p class="desc-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod
-          ipsum et dui rhoncus auctor.
+          Kerjain membantu saya mendapatkan pekerjaan impian
         </p>
       </div>
     </swiper-slide>
     <swiper-slide>
       <div class="card-opinion text-center">
         <div class="img-cover rounded-circle">
-          <img src="../../../assets/img_opinion_3.png" class="rounded-circle" />
+          <img src="../../../assets/img_opinion_2.png" class="rounded-circle" />
         </div>
-        <h5 class="head-text mt-3">Louis Tomlinson</h5>
-        <p class="job-text">Web Developer</p>
+        <h5 class="head-text mt-3">Niall Horan</h5>
+        <p class="job-text">Front End Developer</p>
         <p class="desc-text">
-          Lorem ipsum dolor sit amet, consectetur
+          Proses hiring sangat cepat
         </p>
       </div>
     </swiper-slide>
