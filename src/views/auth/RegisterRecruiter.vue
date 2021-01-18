@@ -74,7 +74,7 @@
           >
             <b-form-input
               id="Confirm password"
-              v-model="form.confirm_pass"
+              v-model="form.confirm_password"
               type="password"
               placeholder="Konfirmasi kata sandi"
               required
@@ -108,8 +108,8 @@ export default {
         user_email: '',
         user_password: '',
         user_name: '',
-        // user_phone: '',
-        confirm_pass: '',
+        user_phone: '',
+        confirm_password: '',
         user_job_type: ''
       }
     }
@@ -120,7 +120,7 @@ export default {
       this.$router.push('registeruser')
     },
     onSubmit() {
-      if (this.form.user_password !== this.form.confirm_pass) {
+      if (this.form.user_password !== this.form.confirm_password) {
         return alert('password harus sama')
       } else {
         this.registerRecruiter(this.form)

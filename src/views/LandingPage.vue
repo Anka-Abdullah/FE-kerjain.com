@@ -50,15 +50,15 @@ export default {
     return {
       navbarShow: 1
     }
-  },
-  created() {
-    let authCheck = localStorage.getItem('vuex')
-    authCheck = JSON.parse(authCheck)
-    authCheck = authCheck.Auth.user
-    if (authCheck) {
-      this.navbarShow = 2
-    }
   }
+  // created() {
+  //   let authCheck = localStorage.getItem('vuex')
+  //   authCheck = JSON.parse(authCheck)
+  //   authCheck = authCheck.Auth.user
+  //   if (authCheck) {
+  //     this.navbarShow = 2
+  //   }
+  // }
 }
 </script>
 
