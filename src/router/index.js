@@ -84,16 +84,16 @@ const routes = [
     meta: { requiresVisitor: true }
   },
   {
-    path: '/confirmpassword',
+    path: '/confirmpassword/:key',
     name: 'ConfirmPassword',
-    component: ConfirmPassword,
-    meta: { requiresVisitor: true }
+    component: ConfirmPassword
+    // meta: { requiresVisitor: true }
   },
   {
     path: '/resetpassword',
     name: 'ResetPassword',
-    component: ResetPassword,
-    meta: { requiresVisitor: true }
+    component: ResetPassword
+    // meta: { requiresVisitor: true }
   },
   {
     path: '/editprofile',

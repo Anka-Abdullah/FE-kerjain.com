@@ -10,27 +10,30 @@
         </h3>
       </div>
       <div class="content-right">
-        <h4>Reset password</h4>
+        <h4>Atur ulang kata sandi</h4>
         <p>
           You need to change your password to activate your account
         </p>
         <br />
         <b-form @submit.prevent="onSubmit">
-          <b-form-group label="Password" label-for="password">
+          <b-form-group label="Kata sandi baru" label-for="password">
             <b-form-input
               id="password"
-              v-model="form.user_password"
+              v-model="form.newPassword"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Masukkan kata sandi baru"
               required
             ></b-form-input>
           </b-form-group>
-          <b-form-group label="Confirm password" label-for="Confirm password">
+          <b-form-group
+            label="Konfirmasi kata sandi baru"
+            label-for="Confirm password"
+          >
             <b-form-input
               id="Confirm password"
-              v-model="form.user_password"
+              v-model="form.confirmPassword"
               type="password"
-              placeholder="Confirm your password"
+              placeholder="Konfirmasi kata sandi baru"
               required
             ></b-form-input>
           </b-form-group>
@@ -48,20 +51,33 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   components: {},
   data() {
     return {
       form: {
-        user_email: '',
-        user_password: ''
+        key: '',
+        newPassword: '',
+        confirmPassword: ''
       }
     }
   },
+  created() {
+    this.key = this.$route.params.key
+    console.log(this.key)
+  },
   methods: {
-    onSubmit(event) {
-      event.preventDefault()
-      alert(JSON.stringify(this.form))
+    ...mapActions(['confirmPassUser']),
+    onSubmit() {
+      this.confirmPassUser(this.form)
+        .then(result => {
+          alert(result.data.msg)
+        })
+        .catch(err => {
+          console.log(err)
+          alert(err.data.msg)
+        })
     }
   }
 }

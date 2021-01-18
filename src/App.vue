@@ -10,9 +10,10 @@ export default {
   name: 'App',
   created() {
     this.interceptorRequest()
+    this.interceptorResponse()
   },
   methods: {
-    ...mapActions(['interceptorRequest'])
+    ...mapActions(['interceptorRequest', 'interceptorResponse'])
   }
 }
 </script>

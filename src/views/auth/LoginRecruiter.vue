@@ -43,7 +43,7 @@
             ></b-form-input>
           </b-form-group>
           <div class="righted">
-            <router-link to="/">Lupa kata sandi?</router-link>
+            <router-link to="/resetpassword">Lupa kata sandi?</router-link>
           </div>
           <br />
           <button class="yellow" type="submit">Masuk</button>
