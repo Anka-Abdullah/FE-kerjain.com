@@ -101,6 +101,15 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "editprofile" */ '../views/EditProfile.vue'),
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/editprofileuser',
+    name: 'EditProfileUser',
+    component: () =>
+      import(
+        /* webpackChunkName: "editprofile" */ '../views/EditProfileUser.vue'
+      ),
+    meta: { requiresAuth: true }
   }
 ]
 
