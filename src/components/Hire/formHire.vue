@@ -71,13 +71,15 @@ export default {
         name: '',
         email: '',
         phone: '',
-        deskripsi: ''
+        deskripsi: '',
+        user_id_to: 0
       }
     }
   },
   methods: {
     ...mapActions(['sendJobInvitations']),
     sendHiring() {
+      this.form.user_id_to = this.$route.params.id
       this.sendJobInvitations(this.form)
         .then(result => {
           this.successAlert(result.msg)

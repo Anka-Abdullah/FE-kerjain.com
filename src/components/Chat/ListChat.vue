@@ -8,34 +8,43 @@
         <img class="chat-empty" src="../../assets/icon_chat_empty.png" alt="" />
         <p class="chat-empty-text">Belum Ada Chat</p>
       </div>
-      <div class="chat-listing">
+      <div
+        class="chat-listing"
+        v-for="(item, index) in allChat"
+        :key="index"
+        @click="sendData(item.room_chat)"
+      >
         <img
           class="user-image"
           src="../../assets/gdpr_profile-picture 1.png"
           alt=""
         />
-        <p class="user-name">user Name</p>
-        <p class="user-message">Lorem ipsum dolor</p>
-      </div>
-      <div class="chat-listing">
-        <img
-          class="user-image"
-          src="../../assets/gdpr_profile-picture 1.png"
-          alt=""
-        />
-        <p class="user-name">user Name</p>
-        <p class="user-message">Lorem ipsum dolor</p>
+        <p class="user-name">{{ item.user_name }}</p>
+        <p class="user-message">{{ item.chat_content }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'ListChat',
   data() {
     return {
       chat: 1
+    }
+  },
+  created() {
+    console.log(this.allChat)
+  },
+  computed: {
+    ...mapGetters({ allChat: 'getAllChats' })
+  },
+  methods: {
+    ...mapActions(['getDetailChat']),
+    sendData(id) {
+      this.getDetailChat(id)
     }
   }
 }
@@ -74,7 +83,15 @@ export default {
 }
 .chat-listing {
   position: relative;
+  padding-bottom: 10px;
+  margin-top: -10px;
   cursor: pointer;
+}
+.chat-listing:hover {
+  background-color: rgb(228, 228, 228);
+}
+.chat-listing:focus {
+  background-color: rgb(228, 228, 228);
 }
 .user-name {
   position: absolute;
@@ -89,6 +106,11 @@ export default {
   font-size: 12px;
   color: #9b9b9b;
   left: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
 
 /* scroll */

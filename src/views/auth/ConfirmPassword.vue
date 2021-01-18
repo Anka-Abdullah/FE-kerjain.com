@@ -42,6 +42,7 @@
           <br />
           <div class="centered">
             Anda belum punya akun?
+            <button @click="showData">show</button>
             <router-link to="/registeruser">Daftar disini</router-link>
           </div>
         </b-form>
@@ -64,8 +65,8 @@ export default {
     }
   },
   created() {
-    this.key = this.$route.params.key
-    console.log(this.key)
+    this.form.key = this.$route.params.key
+    console.log(this.form.key)
   },
   methods: {
     ...mapActions(['confirmPassUser']),
@@ -78,6 +79,9 @@ export default {
           console.log(err)
           alert(err.data.msg)
         })
+    },
+    showData() {
+      console.log(this.form)
     }
   }
 }

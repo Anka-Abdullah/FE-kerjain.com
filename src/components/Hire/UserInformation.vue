@@ -3,42 +3,36 @@
     <div class="image">
       <img class="user-image" src="../../assets/user_image.png" alt="" />
     </div>
-    <p class="user-name">User Name</p>
+    <p class="user-name">{{ userId.user_name }}</p>
     <p class="user-description">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus ea
-      blanditiis
+      {{ userId.user_description }}
     </p>
     <div class="address" style="position:relative">
       <img class="map" src="../../assets/map-vector.png" alt="" />
-      <span class="user-address">Purwokerto Jawa Tengah</span>
+      <span class="user-address">{{ userId.user_location }}</span>
     </div>
     <p class="user-about">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo beatae odio
-      nisi necessitatibus aspernatur deleniti iste
+      {{ userId.user_about }}
     </p>
     <div class="skill-div">
       <p class="skill-title">Skill</p>
-      <div class="skill">
-        Laravel
-      </div>
-      <div class="skill">
-        React
-      </div>
-      <div class="skill">
-        Css
-      </div>
-      <div class="skill">
-        Python
-      </div>
-      <div class="skill">
-        Express
+      <div class="skill" v-for="(item, index) in skills" :key="index">
+        {{ item }}
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'UserInformation'
+  name: 'UserInformation',
+  created() {
+    console.log(this.skills)
+  },
+  computed: {
+    ...mapGetters({ userId: 'getUserById', skills: 'getSkillsUser' })
+  },
+  methods: {}
 }
 </script>
 
