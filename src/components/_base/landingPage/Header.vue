@@ -11,9 +11,11 @@
               temukan talent digital terbaik bersama kami, developer handal
               hingga designer keren semua ada disini.
             </p>
-            <button class="button button-purple mt-3">
-              Mulai dari sekarang
-            </button>
+            <router-link to="/home">
+              <button class="button button-purple mt-3">
+                Mulai dari sekarang
+              </button>
+            </router-link>
           </div>
         </b-col>
         <b-col col lg="6" sm="12" cols="12">
