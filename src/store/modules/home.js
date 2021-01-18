@@ -3,7 +3,7 @@ import axios from 'axios'
 export default {
   state: {
     users: [],
-    limit: 2,
+    limit: 6,
     page: 1,
     search: '',
     sort: '',
