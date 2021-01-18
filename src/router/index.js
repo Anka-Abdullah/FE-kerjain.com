@@ -29,7 +29,7 @@ const routes = [
     component: LandingPage
   },
   {
-    path: '/profile',
+    path: '/profile/:data',
     name: 'Profile',
     component: () =>
       import(/* webpackChunkName: "profile" */ '../views/Profile.vue')

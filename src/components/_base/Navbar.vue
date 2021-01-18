@@ -7,11 +7,8 @@
             <b-icon icon="exclude" class="mr-2"></b-icon>Kerjain
           </h3></b-navbar-brand
         >
-
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
         <b-collapse id="nav-collapse" is-nav>
-          <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
             <router-link to="/loginuser"
               ><button class="button  button-white my-1" v-if="show === 1">
