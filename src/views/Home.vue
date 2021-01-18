@@ -9,7 +9,7 @@
     <b-container class="pt-5">
       <Sort />
       <b-card class="shadow m-0 border-0">
-        <Card v-for="(item, index) in user" :key="index" :data="item" />
+        <Card v-for="user in users" :key="user.user_id" :data="user" />
       </b-card>
       <b-pagination
         v-model="currentPage"
@@ -18,6 +18,8 @@
         size="lg"
         align="center"
         class="my-5"
+        :per-page="limit"
+        @change="handlePageChange"
       ></b-pagination>
     </b-container>
     <Footbar />
@@ -41,14 +43,15 @@ export default {
   },
   created() {
     this.getUsers()
-    console.log(this.user)
   },
   computed: {
     ...mapGetters({
-      user: 'setDataUsers',
+      users: 'getDataUsers',
       page: 'getPage',
       limit: 'getLimit',
-      rows: 'getTotalRows'
+      rows: 'getTotalRows',
+      search: 'setSearch',
+      sort: 'setSort'
     }),
     currentPage: {
       get() {
@@ -61,15 +64,18 @@ export default {
   },
   methods: {
     ...mapActions(['getUsers']),
-    ...mapMutations(['changePage', 'resetPages']),
+    ...mapMutations(['resetPages', 'setPage', 'setSearch', 'setSort']),
     handlePageChange(e) {
-      this.changePage(e)
-      this.getUsers()
-    },
-    resetPage() {
-      this.resetPages()
+      console.log(e)
+      this.setPage(e)
+      this.setSearch(this.search)
+      this.setSort(this.sort)
       this.getUsers()
     }
+    // resetPage() {
+    //   this.resetPages()
+    //   this.getUsers()
+    // }
   }
 }
 </script>

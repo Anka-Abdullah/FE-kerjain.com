@@ -10,15 +10,16 @@
         </h3>
         <h6 class="text-secondary">{{ data.user_field }}</h6>
         <h6 class="text-secondary mb-3">
-          <b-icon icon="geo-alt" class="mr-2"></b-icon>Lorem Ipsum
+          <b-icon icon="geo-alt" class="mr-2"></b-icon>{{ data.user_location }}
         </h6>
-        <div class="skill">lorem</div>
-        <div class="skill">lorem</div>
-        <div class="skill">lorem</div>
-        <div class="skill">lorem</div>
+        <div class="skill" v-for="(item, index) in cardSkills" :key="index">
+          {{ item }}
+        </div>
       </b-col>
       <b-col lg="2" sm="12" class="text-center p-0 m-0">
-        <button class="button button-purple">Lihat Profil</button>
+        <button class="button button-purple" @click="choose">
+          Lihat Profil
+        </button>
       </b-col>
     </b-row>
   </div>
@@ -27,6 +28,19 @@
 export default {
   props: {
     data: Object
+  },
+  data() {
+    return {
+      cardSkills: []
+    }
+  },
+  created() {
+    this.cardSkills = this.data.skills.split(',')
+  },
+  methods: {
+    choose() {
+      this.$router.push({ name: 'Profile', params: { data: this.data } })
+    }
   }
 }
 </script>

@@ -5,13 +5,14 @@ import Register from './modules/register'
 import createPersistedState from 'vuex-persistedstate'
 import Home from './modules/home'
 import Hiring from './modules/hiring'
+import Profile from './modules/Profile'
 import SecureLS from 'secure-ls'
 const ls = new SecureLS({ isCompression: false })
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: { Auth, Home, Hiring, Register },
+  modules: { Auth, Home, Hiring, Register, Profile },
   state: {},
   mutations: {},
   actions: {},

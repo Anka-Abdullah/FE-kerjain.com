@@ -6,7 +6,9 @@
     <Navbar :show="2" />
     <b-container style="padding: 130px 0 100px 0">
       <b-row>
-        <b-col lg="3" sm="12"><Card :display="1" :show="1"/></b-col>
+        <b-col lg="3" sm="12"
+          ><Card :display="1" :show="1" :data="data"
+        /></b-col>
         <b-col lg="9" sm="12">
           <PortofoliaAndWorkExperience />
         </b-col>
@@ -23,7 +25,14 @@ import Footbar from '../components/_base/Footbar'
 export default {
   name: 'Profile',
   data() {
-    return {}
+    return {
+      data: [],
+      cardSkills: []
+    }
+  },
+  created() {
+    this.data = this.$route.params.data
+    console.log(this.data)
   },
   components: {
     Navbar,
