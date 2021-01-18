@@ -81,7 +81,7 @@ export default {
       this.loginRecruiter(this.form)
         .then(result => {
           this.successAlert(result.data.msg)
-          this.$router.push('/')
+          this.$router.push('/home')
         })
         .catch(err => {
           this.errorAlert(err.data.msg)
