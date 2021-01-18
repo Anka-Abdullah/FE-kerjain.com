@@ -22,8 +22,8 @@ export default new Vuex.Store({
         getItem: key => ls.get(key),
         setItem: (key, value) => ls.set(key, value),
         removeItem: key => ls.remove(key)
-      },
-      paths: ['Auth.user']
+      }
+      // paths: ['Auth.user']
     })
   ]
 })

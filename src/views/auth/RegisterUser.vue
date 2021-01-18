@@ -56,7 +56,7 @@
           >
             <b-form-input
               id="Confirm password"
-              v-model="form.confirm_pass"
+              v-model="form.confirm_password"
               type="password"
               placeholder="Masukkan konfirmasi kata sandi"
               required
@@ -66,6 +66,7 @@
           <button class="yellow" type="submit">Daftar</button>
           <br />
           <div class="centered">
+            <button @click="showData">show data</button>
             Anda sudah punya akun?
             <router-link to="/loginuser">Masuk disini</router-link>
           </div>
@@ -90,17 +91,20 @@ export default {
         user_password: '',
         user_name: '',
         user_phone: '',
-        confirm_pass: ''
+        confirm_password: ''
       }
     }
   },
   methods: {
     ...mapActions(['registerWorker']),
+    showData() {
+      console.log(this.form)
+    },
     toPage() {
       this.$router.push('registerRecruiter')
     },
     onSubmit() {
-      if (this.form.user_password !== this.form.confirm_pass) {
+      if (this.form.user_password !== this.form.confirm_password) {
         return alert('password harus sama')
       } else {
         this.registerWorker(this.form)

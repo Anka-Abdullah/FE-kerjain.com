@@ -20,6 +20,7 @@
                 Daftar
               </button></router-link
             >
+            <button @click="handleLogout">Logout</button>
             <h5 class="m-0 mt-1 text-center" v-if="show === 2">
               <router-link to=""><b-icon icon="bell"></b-icon></router-link
               ><router-link to="/chat"
@@ -38,9 +39,19 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   props: {
     show: Number
+  },
+  computed: {
+    ...mapGetters({ user: 'setUser' })
+  },
+  methods: {
+    ...mapActions(['logout']),
+    handleLogout() {
+      this.logout()
+    }
   }
 }
 </script>
