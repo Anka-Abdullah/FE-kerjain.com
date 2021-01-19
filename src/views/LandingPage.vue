@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar :show="1" />
+    <Navbar :show="navbarShow" />
     <b-container>
       <b-row>
         <b-col>
@@ -45,7 +45,20 @@ export default {
     Header,
     Opinion,
     FloatCard
+  },
+  data() {
+    return {
+      navbarShow: 1
+    }
   }
+  // created() {
+  //   let authCheck = localStorage.getItem('vuex')
+  //   authCheck = JSON.parse(authCheck)
+  //   authCheck = authCheck.Auth.user
+  //   if (authCheck) {
+  //     this.navbarShow = 2
+  //   }
+  // }
 }
 </script>
 
