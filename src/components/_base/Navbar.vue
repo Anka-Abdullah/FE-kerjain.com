@@ -2,25 +2,26 @@
   <div>
     <b-navbar toggleable="lg" type="light" fixed="top" class="b-navbar shadow">
       <b-container>
-        <b-navbar-brand href="#">
-          <h3 class="m-0">
-            <b-icon icon="exclude" class="mr-2"></b-icon>Kerjain
-          </h3></b-navbar-brand
-        >
+        <b-navbar-brand>
+          <router-link to="/"
+            ><h3 class="m-0">
+              <b-icon icon="exclude" class="mr-2"></b-icon>Kerjain
+            </h3></router-link
+          >
+        </b-navbar-brand>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
-            <router-link to="/loginuser"
+            <router-link v-if="!user.user_id" to="/loginuser"
               ><button class="button  button-white my-1" v-if="show === 1">
                 Masuk
               </button></router-link
             >
-            <router-link to="/registeruser"
+            <router-link v-if="!user.user_id" to="/registeruser"
               ><button class="button button-purple my-1" v-if="show === 1">
                 Daftar
               </button></router-link
             >
-            <button @click="handleLogout">Logout</button>
             <h5 class="m-0 mt-1 text-center" v-if="show === 2">
               <router-link to=""><b-icon icon="bell"></b-icon></router-link
               ><router-link to="/chat"
@@ -32,6 +33,13 @@
                 ><b-avatar src="https://placekitten.com/300/300"></b-avatar
               ></router-link>
             </h5>
+            <button
+              v-if="user.user_id"
+              class="button  button-white my-1"
+              @click="handleLogout"
+            >
+              Logout
+            </button>
           </b-navbar-nav>
         </b-collapse>
       </b-container>

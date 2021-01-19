@@ -103,7 +103,7 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/editprofileuser/:id',
+    path: '/editprofileuser',
     name: 'EditProfileUser',
     component: () =>
       import(

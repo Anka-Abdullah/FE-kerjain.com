@@ -56,8 +56,7 @@
               Batal
             </button></b-row
           >
-          {{ data }}</b-col
-        >
+        </b-col>
         <b-col lg="9" sm="12">
           <b-card class="shadow bg-white pb-3">
             <b-row class="border-bottom pl-3">
