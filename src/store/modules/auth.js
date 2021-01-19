@@ -47,22 +47,6 @@ export default {
           })
       })
     },
-    updateProfileUsers(context, payload) {
-      return new Promise((resolve, reject) => {
-        axios
-          .patch(
-            `${process.env.VUE_APP_URL}user/${context.state.user.user_email}/update`,
-            payload
-          )
-          .then(result => {
-            console.log(result)
-            resolve(result)
-          })
-          .catch(error => {
-            reject(error.response)
-          })
-      })
-    },
     logout(context) {
       localStorage.removeItem('token')
       context.commit('delUser')

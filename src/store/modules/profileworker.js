@@ -5,17 +5,16 @@ export default {
   },
   mutations: {
     setUserById(state, payload) {
-      state.user_id = payload
+      state.userId = payload
     }
   },
   actions: {
-    getUserById(context, payload) {
+    getUserByIds(context, payload) {
       return new Promise((resolve, reject) => {
         axios
           .get(`${process.env.VUE_APP_URL}workers/${payload}`)
           .then(result => {
             context.commit('setUserById', result.data.data[0])
-            console.log(result)
             resolve(result)
           })
           .catch(error => {
@@ -27,7 +26,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `${process.env.VUE_APP_URL}workers/${context.state.user_id}`,
+            `${process.env.VUE_APP_URL}workers/${context.state.userId.user_id}`,
             payload
           )
           .then(result => {
@@ -43,7 +42,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `${process.env.VUE_APP_URL}editPhoto/${context.state.user_id}`,
+            `${process.env.VUE_APP_URL}editPhoto/${context.state.userId.user_id}`,
             payload
           )
           .then(result => {
@@ -56,5 +55,9 @@ export default {
       })
     }
   },
-  getters: {}
+  getters: {
+    setUserId(state) {
+      return state.userId
+    }
+  }
 }

@@ -7,16 +7,56 @@
     <b-container style="padding: 130px 0 100px 0">
       <b-row>
         <b-col lg="3" sm="12"
-          ><Card />
+          ><b-card class="border-0">
+            <img
+              v-if="data.user_image"
+              :src="'http://localhost:3000/workers/' + data.user_image"
+              width="200"
+              class="rounded-circle text-center ml-1 mb-2"
+            />
+            <img
+              v-else
+              src="../assets/user.png"
+              width="200"
+              class="rounded-circle text-center ml-1 mb-2"
+            />
+            <input id="fileUpload" type="file" @change="handleFile" hidden />
+            <button
+              @click="chooseFile"
+              class="button button-purple w-75 ml-4  my-4"
+            >
+              Choose photo
+            </button>
+            <h4>
+              <strong>{{ data.user_name }}</strong>
+            </h4>
+            <small class="text-secondary">{{ data.user_field }}</small
+            ><br />
+            <small class="text-secondary">
+              <b-icon
+                v-if="data.user_location"
+                icon="geo-alt"
+                class="mr-2"
+              ></b-icon
+              >{{ data.user_location }}
+            </small>
+            <p class="text-secondary m-0 my-2">
+              <small>{{ data.user_job_type }}</small>
+            </p>
+          </b-card>
           <b-row>
-            <button class="button button-purple w-75 mx-auto my-4">
+            <button
+              @click.prevent="updateProfile()"
+              class="button button-purple w-75 mx-auto my-4"
+            >
               Simpan
             </button></b-row
           ><b-row>
             <button class="button button-white w-75 mx-auto mb-4">
               Batal
             </button></b-row
-          ></b-col
+          >
+          {{ data }}</b-col
         >
         <b-col lg="9" sm="12">
           <b-card class="shadow bg-white pb-3">
@@ -26,27 +66,67 @@
             <b-container class="py-4">
               <form>
                 <h6>Nama lengkap</h6>
-                <input type="text" placeholder="Masukkan nama lengkap" />
+                <input
+                  type="text"
+                  v-model="data.user_name"
+                  placeholder="Masukkan nama lengkap"
+                />
+                <h6>Tipe pekerjaan</h6>
+                <b-form-select
+                  id="input-3"
+                  v-model="data.user_job_type"
+                  :options="job"
+                  required
+                ></b-form-select>
                 <h6>Job desk</h6>
-                <input type="text" placeholder="Masukkan job desk" />
+                <input
+                  type="text"
+                  v-model="data.user_jobdesc"
+                  placeholder="Masukkan job desk"
+                />
                 <h6>Domisili</h6>
-                <input type="text" placeholder="Masukkan domisili" />
+                <input
+                  type="text"
+                  v-model="data.user_location"
+                  placeholder="Masukkan domisili"
+                />
                 <h6>Tempat kerja</h6>
-                <input type="text" placeholder="Masukkan tempat kerja" />
+                <input
+                  type="text"
+                  v-model="data.user_workplace"
+                  placeholder="Masukkan tempat kerja"
+                />
                 <h6>Deskripsi singkat</h6>
                 <textarea
                   class="w-100"
                   rows="5"
+                  v-model="data.user_description"
                   placeholder="Masukkan deskripsi singkat"
                 ></textarea>
                 <h6>Instagram</h6>
-                <input type="text" placeholder="Masukkan nama instagram" />
+                <input
+                  type="text"
+                  v-model="data.user_instagram"
+                  placeholder="Masukkan nama instagram"
+                />
                 <h6>Nomor Telepon</h6>
-                <input type="number" placeholder="Masukkan nomor telepon" />
+                <input
+                  type="number"
+                  v-model="data.user_phone"
+                  placeholder="Masukkan nomor telepon"
+                />
                 <h6>Linkedin</h6>
-                <input type="text" placeholder="Masukkan nama LinkedIn" />
+                <input
+                  type="text"
+                  v-model="data.user_linkedin"
+                  placeholder="Masukkan nama LinkedIn"
+                />
                 <h6>Github</h6>
-                <input type="text" placeholder="Masukkan nama Github" />
+                <input
+                  type="text"
+                  v-model="data.user_github"
+                  placeholder="Masukkan nama Github"
+                />
               </form>
             </b-container>
           </b-card>
@@ -102,15 +182,98 @@
 </template>
 <script>
 import Navbar from '../components/_base/Navbar'
-import Card from '../components/profile/CardProfile'
 import Footbar from '../components/_base/Footbar'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'EditProfileUser',
+  data() {
+    return {
+      job: [
+        { text: 'Pilih satu job type', value: '' },
+        'Fulltime',
+        'Freelance'
+      ],
+      user_image: ''
+    }
+  },
   components: {
     Navbar,
-    Footbar,
-    Card
+    Footbar
+  },
+  mounted() {
+    this.getUserById()
+  },
+  computed: {
+    ...mapGetters({ user: 'setUser', data: 'setUserId' })
+  },
+  methods: {
+    ...mapGetters(['setUser']),
+    ...mapActions(['getUserByIds', 'updateProfileUsers', 'UpdateImageUsers']),
+    getUserById() {
+      this.getUserByIds(this.user.user_id)
+    },
+    updateProfile() {
+      const {
+        user_name,
+        user_job_type,
+        user_jobdesc,
+        user_location,
+        user_workplace,
+        user_description,
+        user_instagram,
+        user_phone,
+        user_linkedin,
+        user_github
+      } = this.data
+      const data = new FormData()
+      data.append('user_name', user_name)
+      data.append('user_job_type', user_job_type)
+      data.append('user_jobdesc', user_jobdesc)
+      data.append('user_location', user_location)
+      data.append('user_workplace', user_workplace)
+      data.append('user_description', user_description)
+      data.append('user_instagram', user_instagram)
+      data.append('user_phone', user_phone)
+      data.append('user_linkedin', user_linkedin)
+      data.append('user_github', user_github)
+      for (var pair of data.entries()) {
+        console.log(pair[0] + ', ' + pair[1])
+      }
+      this.updateProfileUsers(data)
+        .then(result => {
+          this.updateImage()
+          alert(result.data.msg)
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
+    },
+    // updateImage() {
+    //   const user_image = this.user_image
+    //   // const data = new FormData()
+    //   user_image.append('user_image', user_image)
+    //   // for (var pair of user_image.entries()) {
+    //   //   console.log(pair[0] + ', ' + pair[1])
+    //   // }
+    //   this.UpdateImageUsers(user_image)
+    //     .then(result => {
+    //       alert(result.data.msg)
+    //     })
+    //     .catch(err => {
+    //       alert(err.data.msg)
+    //     })
+    // },
+    logout() {
+      console.log(this.data.user_email)
+    },
+    handleFile(event) {
+      this.user_image = event.target.files[0]
+      // this.updateImage()
+    },
+    chooseFile() {
+      document.getElementById('fileUpload').click()
+    }
   }
 }
 </script>
