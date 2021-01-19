@@ -8,6 +8,9 @@ export default {
     setUserById(state, payload) {
       state.userId = payload
     },
+    setRecruiterById(state, payload) {
+      state.recruiterId = payload
+    },
     setSkill(state, payload) {
       state.skill = payload
     }
@@ -26,11 +29,40 @@ export default {
           })
       })
     },
+    getRecruiterByIds(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}recruiter/${payload}`)
+          .then(result => {
+            context.commit('setRecruiterById', result.data.data[0])
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
     updateProfileUsers(context, payload) {
       return new Promise((resolve, reject) => {
         axios
           .patch(
             `${process.env.VUE_APP_URL}workers/${context.state.userId.user_id}`,
+            payload
+          )
+          .then(result => {
+            console.log(result)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    updateProfileRecruiters(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(
+            `${process.env.VUE_APP_URL}recruiter/${context.state.recruiterId.user_id}`,
             payload
           )
           .then(result => {
@@ -103,6 +135,9 @@ export default {
   getters: {
     setUserId(state) {
       return state.userId
+    },
+    setRecruiterId(state) {
+      return state.recruiterId
     },
     getSkill(state) {
       return state.skill

@@ -29,10 +29,24 @@
                   icon="chat-left-dots"
                   class="mx-4"
                 ></b-icon></router-link
-              ><router-link to="/profile"
+              ><router-link to="/editprofile"
                 ><b-avatar src="https://placekitten.com/300/300"></b-avatar
               ></router-link>
             </h5>
+            <button
+              v-if="user.user_role === 0"
+              class="button  button-purple my-1"
+              @click="handleWorker"
+            >
+              Profile
+            </button>
+            <button
+              v-if="user.user_role === 1"
+              class="button  button-purple my-1"
+              @click="handleRecruiter"
+            >
+              Profile
+            </button>
             <button
               v-if="user.user_id"
               class="button  button-white my-1"
@@ -59,6 +73,12 @@ export default {
     ...mapActions(['logout']),
     handleLogout() {
       this.logout()
+    },
+    handleWorker() {
+      this.$router.push('EditProfileUser')
+    },
+    handleRecruiter() {
+      this.$router.push('EditProfile')
     }
   }
 }

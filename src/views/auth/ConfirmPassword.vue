@@ -42,7 +42,6 @@
           <br />
           <div class="centered">
             Anda belum punya akun?
-            <button @click="showData">show</button>
             <router-link to="/registeruser">Daftar disini</router-link>
           </div>
         </b-form>
