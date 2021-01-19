@@ -291,21 +291,6 @@ export default {
           alert(err.data.msg)
         })
     },
-    // updateImage() {
-    //   const user_image = this.user_image
-    //   // const data = new FormData()
-    //   user_image.append('user_image', user_image)
-    //   // for (var pair of user_image.entries()) {
-    //   //   console.log(pair[0] + ', ' + pair[1])
-    //   // }
-    //   this.UpdateImageUsers(user_image)
-    //     .then(result => {
-    //       alert(result.data.msg)
-    //     })
-    //     .catch(err => {
-    //       alert(err.data.msg)
-    //     })
-    // },
     logout() {
       console.log(this.data.user_email)
     },
