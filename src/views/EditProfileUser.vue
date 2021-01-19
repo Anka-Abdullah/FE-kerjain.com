@@ -137,9 +137,23 @@
             </b-row>
             <b-container class="flex py-4">
               <form>
-                <input type="text" placeholder="Masukkan nama lengkap" />
+                <input
+                  v-model="skill"
+                  type="text"
+                  placeholder="Masukkan nama lengkap"
+                />
               </form>
-              <button class="btn-def">Simpan</button>
+              <button @click="addSkill" class="btn-def">Simpan</button>
+            </b-container>
+            <b-container>
+              <b-button-group v-for="(item, index) in skills" :key="index">
+                <b-button variant="warning" size="sm">{{
+                  item.skill_name
+                }}</b-button>
+                <b-button @click="destroySkill(item.skill_id)" size="sm"
+                  >x</b-button
+                >
+              </b-button-group>
             </b-container>
           </b-card>
           <br />
@@ -181,11 +195,13 @@
   </div>
 </template>
 <script>
+import { alert } from '../mixins/alert'
+import { mapActions, mapGetters } from 'vuex'
 import Navbar from '../components/_base/Navbar'
 import Footbar from '../components/_base/Footbar'
-import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  mixins: [alert],
   name: 'EditProfileUser',
   data() {
     return {
@@ -194,7 +210,9 @@ export default {
         'Fulltime',
         'Freelance'
       ],
-      user_image: ''
+      user_image: '',
+      id: '',
+      skill: ''
     }
   },
   components: {
@@ -204,12 +222,37 @@ export default {
   mounted() {
     this.getUserById()
   },
+  created() {
+    this.id = this.$route.params.id
+    this.getSkill(this.id)
+  },
   computed: {
-    ...mapGetters({ user: 'setUser', data: 'setUserId' })
+    ...mapGetters({ user: 'setUser', data: 'setUserId', skills: 'getSkill' })
   },
   methods: {
     ...mapGetters(['setUser']),
-    ...mapActions(['getUserByIds', 'updateProfileUsers', 'UpdateImageUsers']),
+    ...mapActions([
+      'getUserByIds',
+      'updateProfileUsers',
+      'UpdateImageUsers',
+      'getSkill',
+      'postSkill',
+      'deleteSkill'
+    ]),
+    addSkill() {
+      const data = {
+        user_id: this.id,
+        skill_name: this.skill
+      }
+      this.postSkill(data)
+    },
+    destroySkill(id) {
+      const data = {
+        user_id: this.id,
+        skill_id: id
+      }
+      this.deleteSkill(data)
+    },
     getUserById() {
       this.getUserByIds(this.user.user_id)
     },

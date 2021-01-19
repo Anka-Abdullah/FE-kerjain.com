@@ -1,11 +1,15 @@
 import axios from 'axios'
 export default {
   state: {
-    user: {}
+    user: {},
+    skill: {}
   },
   mutations: {
     setUserById(state, payload) {
       state.userId = payload
+    },
+    setSkill(state, payload) {
+      state.skill = payload
     }
   },
   actions: {
@@ -53,11 +57,55 @@ export default {
             reject(error.response)
           })
       })
+    },
+    getSkill(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}getuserskill/${payload}`)
+          .then(result => {
+            context.commit('setSkill', result.data.data)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    postSkill(context, payload) {
+      return new Promise((resolve, reject) => {
+        console.log(payload)
+        axios
+          .post(`${process.env.VUE_APP_URL}skill/`, payload)
+          .then(result => {
+            context.dispatch('getSkill', payload.user_id)
+            resolve(result)
+          })
+          .catch(error => {
+            console.log(error)
+            reject(error.response)
+          })
+      })
+    },
+    deleteSkill(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(`${process.env.VUE_APP_URL}skill/${payload.skill_id}`)
+          .then(result => {
+            context.dispatch('getSkill', payload.user_id)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
     }
   },
   getters: {
     setUserId(state) {
       return state.userId
+    },
+    getSkill(state) {
+      return state.skill
     }
   }
 }

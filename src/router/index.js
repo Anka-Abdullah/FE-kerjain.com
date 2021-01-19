@@ -58,7 +58,7 @@ const routes = [
     meta: { requiresVisitor: true }
   },
   {
-    path: '/hire/:id',
+    path: '/hire',
     name: 'Hire',
     component: () =>
       import(/* webpackChunkName: "company" */ '../views/Hire.vue'),
@@ -103,7 +103,7 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/editprofileuser',
+    path: '/editprofileuser/:id',
     name: 'EditProfileUser',
     component: () =>
       import(
