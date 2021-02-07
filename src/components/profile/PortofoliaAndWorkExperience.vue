@@ -4,70 +4,61 @@
       <label class="select" @click="portofolio"
         >Portofolio
         <input type="radio" name="radio" hidden />
-        <span class="checkmark"></span>
+        <span :class="show === 'portofolio' ? 'checkmark' : ''"></span>
       </label>
       <label class="select" @click="experience"
         >Pengalaman Kerja
         <input type="radio" name="radio" hidden />
-        <span class="checkmark"></span>
+        <span :class="show === 'experience' ? 'checkmark' : ''"></span>
       </label>
       <b-row v-if="show === 'portofolio'">
-        <b-col lg="4" sm="12" class="text-center p-3">
-          <img src="../../assets/Rectangle 637.png" alt="" />
-          <h6 class="mt-2"><strong>Remainder App</strong></h6>
-        </b-col>
-        <b-col lg="4" sm="12" class="text-center p-3">
-          <img src="../../assets/Rectangle 637.png" alt="" />
-          <h6 class="mt-2"><strong>Remainder App</strong></h6>
-        </b-col>
-        <b-col lg="4" sm="12" class="text-center p-3">
-          <img src="../../assets/Rectangle 637.png" alt="" />
-          <h6 class="mt-2"><strong>Remainder App</strong></h6>
-        </b-col>
-        <b-col lg="4" sm="12" class="text-center p-3">
-          <img src="../../assets/Rectangle 637.png" alt="" />
-          <h6 class="mt-2"><strong>Remainder App</strong></h6>
-        </b-col>
-        <b-col lg="4" sm="12" class="text-center p-3">
-          <img src="../../assets/Rectangle 637.png" alt="" />
-          <h6 class="mt-2"><strong>Remainder App</strong></h6>
+        <b-col
+          v-for="(item, index) in porto"
+          :key="index"
+          lg="4"
+          sm="12"
+          class="text-center py-3"
+        >
+          <a :href="item.porto_link" target="_blank">
+            <div class="porto-card">
+              <img
+                class="porto-img"
+                v-if="item.porto_image"
+                :src="url + 'porto/' + item.porto_image"
+              />
+              <img
+                v-else
+                class="porto-img"
+                src="../../assets/Rectangle 637.png"
+              />
+              <h6 class="mt-2">
+                <strong>{{ item.porto_name }}</strong>
+              </h6>
+            </div>
+          </a>
         </b-col>
       </b-row>
       <div v-if="show === 'experience'">
-        <b-row class="mt-4 border-bottom">
+        <b-row
+          v-for="(item, index) in exp"
+          :key="index"
+          class="mt-4 border-bottom"
+        >
           <b-col lg="2" sm="12" class="text-center">
             <img src="../../assets/Rectangle 672.png" alt="" />
           </b-col>
           <b-col lg="10" sm="12">
-            <h6 class="m-0"><strong>Web Developer</strong></h6>
-            <h6 class="m-0">Tokopedia</h6>
+            <h6 class="m-0">
+              <strong>{{ item.exp_position }}</strong>
+            </h6>
+            <h6 class="m-0">{{ item.exp_company }}</h6>
             <small class="text-secondary"
-              >July 2019 - January 2020, 6 months</small
-            >
+              >{{ formatDate(item.exp_start) }} -
+            </small>
+            <small class="text-secondary">{{ formatDate(item.exp_end) }}</small>
             <p>
               <small>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Vestibulum erat orci, mollis nec gravida sed, ornare quis urna.
-                Curabitur eu lacus fringilla, vestibulum risus at.
-              </small>
-            </p>
-          </b-col>
-        </b-row>
-        <b-row class="mt-4 border-bottom">
-          <b-col lg="2" sm="12" class="text-center">
-            <img src="../../assets/Rectangle 672.png" alt="" />
-          </b-col>
-          <b-col lg="10" sm="12">
-            <h6 class="m-0"><strong>Web Developer</strong></h6>
-            <h6 class="m-0">Tokopedia</h6>
-            <small class="text-secondary"
-              >July 2019 - January 2020, 6 months</small
-            >
-            <p>
-              <small>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Vestibulum erat orci, mollis nec gravida sed, ornare quis urna.
-                Curabitur eu lacus fringilla, vestibulum risus at.
+                {{ item.exp_desc }}
               </small>
             </p>
           </b-col>
@@ -77,21 +68,53 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import moment from 'moment'
+
 export default {
   props: {
     data: Object
   },
   data() {
     return {
-      show: 'portofolio'
+      show: 'portofolio',
+      url: process.env.VUE_APP_URL,
+      portoIndex: 'a'
     }
   },
+  computed: {
+    ...mapGetters({ porto: 'getDataPortofolio', exp: 'getDataExperience' })
+  },
+  created() {
+    this.getPortoData()
+    this.getExpData()
+  },
   methods: {
+    ...mapActions(['getExp', 'getPorto']),
+    getPortoData() {
+      this.getPorto(this.data.user_id)
+    },
+    getExpData() {
+      this.getExp(this.data.user_id)
+    },
     portofolio() {
       this.show = 'portofolio'
     },
     experience() {
       this.show = 'experience'
+    },
+    formatDate(time) {
+      return moment(String(time)).format('MMM YYYY')
+    },
+    showPorto(index) {
+      console.log('clicked')
+      const indexNow = this.portoIndex
+      if (indexNow != index) {
+        this.portoIndex = index
+      } else {
+        this.portoIndex = 'a'
+      }
+      console.log(this.portoIndex)
     }
   }
 }
@@ -112,6 +135,7 @@ export default {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  cursor: pointer;
 }
 
 .checkmark {
@@ -121,12 +145,30 @@ export default {
   left: 0;
   height: 3px;
   width: 100%;
+  background-color: #5e50a1;
 }
 
-.select:hover input ~ .checkmark {
-  background-color: #5e50a1;
+.porto-img {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 10px;
+  border-radius: 10px;
 }
-.select input:checked ~ .checkmark {
-  background-color: #5e50a1;
+
+.porto-card {
+  cursor: pointer;
+}
+
+.porto-text {
+  margin-top: -190px;
+}
+
+a:link {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  color: black;
 }
 </style>

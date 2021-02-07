@@ -2,15 +2,15 @@ import axios from 'axios'
 export default {
   state: {
     user: {},
-    skill: {},
-    img: ''
+    recruiter: {},
+    skill: {}
   },
   mutations: {
     setUserById(state, payload) {
-      state.userId = payload
+      state.user = payload
     },
     setRecruiterById(state, payload) {
-      state.recruiterId = payload
+      state.recruiter = payload
     },
     setSkill(state, payload) {
       state.skill = payload
@@ -47,7 +47,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `${process.env.VUE_APP_URL}workers/${context.state.userId.user_id}`,
+            `${process.env.VUE_APP_URL}workers/${context.state.user.user_id}`,
             payload
           )
           .then(result => {
@@ -63,13 +63,10 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `${process.env.VUE_APP_URL}recruiter/${context.state.recruiterId.user_id}`,
+            `${process.env.VUE_APP_URL}recruiter/${context.state.recruiter.user_id}`,
             payload
           )
           .then(result => {
-            console.log('user')
-            console.log(context.state.user)
-            console.log('profile recruiter')
             console.log(result)
             resolve(result)
           })
@@ -84,7 +81,7 @@ export default {
         console.log(payload)
         axios
           .patch(
-            `${process.env.VUE_APP_URL}editPhoto/${context.state.userId.user_id}`,
+            `${process.env.VUE_APP_URL}editPhoto/${context.state.user.user_id}`,
             payload
           )
           .then(result => {
@@ -141,10 +138,10 @@ export default {
   },
   getters: {
     setUserId(state) {
-      return state.userId
+      return state.user
     },
     setRecruiterId(state) {
-      return state.recruiterId
+      return state.recruiter
     },
     getSkill(state) {
       return state.skill

@@ -2,26 +2,27 @@ import axios from 'axios'
 
 export default {
   state: {
-    experience: [],
-    portofolio: []
+    experience: {},
+    portofolio: {}
   },
   mutations: {
     setExperience(state, payload) {
-      state.experience = payload.data
+      state.experience = payload
     },
     setPortofolio(state, payload) {
-      state.portofolio = payload.data
+      state.portofolio = payload
     }
   },
   actions: {
-    getExp({ commit }) {
+    getExp(context, payload) {
+      console.log('ini payload exp ' + payload)
       return new Promise((resolve, reject) => {
         axios
-          .get(``)
+          .get(`${process.env.VUE_APP_URL}workers/getexprerience/${payload}`)
           .then(result => {
             resolve(result)
             console.log(result)
-            commit('setExperience', result.data)
+            context.commit('setExperience', result.data.data)
           })
           .catch(err => {
             reject(err)
@@ -29,14 +30,15 @@ export default {
           })
       })
     },
-    getPorto({ commit }) {
+    getPorto(context, payload) {
+      console.log('ini payload porto ' + payload)
       return new Promise((resolve, reject) => {
         axios
-          .get(``)
+          .get(`${process.env.VUE_APP_URL}porto/${payload}`)
           .then(result => {
             resolve(result)
             console.log(result)
-            commit('setPortofolio', result.data)
+            context.commit('setPortofolio', result.data.data)
           })
           .catch(err => {
             reject(err)
@@ -46,7 +48,9 @@ export default {
     }
   },
   getters: {
-    getDataExperienxe: state => state.experience,
+    getDataExperience(state) {
+      return state.experience
+    },
     getDataPortofolio: state => state.portofolio
   }
 }

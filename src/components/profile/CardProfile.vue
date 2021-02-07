@@ -1,28 +1,37 @@
 <template>
   <div>
     <b-card class="border-0">
-      <img
-        src="../../assets/user.png"
-        width="200"
-        class="rounded-circle text-center ml-1 mb-2"
-      />
+      <div class="img-wrapper text-center">
+        <img
+          v-if="user.user_image"
+          :src="url + 'workers/' + user.user_image"
+          width="200"
+          class="rounded-circle profile-img text-center ml-1 mb-2"
+        />
+        <img
+          v-else
+          src="../../assets/user.png"
+          width="200"
+          class="rounded-circle profile-img text-center ml-1 mb-2"
+        />
+      </div>
       <h4>
-        <strong>{{ data.user_name }}</strong>
+        <strong>{{ user.user_name }}</strong>
       </h4>
-      <small class="text-secondary">{{ data.user_field }}</small
+      <small class="text-secondary"
+        ><strong>{{ user.user_jobdesc }}</strong></small
       ><br />
       <small class="text-secondary">
-        <b-icon icon="geo-alt" class="mr-2"></b-icon>{{ data.user_location }}
+        <b-icon icon="geo-alt" class="mr-2"></b-icon>{{ user.user_location }}
       </small>
-      <p class="text-secondary m-0 my-2">
-        <small>{{ data.user_job_type }}</small>
-      </p>
+      <br />
+      <small class="text-secondary">
+        {{ user.user_job_type }}
+      </small>
       <p>
-        <small class="text-secondary" v-if="display == 1"
-          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit
-          molestiae animi voluptatum nostrum labore doloribus magni? Quasi
-          sapiente excepturi est deserunt nihil.</small
-        >
+        <small class="text-secondary" v-if="display == 1">{{
+          user.user_description
+        }}</small>
       </p>
       <b-row>
         <button
@@ -35,32 +44,35 @@
       </b-row>
       <div v-if="display == 1">
         <h4 class="m-0 mb-1"><strong>Skill</strong></h4>
-        <div class="skill" v-for="(item, index) in cardSkills" :key="index">
-          {{ item }}
+        <div class="skill" v-for="(item, index) in skill" :key="index">
+          {{ item.skill_name }}
         </div>
       </div>
 
       <div v-if="show == 1">
         <h6 class="text-secondary mt-5">
-          <b-icon icon="envelope" class="mr-2"></b-icon>{{ data.email }}
+          <b-icon icon="envelope" class="mr-2"></b-icon>{{ user.user_email }}
         </h6>
         <h6 class="text-secondary mt-4">
-          <b-icon icon="telephone" class="mr-2"></b-icon>{{ data.phone }}
+          <b-icon icon="telephone" class="mr-2"></b-icon>{{ user.user_phone }}
         </h6>
         <h6 class="text-secondary mt-4">
-          <b-icon icon="instagram" class="mr-2"></b-icon>{{ data.instagram }}
+          <b-icon icon="instagram" class="mr-2"></b-icon
+          >{{ user.user_instagram }}
         </h6>
         <h6 class="text-secondary mt-4">
-          <b-icon icon="github" class="mr-2"></b-icon>{{ data.github }}
+          <b-icon icon="github" class="mr-2"></b-icon>{{ user.user_github }}
         </h6>
         <h6 class="text-secondary my-4">
-          <b-icon icon="linkedin" class="mr-2"></b-icon>{{ data.linkedin }}
+          <b-icon icon="linkedin" class="mr-2"></b-icon>{{ user.user_linkedin }}
         </h6>
       </div>
     </b-card>
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   props: {
     data: Object,
@@ -69,16 +81,46 @@ export default {
   },
   data() {
     return {
-      cardSkills: []
+      cardSkills: [],
+      url: process.env.VUE_APP_URL
     }
   },
+  computed: {
+    ...mapGetters({ user: 'setUserId', skill: 'getSkill' })
+  },
   created() {
-    this.cardSkills = this.data.skills.split(',')
+    this.getUserData()
+    this.getUserSkill()
   },
   methods: {
+    ...mapActions(['getUserByIds', 'getSkill']),
+    showData() {
+      console.log(this.data)
+    },
     hire() {
-      this.$router.push({ name: 'Hire', query: { data: this.data } })
+      this.$router.push({ name: 'Hire', query: { data: this.data.user_id } })
+    },
+    getUserData() {
+      this.getUserByIds(this.data.user_id)
+    },
+    getUserSkill() {
+      this.getSkill(this.data.user_id)
     }
   }
 }
 </script>
+
+<style scoped>
+.text-secondary {
+  font-size: 14px !important;
+}
+
+.profile-img {
+  width: 110px;
+  height: 110px;
+}
+
+.img-wrapper {
+  width: 100%;
+}
+</style>
