@@ -14,6 +14,7 @@
               width="200"
               class="rounded-circle text-center ml-1 mb-2"
             /> -->
+            <!-- <img v-if="image" :src="`${process.env.VUE_APP_URL}workers/${image}`" /> -->
             <img
               src="../assets/user.png"
               width="200"
@@ -124,6 +125,7 @@ export default {
     updateProfile() {
       const {
         user_name,
+        user_field,
         user_location,
         user_email,
         user_description,
@@ -133,6 +135,7 @@ export default {
       } = this.data
       const data = new FormData()
       data.append('user_name', user_name)
+      data.append('user_field', user_field)
       data.append('user_location', user_location)
       data.append('user_description', user_description)
       data.append('user_instagram', user_instagram)
@@ -152,7 +155,8 @@ export default {
         })
     },
     handleFile(event) {
-      this.user_image = event.target.files[0]
+      const user_image = event.target.files[0]
+      this.UpdateImageUsers(user_image)
     },
     chooseFile() {
       document.getElementById('fileUpload').click()

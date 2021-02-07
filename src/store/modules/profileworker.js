@@ -2,7 +2,8 @@ import axios from 'axios'
 export default {
   state: {
     user: {},
-    skill: {}
+    skill: {},
+    img: ''
   },
   mutations: {
     setUserById(state, payload) {
@@ -66,6 +67,9 @@ export default {
             payload
           )
           .then(result => {
+            console.log('user')
+            console.log(context.state.user)
+            console.log('profile recruiter')
             console.log(result)
             resolve(result)
           })
@@ -76,6 +80,8 @@ export default {
     },
     UpdateImageUsers(context, payload) {
       return new Promise((resolve, reject) => {
+        console.log(context.state.userId.user_id)
+        console.log(payload)
         axios
           .patch(
             `${process.env.VUE_APP_URL}editPhoto/${context.state.userId.user_id}`,
@@ -83,6 +89,7 @@ export default {
           )
           .then(result => {
             console.log(result)
+            context.commit('setImg', result.data)
             resolve(result)
           })
           .catch(error => {
