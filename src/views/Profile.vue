@@ -10,7 +10,7 @@
           ><Card :display="1" :show="1" :data="data"
         /></b-col>
         <b-col lg="9" sm="12">
-          <PortofoliaAndWorkExperience />
+          <PortofoliaAndWorkExperience :data="data" />
         </b-col>
       </b-row>
     </b-container>
@@ -18,6 +18,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import Navbar from '../components/_base/Navbar'
 import Card from '../components/profile/CardProfile'
 import PortofoliaAndWorkExperience from '../components/profile/PortofoliaAndWorkExperience'
@@ -26,9 +27,11 @@ export default {
   name: 'Profile',
   data() {
     return {
-      data: [],
       cardSkills: []
     }
+  },
+  computed: {
+    ...mapGetters({ data: 'setUser' })
   },
   created() {
     this.data = this.$route.params.data
