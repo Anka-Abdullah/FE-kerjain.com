@@ -3,7 +3,9 @@ export default {
   state: {
     user: {},
     recruiter: {},
-    skill: {}
+    skill: {},
+    exps: {},
+    portos: {}
   },
   mutations: {
     setUserById(state, payload) {
@@ -14,6 +16,12 @@ export default {
     },
     setSkill(state, payload) {
       state.skill = payload
+    },
+    setExps(state, payload) {
+      state.exps = payload
+    },
+    setPortos(state, payload) {
+      state.portos = payload
     }
   },
   actions: {
@@ -129,6 +137,80 @@ export default {
             reject(error.response)
           })
       })
+    },
+    getExps(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}workers/getexprerience/${payload}`)
+          .then(result => {
+            context.commit('setExps', result.data.data)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    postExps(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`${process.env.VUE_APP_URL}workers/addExp`, payload)
+          .then(result => {
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    delExps(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(`${process.env.VUE_APP_URL}workers/exprerience/${payload}`)
+          .then(result => {
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    getPortos(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}porto/${payload}`)
+          .then(result => {
+            context.commit('setPortos', result.data.data)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    postPortos(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`${process.env.VUE_APP_URL}porto`, payload)
+          .then(result => {
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    delPortos(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(`${process.env.VUE_APP_URL}porto/${payload}`)
+          .then(result => {
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
     }
   },
   getters: {
@@ -140,6 +222,12 @@ export default {
     },
     getSkill(state) {
       return state.skill
+    },
+    getExp(state) {
+      return state.exps
+    },
+    getPorto(state) {
+      return state.portos
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div
     class="editproile"
-    style="background: linear-gradient(0deg, #e9e9e9 80%, #5e50a1 20%);"
+    style="background: linear-gradient(0deg, #e9e9e9 90%, #5e50a1 10%);"
   >
     <Navbar :show="2" />
     <b-container style="padding: 130px 0 100px 0">

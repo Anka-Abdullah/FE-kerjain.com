@@ -103,60 +103,153 @@
     </div>
     <br />
     <div class="card">
-      <div class="border-bottom pl-4 mb-4">
+      <div class="border-bottom pl-4 mb-2">
         <h4><strong>Pengalaman Kerja</strong></h4>
       </div>
       <b-container class="pad">
         <h6>Posisi</h6>
         <b-form-input
           type="text"
+          v-model="form.exp_position"
           placeholder="Masukkan posisi"
           required
         ></b-form-input>
         <h6>Nama perusahaan</h6>
         <b-form-input
           type="text"
+          v-model="form.exp_company"
           placeholder="Masukkan nama perusahaan"
           required
         ></b-form-input>
         <div class="flex-comp">
           <div class="w-50 pr-2">
             <h6>Bulan - tahun mulai</h6>
-            <input v-model="month" class="month" type="month" />
+            <input
+              v-model="form.exp_start"
+              class="month"
+              type="datetime-local"
+            />
           </div>
           <div class="w-50 pl-2">
             <h6>Bulan - tahun selesai</h6>
-            <input v-model="month" class="month" type="month" />
-            {{ month }}
+            <input v-model="form.exp_end" class="month" type="datetime-local" />
           </div>
         </div>
         <h6>Deskripsi singkat</h6>
         <b-form-textarea
-          rows="4"
+          v-model="form.exp_desc"
+          rows="3"
           max-rows="6"
           placeholder="Deskripsikan pekerjaan anda"
           required
         ></b-form-textarea>
         <hr class="my-4" />
-        <button class="btn-bottom">
+        <button @click="postExp()" class="btn-bottom">
           <strong>Tambah Pengalaman Kerja</strong>
         </button>
       </b-container>
     </div>
-    <div>
-      <h1>Finds</h1>
-      <div v-for="(find, index) in finds" :key="index">
-        <input v-model="find.value" type="text" placeholder="asdsa" />
+    <br />
+    <div class="card">
+      <div class="border-bottom pl-4 mb-3">
+        <h4><strong>List Pengalaman Kerja</strong></h4>
       </div>
-      <button @click="addFind">
-        New Find
-      </button>
+      <b-container v-for="(item, index) in exps" :key="index" class="pad">
+        <div>
+          <strong>{{ item.exp_position }}</strong>
+        </div>
+        <div class="text-secondary">{{ item.exp_company }}</div>
+        <small class="text-secondary"
+          >{{ formatDate(item.exp_start) }} -
+        </small>
+        <small class="text-secondary">{{ formatDate(item.exp_end) }}</small>
+        <p>{{ item.exp_desc }}</p>
+
+        <div style="text-align: right;">
+          <b-button @click="delExp(item.exp_id)" class="py-1" variant="danger">
+            Hapus
+          </b-button>
+        </div>
+        <hr />
+      </b-container>
+    </div>
+    <br />
+    <div class="card">
+      <div class="border-bottom pl-4 mb-2">
+        <h4><strong>Portofolio</strong></h4>
+      </div>
+      <b-container class="pad">
+        <h6>Nama aplikasi</h6>
+        <b-form-input
+          type="text"
+          v-model="form2.porto_name"
+          placeholder="Masukkan nama aplikasi"
+          required
+        ></b-form-input>
+        <h6>Link repository</h6>
+        <b-form-input
+          type="text"
+          v-model="form2.porto_link"
+          placeholder="Masukkan link repository"
+          required
+        ></b-form-input>
+        <h6>Type portofolio</h6>
+        <b-form-radio-group class="ml-3" v-slot="{ ariaDescribedby }">
+          <b-form-radio
+            v-model="form2.porto_type"
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="mobile"
+            >Aplikasi mobile</b-form-radio
+          >
+          <b-form-radio
+            v-model="form2.porto_type"
+            :aria-describedby="ariaDescribedby"
+            name="some-radios"
+            value="web"
+            >Aplikasi web</b-form-radio
+          >
+        </b-form-radio-group>
+        <h6>Upload gambar</h6>
+        <b-form-file
+          v-model="form2.porto_image"
+          class="mt-3"
+          plain
+        ></b-form-file>
+        <hr class="my-4" />
+        <button @click="postPorto()" class="btn-bottom">
+          <strong>Tambah Portofolio</strong>
+        </button>
+      </b-container>
+    </div>
+    <br />
+    <div class="card">
+      <div class="border-bottom pl-4 mb-3">
+        <h4><strong>List Portofolio</strong></h4>
+      </div>
+      <b-container
+        v-for="(item, index) in portos"
+        :key="index"
+        class="pad border-bottom flex-comp"
+      >
+        <div>
+          <strong>{{ item.porto_name }}</strong>
+        </div>
+        <b-button
+          @click="delPorto(item.porto_id)"
+          class="py-1"
+          variant="danger"
+        >
+          Hapus
+        </b-button>
+      </b-container>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import moment from 'moment'
 export default {
   data() {
     return {
@@ -168,20 +261,99 @@ export default {
       id: '',
       skill: '',
       month: '',
-      finds: []
+      form: {
+        user_id: '',
+        exp_position: '',
+        exp_company: '',
+        exp_desc: '',
+        exp_start: '',
+        exp_end: ''
+      },
+      form2: {
+        user_id: '',
+        porto_name: '',
+        porto_link: '',
+        porto_type: '',
+        porto_image: null
+      }
     }
   },
   created() {
     this.getSkill(this.user.user_id)
+    this.getExps(this.user.user_id)
+    this.getPortos(this.user.user_id)
   },
   mounted() {
     this.getUserByIds(this.user.user_id)
   },
   computed: {
-    ...mapGetters({ user: 'setUser', data: 'setUserId', skills: 'getSkill' })
+    ...mapGetters({
+      user: 'setUser',
+      data: 'setUserId',
+      skills: 'getSkill',
+      exps: 'getExp',
+      portos: 'getPorto'
+    })
   },
   methods: {
-    ...mapActions(['getUserByIds', 'getSkill', 'postSkill', 'deleteSkill']),
+    ...mapActions([
+      'getUserByIds',
+      'getSkill',
+      'postSkill',
+      'deleteSkill',
+      'getExps',
+      'postExps',
+      'delExps',
+      'postPortos',
+      'getPortos',
+      'delPortos'
+    ]),
+    postPorto() {
+      this.form2.user_id = this.user.user_id
+      const {
+        user_id,
+        porto_name,
+        porto_link,
+        porto_type,
+        porto_image
+      } = this.form2
+      const data = new FormData()
+      data.append('user_id', user_id)
+      data.append('porto_name', porto_name)
+      data.append('porto_link', porto_link)
+      data.append('porto_type', porto_type)
+      data.append('porto_image', porto_image)
+      this.postPortos(data)
+        .then(result => {
+          alert(result.data.msg)
+          this.getPortos(this.user.user_id)
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
+    },
+    delPorto(porto_id) {
+      this.delPortos(porto_id)
+      this.getPortos(this.user.user_id)
+    },
+    postExp() {
+      this.form.user_id = this.user.user_id
+      this.postExps(this.form)
+        .then(result => {
+          alert(result.data.msg)
+          this.getExps(this.user.user_id)
+        })
+        .catch(err => {
+          alert(err.data.msg)
+        })
+    },
+    delExp(exp_id) {
+      this.delExps(exp_id)
+      this.getExps(this.user.user_id)
+    },
+    formatDate(time) {
+      return moment(String(time)).format('MMM YYYY')
+    },
     addSkill() {
       const data = [
         {
@@ -198,16 +370,13 @@ export default {
         skill_id: id
       }
       this.deleteSkill(data)
-    },
-    addFind: function() {
-      this.finds.push({ value: '' })
     }
   }
 }
 </script>
 <style scoped>
 .pad {
-  padding: 0px 30px !important;
+  padding: 10px 30px !important;
 }
 .card {
   padding: 30px 0px;
