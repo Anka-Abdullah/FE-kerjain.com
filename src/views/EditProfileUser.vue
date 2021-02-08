@@ -5,7 +5,15 @@
   >
     <Navbar :show="2" />
     <b-container style="padding: 130px 0 100px 0">
-      <b-row>
+      <b-row class="profile">
+        <b-col sm="12" md="4" lg="4">
+          <LeftProf />
+        </b-col>
+        <b-col sm="12" md="8" lg="8">
+          <RightProf />
+        </b-col>
+      </b-row>
+      <!-- <b-row>
         <b-col lg="3" sm="12"
           ><b-card class="border-0">
             <img
@@ -188,7 +196,7 @@
             </b-container>
           </b-card>
         </b-col>
-      </b-row>
+      </b-row> -->
     </b-container>
     <Footbar />
   </div>
@@ -198,6 +206,8 @@ import { alert } from '../mixins/alert'
 import { mapActions, mapGetters } from 'vuex'
 import Navbar from '../components/_base/Navbar'
 import Footbar from '../components/_base/Footbar'
+import LeftProf from '../components/Profile Worker/LeftProfile'
+import RightProf from '../components/Profile Worker/RightProfile'
 
 export default {
   mixins: [alert],
@@ -216,18 +226,20 @@ export default {
   },
   components: {
     Navbar,
-    Footbar
+    Footbar,
+    LeftProf,
+    RightProf
   },
-  mounted() {
-    this.getUserById()
-  },
-  created() {
-    this.id = this.$route.params.id
-    this.getSkill(this.id)
-  },
-  computed: {
-    ...mapGetters({ user: 'setUser', data: 'setUserId', skills: 'getSkill' })
-  },
+  // mounted() {
+  //   this.getUserById()
+  // },
+  // created() {
+  //   this.id = this.$route.params.id
+  //   this.getSkill(this.id)
+  // },
+  // computed: {
+  //   ...mapGetters({ user: 'setUser', data: 'getUserId', skills: 'getSkill' })
+  // },
   methods: {
     ...mapGetters(['setUser']),
     ...mapActions([

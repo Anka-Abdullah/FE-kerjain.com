@@ -66,7 +66,6 @@
           <button class="yellow" type="submit">Daftar</button>
           <br />
           <div class="centered">
-            <button @click="showData">show data</button>
             Anda sudah punya akun?
             <router-link to="/loginuser">Masuk disini</router-link>
           </div>

@@ -7,8 +7,8 @@ import Home from './modules/home'
 import Hiring from './modules/hiring'
 import Profile from './modules/Profile'
 import ProfileUser from './modules/profileworker'
-import SecureLS from 'secure-ls'
-const ls = new SecureLS({ isCompression: false })
+// import SecureLS from 'secure-ls'
+// const ls = new SecureLS({ isCompression: false })
 
 Vue.use(Vuex)
 
@@ -19,12 +19,12 @@ export default new Vuex.Store({
   actions: {},
   plugins: [
     createPersistedState({
-      storage: {
-        getItem: key => ls.get(key),
-        setItem: (key, value) => ls.set(key, value),
-        removeItem: key => ls.remove(key)
-      }
-      // paths: ['Auth.user']
+      // storage: {
+      //   getItem: key => ls.get(key),
+      //   setItem: (key, value) => ls.set(key, value),
+      //   removeItem: key => ls.remove(key)
+      // }
+      paths: ['Auth.user']
     })
   ]
 })

@@ -1,7 +1,7 @@
 import axios from 'axios'
 export default {
   state: {
-    user: {},
+    userId: {},
     skill: {}
   },
   mutations: {
@@ -107,7 +107,7 @@ export default {
       return new Promise((resolve, reject) => {
         console.log(payload)
         axios
-          .post(`${process.env.VUE_APP_URL}skill/`, payload)
+          .post(`${process.env.VUE_APP_URL}skill/`, payload.user_name)
           .then(result => {
             context.dispatch('getSkill', payload.user_id)
             resolve(result)
@@ -133,10 +133,10 @@ export default {
     }
   },
   getters: {
-    setUserId(state) {
+    getUserId(state) {
       return state.userId
     },
-    setRecruiterId(state) {
+    getRecruiterId(state) {
       return state.recruiterId
     },
     getSkill(state) {
