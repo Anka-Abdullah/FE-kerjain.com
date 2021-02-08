@@ -1,5 +1,5 @@
 <template>
-  <div class="room-chat" v-bind="chat.room_chat != ''">
+  <div class="room-chat" v-bind="receiver != ''">
     <div class="room-head">
       <img
         class="user-image"
@@ -14,10 +14,6 @@
           {{ item.chat_content }}
         </p>
         <p class="text-chatting-to" v-else>{{ item.chat_content }}</p>
-        <p class="user-detail" v-if="item.user_id_from == user.user_id">
-          You <br />
-        </p>
-        <p class="user-detail-to" v-else>{{ receiver }} <br /></p>
       </div>
     </div>
     <div class="chat-type">
@@ -25,24 +21,27 @@
         id="textarea"
         class="chat-area"
         v-model="chat.chat_content"
-        v-bind="chat.room_chat != ''"
         placeholder="Enter something..."
         rows="1"
         max-rows="6"
         style="overflow:hidden"
       ></b-form-textarea>
     </div>
-    <button @click="chatSend" class="send-button">
+    <button @click="chatSend()" class="send-button">
       <img src="../../assets/send-icon.png" alt="" />
     </button>
   </div>
 </template>
 <script>
+import io from 'socket.io-client'
 import { mapGetters, mapActions } from 'vuex'
+import dotenv from 'dotenv'
+dotenv.config()
 export default {
   name: 'RoomChat',
   data() {
     return {
+      socket: io(process.env.VUE_APP_URL),
       chat: {
         chat_content: '',
         user_id_to: 0,
@@ -50,7 +49,9 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+    console.log(this.detailChat)
+  },
   computed: {
     ...mapGetters({
       user: 'setUser',
@@ -61,10 +62,16 @@ export default {
   methods: {
     ...mapActions(['sendChatting']),
     chatSend() {
-      let count = this.detailChat.length
-      this.chat.user_id_to = this.detailChat[count - 1].user_id_to
+      this.chat.user_id_to = this.detailChat[0].user_id_to
       this.chat.room_chat = this.detailChat[0].room_chat
-      this.sendChatting(this.chat)
+      this.chat.user_id_from = this.detailChat[0].user_id_to
+      const setData = {
+        ...this.chat,
+        ...{ user_id_from: this.user.user_id }
+      }
+      this.sendChatting(this.chat).then(() => {
+        this.socket.emit('roomMessage', setData)
+      })
     }
   }
 }
@@ -96,7 +103,7 @@ textarea {
 }
 .chat-body {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   overflow-y: scroll;
   height: 400px;
   padding-bottom: 40px;

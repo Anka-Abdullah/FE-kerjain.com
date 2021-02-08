@@ -4,7 +4,7 @@
       <p class="chat-title">Chat</p>
     </div>
     <div class="chat-body">
-      <div class="chats-empty" v-if="chat == 0">
+      <div class="chats-empty" v-if="allChat.length == 0">
         <img class="chat-empty" src="../../assets/icon_chat_empty.png" alt="" />
         <p class="chat-empty-text">Belum Ada Chat</p>
       </div>
@@ -12,7 +12,7 @@
         class="chat-listing"
         v-for="(item, index) in allChat"
         :key="index"
-        @click="sendData(item.room_chat)"
+        @click="sendData(item.room_chat, item.user_name)"
       >
         <img
           class="user-image"
@@ -20,31 +20,43 @@
           alt=""
         />
         <p class="user-name">{{ item.user_name }}</p>
-        <p class="user-message">{{ item.chat_content }}</p>
+        <p class="user-message">{{ item.lastMessage }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+import io from 'socket.io-client'
+import dotenv from 'dotenv'
+dotenv.config()
 export default {
   name: 'ListChat',
   data() {
     return {
-      chat: 1
+      chat: 1,
+      socket: io(process.env.VUE_APP_URL)
     }
   },
   created() {
-    console.log(this.allChat)
+    this.socket.on('chatMessage', data => {
+      console.log('dah Dapet data  nih')
+      console.log(data)
+      this.setChat(data)
+    })
   },
   computed: {
     ...mapGetters({ allChat: 'getAllChats' })
   },
   methods: {
     ...mapActions(['getDetailChat']),
-    sendData(id) {
-      this.getDetailChat(id)
+    ...mapMutations(['setReceiver', 'setChat']),
+    sendData(id, userName) {
+      this.socket.emit('joinRoom', id)
+      this.getDetailChat(id).then(() => {
+        this.setReceiver(userName)
+      })
     }
   }
 }
