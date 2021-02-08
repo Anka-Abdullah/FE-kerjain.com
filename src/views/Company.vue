@@ -5,34 +5,51 @@
   >
     <Navbar :show="2" />
     <b-container style="padding: 130px 0 100px 0" class="text-center">
-      <img
+      <!-- <img
         src="../assets/user.png"
         width="200"
         class="rounded-circle text-center ml-1 mb-2"
+      /> -->
+      <img
+        class="rounded-circle profile-img"
+        v-if="company.user_image"
+        :src="`${url}workers/${company.user_image}`"
       />
-      <h3><strong>PT. Martabak Jaya Abadi</strong></h3>
-      <h6 class="text-secondary">Financial</h6>
+
+      <img
+        v-else
+        src="../assets/user.png"
+        class="rounded-circle text-center profile-img"
+      />
+
+      <h3>
+        <strong>{{ company.user_name }}</strong>
+      </h3>
+      <h6 class="text-secondary">{{ company.user_field }}</h6>
       <h6 class="text-secondary">
-        <b-icon icon="geo-alt" class="mr-2"></b-icon>Lorem Ipsum
+        <b-icon icon="geo-alt" class="mr-2"></b-icon>{{ company.user_location }}
       </h6>
       <b-col class="w-50 mx-auto mt-3">
         <h6 class="text-secondary">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque optio
-          provident debitis atque, repellat laboriosam vero sint vel illo nemo
-          autem, exercitationem odit id. Voluptatem.
+          {{ company.user_description }}
         </h6>
-        <button class="button button-purple w-75 mt-4">Edit Profile</button>
+        <button class="button button-purple w-75 mt-4" to="/EditProfile">
+          Edit Profile
+        </button>
         <h6 class="text-secondary mt-5">
-          <b-icon icon="envelope" class="mr-2"></b-icon>gmail@gmail.com
+          <b-icon icon="envelope" class="mr-2"></b-icon>{{ company.user_email }}
         </h6>
         <h6 class="text-secondary mt-4">
-          <b-icon icon="instagram" class="mr-2"></b-icon>gmail@gmail.com
+          <b-icon icon="instagram" class="mr-2"></b-icon
+          >{{ company.user_instagram }}
         </h6>
         <h6 class="text-secondary my-4">
-          <b-icon icon="telephone" class="mr-2"></b-icon>gmail@gmail.com
+          <b-icon icon="telephone" class="mr-2"></b-icon
+          >{{ company.user_phone }}
         </h6>
         <h6 class="text-secondary my-4">
-          <b-icon icon="linkedin" class="mr-2"></b-icon>gmail@gmail.com
+          <b-icon icon="linkedin" class="mr-2"></b-icon
+          >{{ company.user_linkedin }}
         </h6>
       </b-col>
     </b-container>
@@ -42,12 +59,34 @@
 <script>
 import Navbar from '../components/_base/Navbar'
 import Footbar from '../components/_base/Footbar'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Company',
+  data() {
+    return {
+      url: process.env.VUE_APP_URL
+    }
+  },
   components: {
     Navbar,
     Footbar
+  },
+  created() {
+    this.getCompanyVuex(this.user.user_id)
+  },
+  computed: {
+    ...mapGetters({ user: 'setUser', company: 'getCompanyData' })
+  },
+  methods: {
+    ...mapActions(['getCompanyVuex'])
   }
 }
 </script>
-<style scooped></style>
+<style scooped>
+.profile-img {
+  width: 160px;
+  height: 160px;
+  margin-top: 10px;
+  object-fit: cover;
+}
+</style>
