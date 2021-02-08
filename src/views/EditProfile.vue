@@ -56,7 +56,10 @@
               Simpan
             </button></b-row
           ><b-row>
-            <button class="button button-white w-75 mx-auto mb-4">
+            <button
+              @click.prevent="askToCancel()"
+              class="button button-white w-75 mx-auto mb-4"
+            >
               Batal
             </button></b-row
           >
@@ -172,6 +175,9 @@ export default {
     },
     chooseFile() {
       document.getElementById('fileUpload').click()
+    },
+    askToCancel() {
+      this.getRecruiterByIds(this.user.user_id)
     }
   }
 }
