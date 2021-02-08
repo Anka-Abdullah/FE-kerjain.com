@@ -21,9 +21,10 @@
       <h4>
         <strong>{{ data.user_name }}</strong>
       </h4>
-      <h6>{{ data.user_field }}</h6>
-      <small class="text-secondary">
-        <b-icon icon="geo-alt" class="mr-2"></b-icon>{{ data.user_location }}
+      <h6>{{ data.user_jobdesc }}</h6>
+      <small v-if="data.user_location" class="text-secondary">
+        <b-icon icon="geo-alt" class="mr-2"></b-icon>{{ data.user_location }},
+        Indonesia
       </small>
       <br />
       <small class="text-secondary">{{ data.user_job_type }}</small>
@@ -37,11 +38,10 @@
         Simpan
       </button></b-row
     ><b-row>
-      <button class="button button-white w-100 mx-3 mb-4">
+      <button @click="toHome()" class="button button-white w-100 mx-3 mb-4">
         Batal
       </button></b-row
     >
-    {{ data }}
   </div>
 </template>
 
@@ -49,38 +49,12 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters({ data: 'getUserId' })
+    ...mapGetters({ data: 'setUserId' })
   },
   methods: {
     ...mapActions(['updateProfileUsers']),
     updateProfile() {
-      const {
-        user_name,
-        user_job_type,
-        user_jobdesc,
-        user_location,
-        user_workplace,
-        user_description,
-        user_instagram,
-        user_phone,
-        user_linkedin,
-        user_github
-      } = this.data
-      const data = new FormData()
-      data.append('user_name', user_name)
-      data.append('user_job_type', user_job_type)
-      data.append('user_jobdesc', user_jobdesc)
-      data.append('user_location', user_location)
-      data.append('user_workplace', user_workplace)
-      data.append('user_description', user_description)
-      data.append('user_instagram', user_instagram)
-      data.append('user_phone', user_phone)
-      data.append('user_linkedin', user_linkedin)
-      data.append('user_github', user_github)
-      for (var pair of data.entries()) {
-        console.log(pair[0] + ', ' + pair[1])
-      }
-      this.updateProfileUsers(data)
+      this.updateProfileUsers(this.data)
         .then(result => {
           alert(result.data.msg)
         })
@@ -94,6 +68,9 @@ export default {
     },
     chooseFile() {
       document.getElementById('fileUpload').click()
+    },
+    toHome() {
+      this.$router.push('/')
     }
   }
 }

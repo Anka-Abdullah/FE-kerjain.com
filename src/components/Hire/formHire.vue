@@ -80,6 +80,7 @@ export default {
     ...mapActions(['sendJobInvitations']),
     sendHiring() {
       this.form.user_id_to = this.$route.params.id
+      console.log(this.form)
       this.sendJobInvitations(this.form)
         .then(result => {
           this.successAlert(result.msg)

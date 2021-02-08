@@ -1,15 +1,16 @@
 import axios from 'axios'
 export default {
   state: {
-    userId: {},
+    user: {},
+    recruiter: {},
     skill: {}
   },
   mutations: {
     setUserById(state, payload) {
-      state.userId = payload
+      state.user = payload
     },
     setRecruiterById(state, payload) {
-      state.recruiterId = payload
+      state.recruiter = payload
     },
     setSkill(state, payload) {
       state.skill = payload
@@ -46,7 +47,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `${process.env.VUE_APP_URL}workers/${context.state.userId.user_id}`,
+            `${process.env.VUE_APP_URL}workers/${context.state.user.user_id}`,
             payload
           )
           .then(result => {
@@ -62,7 +63,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `${process.env.VUE_APP_URL}recruiter/${context.state.recruiterId.user_id}`,
+            `${process.env.VUE_APP_URL}recruiter/${context.state.recruiter.user_id}`,
             payload
           )
           .then(result => {
@@ -78,7 +79,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `${process.env.VUE_APP_URL}editPhoto/${context.state.userId.user_id}`,
+            `${process.env.VUE_APP_URL}editPhoto/${context.state.user.user_id}`,
             payload
           )
           .then(result => {
@@ -107,13 +108,11 @@ export default {
       return new Promise((resolve, reject) => {
         console.log(payload)
         axios
-          .post(`${process.env.VUE_APP_URL}skill/`, payload.user_name)
+          .post(`${process.env.VUE_APP_URL}skills/`, payload)
           .then(result => {
-            context.dispatch('getSkill', payload.user_id)
             resolve(result)
           })
           .catch(error => {
-            console.log(error)
             reject(error.response)
           })
       })
@@ -133,11 +132,11 @@ export default {
     }
   },
   getters: {
-    getUserId(state) {
-      return state.userId
+    setUserId(state) {
+      return state.user
     },
-    getRecruiterId(state) {
-      return state.recruiterId
+    setRecruiterId(state) {
+      return state.recruiter
     },
     getSkill(state) {
       return state.skill

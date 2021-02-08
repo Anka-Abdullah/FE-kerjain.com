@@ -86,15 +86,19 @@
         <div class="flex-comp">
           <b-form-input
             type="text"
+            v-model="skill"
             placeholder="Masukkan skill"
             required
           ></b-form-input>
-          <button class="btn-def">Simpan</button>
+          <button @click="addSkill" class="btn-def">Simpan</button>
         </div>
-        <!-- <b-button-group v-for="(item, index) in skills" :key="index">
-        <b-button variant="warning" size="sm">{{ item.skill_name }}</b-button>
-        <b-button @click="destroySkill(item.skill_id)" size="sm">x</b-button>
-      </b-button-group> -->
+        <br />
+        <b-button-group v-for="(item, index) in skills" :key="index">
+          <b-button variant="warning" size="sm">{{ item.skill_name }}</b-button>
+          <b-button class="mr-3" @click="destroySkill(item.skill_id)" size="sm"
+            >x</b-button
+          >
+        </b-button-group>
       </b-container>
     </div>
     <br />
@@ -109,18 +113,21 @@
           placeholder="Masukkan posisi"
           required
         ></b-form-input>
+        <h6>Nama perusahaan</h6>
+        <b-form-input
+          type="text"
+          placeholder="Masukkan nama perusahaan"
+          required
+        ></b-form-input>
         <div class="flex-comp">
           <div class="w-50 pr-2">
-            <h6>Nama perusahaan</h6>
-            <b-form-input
-              type="text"
-              placeholder="Masukkan nama perusahaan"
-              required
-            ></b-form-input>
+            <h6>Bulan - tahun mulai</h6>
+            <input v-model="month" class="month" type="month" />
           </div>
           <div class="w-50 pl-2">
-            <h6>Bulan - tahun</h6>
-            <input class="month" type="month" />
+            <h6>Bulan - tahun selesai</h6>
+            <input v-model="month" class="month" type="month" />
+            {{ month }}
           </div>
         </div>
         <h6>Deskripsi singkat</h6>
@@ -134,10 +141,16 @@
         <button class="btn-bottom">
           <strong>Tambah Pengalaman Kerja</strong>
         </button>
-        <!-- {{ user.user_id }}
-        {{ data }} -->
-        {{ data }}
       </b-container>
+    </div>
+    <div>
+      <h1>Finds</h1>
+      <div v-for="(find, index) in finds" :key="index">
+        <input v-model="find.value" type="text" placeholder="asdsa" />
+      </div>
+      <button @click="addFind">
+        New Find
+      </button>
     </div>
   </div>
 </template>
@@ -147,26 +160,47 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      form: {
-        job: ''
-      },
       job: [
         { text: 'Pilih satu job type', value: null },
         'Fulltime',
         'Freelance'
-      ]
+      ],
+      id: '',
+      skill: '',
+      month: '',
+      finds: []
     }
   },
+  created() {
+    this.getSkill(this.user.user_id)
+  },
   mounted() {
-    this.getUserById()
+    this.getUserByIds(this.user.user_id)
   },
   computed: {
-    ...mapGetters({ user: 'setUser', data: 'getUserId' })
+    ...mapGetters({ user: 'setUser', data: 'setUserId', skills: 'getSkill' })
   },
   methods: {
-    ...mapActions(['getUserByIds']),
-    getUserById() {
-      this.getUserByIds(this.user.user_id)
+    ...mapActions(['getUserByIds', 'getSkill', 'postSkill', 'deleteSkill']),
+    addSkill() {
+      const data = [
+        {
+          user_id: this.user.user_id,
+          skill_name: this.skill
+        }
+      ]
+      this.postSkill(data)
+      this.getSkill(this.user.user_id)
+    },
+    destroySkill(id) {
+      const data = {
+        user_id: this.user.user_id,
+        skill_id: id
+      }
+      this.deleteSkill(data)
+    },
+    addFind: function() {
+      this.finds.push({ value: '' })
     }
   }
 }

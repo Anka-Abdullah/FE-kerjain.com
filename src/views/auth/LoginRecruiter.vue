@@ -7,10 +7,9 @@
         <div class="righted">
           <button class="btn-top" @click.prevent="toPage()">Pekerja</button>
         </div>
-        <h4>Halo, Pewpeople</h4>
+        <h4>Halo recruiter</h4>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam natus
-          corrupti sunt fugit, eius odio!
+          Temukan talent digital terbaik bersama kami
         </p>
         <br />
         <b-form @submit.prevent="onSubmit">

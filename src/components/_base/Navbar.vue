@@ -29,8 +29,14 @@
                   icon="chat-left-dots"
                   class="mx-4"
                 ></b-icon></router-link
-              ><router-link to="/editprofile"
-                ><b-avatar src="https://placekitten.com/300/300"></b-avatar
+              ><router-link to="/editprofile">
+                <b-avatar
+                  v-if="userId.user_image"
+                  :src="url + 'workers/' + userId.user_image"
+                >
+                </b-avatar>
+                <b-avatar v-else src="https://placekitten.com/300/300">
+                </b-avatar
               ></router-link>
             </h5>
             <button
@@ -63,14 +69,19 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 export default {
+  data() {
+    return {
+      url: process.env.VUE_APP_URL
+    }
+  },
   props: {
     show: Number
   },
   computed: {
-    ...mapGetters({ user: 'setUser' })
+    ...mapGetters({ user: 'setUser', userId: 'setUserId' })
   },
   methods: {
-    ...mapActions(['logout']),
+    ...mapActions(['logout', 'getUserByIds']),
     handleLogout() {
       this.logout()
     },
@@ -79,7 +90,13 @@ export default {
     },
     handleRecruiter() {
       this.$router.push('EditProfile')
+    },
+    getUserData() {
+      this.getUserByIds(this.user.user_id)
     }
+  },
+  created() {
+    this.getUserData()
   }
 }
 </script>
