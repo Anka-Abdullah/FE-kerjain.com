@@ -2,13 +2,23 @@
   <div>
     <div class="box-profile">
       <div class="centered">
-        <!-- <img
-      v-if="data.user_image"
-      :src="'http://localhost:3000/workers/' + data.user_image"
-      width="200"
-      class="rounded-circle text-center ml-1 mb-2"
-    /> -->
-        <img src="../../../src/assets/user_image.png" class="rounded-circle" />
+        <img
+          class="rounded-circle profile-img"
+          v-if="data.user_image && image"
+          :src="image"
+        />
+        <img
+          class="rounded-circle profile-img"
+          v-else-if="data.user_image"
+          :src="`${url}workers/${data.user_image}`"
+        />
+
+        <img
+          v-else
+          src="../../../src/assets/user.png"
+          class="rounded-circle text-center profile-img"
+        />
+        <!-- <img src="../../../src/assets/user_image.png" class="rounded-circle" /> -->
         <input id="fileUpload" type="file" @change="handleFile" hidden />
         <button
           @click="chooseFile"
@@ -48,11 +58,17 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 export default {
+  data() {
+    return {
+      image: '',
+      url: process.env.VUE_APP_URL
+    }
+  },
   computed: {
     ...mapGetters({ data: 'setUserId' })
   },
   methods: {
-    ...mapActions(['updateProfileUsers']),
+    ...mapActions(['updateProfileUsers', 'UpdateImageUsers']),
     updateProfile() {
       this.updateProfileUsers(this.data)
         .then(result => {
@@ -63,8 +79,13 @@ export default {
         })
     },
     handleFile(event) {
-      this.user_image = event.target.files[0]
-      // this.updateImage()
+      const user_image = event.target.files[0]
+      const data = new FormData()
+      data.append('user_image', user_image)
+      const setData = { data, id: this.data.user_id }
+      this.UpdateImageUsers(setData).then(() => {
+        this.image = URL.createObjectURL(user_image)
+      })
     },
     chooseFile() {
       document.getElementById('fileUpload').click()
