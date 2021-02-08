@@ -23,9 +23,11 @@ export default {
           .get(`${process.env.VUE_APP_URL}workers/${payload}`)
           .then(result => {
             context.commit('setUserById', result.data.data[0])
+            console.log(result)
             resolve(result)
           })
           .catch(error => {
+            console.log(error)
             reject(error.response)
           })
       })
@@ -77,19 +79,19 @@ export default {
     },
     UpdateImageUsers(context, payload) {
       return new Promise((resolve, reject) => {
-        console.log(context.state.userId.user_id)
+        console.log(payload.id)
         console.log(payload)
         axios
           .patch(
-            `${process.env.VUE_APP_URL}editPhoto/${context.state.user.user_id}`,
-            payload
+            `${process.env.VUE_APP_URL}editPhoto/${payload.id}`,
+            payload.data
           )
           .then(result => {
             console.log(result)
-            context.commit('setImg', result.data)
             resolve(result)
           })
           .catch(error => {
+            console.log(error)
             reject(error.response)
           })
       })

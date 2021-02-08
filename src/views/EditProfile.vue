@@ -8,18 +8,25 @@
       <b-row>
         <b-col lg="3" sm="12"
           ><b-card class="border-0">
-            <!-- <img
-              v-if="data.user_image"
-              :src="'http://localhost:3000/workers/' + data.user_image"
-              width="200"
-              class="rounded-circle text-center ml-1 mb-2"
-            /> -->
-            <!-- <img v-if="image" :src="`${process.env.VUE_APP_URL}workers/${image}`" /> -->
-            <img
-              src="../assets/user.png"
-              width="200"
-              class="rounded-circle text-center ml-1 mb-2"
-            />
+            <div class="img-wrapper text-center">
+              <img
+                class="rounded-circle profile-img"
+                v-if="data.user_image && image"
+                :src="image"
+              />
+              <img
+                class="rounded-circle profile-img"
+                v-else-if="data.user_image"
+                :src="`${url}workers/${data.user_image}`"
+              />
+
+              <img
+                v-else
+                src="../assets/user.png"
+                class="rounded-circle text-center profile-img"
+              />
+            </div>
+
             <input id="fileUpload" type="file" @change="handleFile" hidden />
             <button
               @click="chooseFile"
@@ -73,8 +80,6 @@
                   class="w-100"
                   rows="5"
                 ></textarea>
-                <h6>Email</h6>
-                <input type="text" v-model="data.user_email" />
                 <h6>Instagram</h6>
                 <input type="text" v-model="data.user_instagram" />
                 <h6>Nomor telepon</h6>
@@ -103,31 +108,35 @@ export default {
   },
   data() {
     return {
-      job: [{ text: 'Pilih satu job type', value: '' }, 'Fulltime', 'Freelance']
+      job: [
+        { text: 'Pilih satu job type', value: '' },
+        'Fulltime',
+        'Freelance'
+      ],
+      image: '',
+      url: process.env.VUE_APP_URL
     }
   },
   created() {
-    this.getUserById()
+    this.getRecruiterByIds(this.user.user_id)
   },
   computed: {
-    ...mapGetters({ user: 'setUser', data: 'setRecruiterId' })
+    ...mapGetters({
+      user: 'setUser',
+      data: 'setRecruiterId'
+    })
   },
   methods: {
-    ...mapGetters(['setUser']),
     ...mapActions([
       'getRecruiterByIds',
       'updateProfileRecruiters',
       'UpdateImageUsers'
     ]),
-    getUserById() {
-      this.getRecruiterByIds(this.user.user_id)
-    },
     updateProfile() {
       const {
         user_name,
         user_field,
         user_location,
-        user_email,
         user_description,
         user_instagram,
         user_phone,
@@ -141,13 +150,11 @@ export default {
       data.append('user_instagram', user_instagram)
       data.append('user_phone', user_phone)
       data.append('user_linkedin', user_linkedin)
-      data.append('user_email', user_email)
       for (var pair of data.entries()) {
         console.log(pair[0] + ', ' + pair[1])
       }
       this.updateProfileRecruiters(data)
         .then(result => {
-          // this.updateImage()
           alert(result.data.msg)
         })
         .catch(err => {
@@ -156,7 +163,12 @@ export default {
     },
     handleFile(event) {
       const user_image = event.target.files[0]
-      this.UpdateImageUsers(user_image)
+      const data = new FormData()
+      data.append('user_image', user_image)
+      const setData = { data, id: this.user.user_id }
+      this.UpdateImageUsers(setData).then(() => {
+        this.image = URL.createObjectURL(user_image)
+      })
     },
     chooseFile() {
       document.getElementById('fileUpload').click()
@@ -165,6 +177,11 @@ export default {
 }
 </script>
 <style scoped>
+.profile-img {
+  width: 160px;
+  height: 160px;
+  margin-top: 10px;
+}
 input {
   border: 1px solid #afafaf;
   padding: 5px;

@@ -5,11 +5,23 @@
   >
     <Navbar :show="2" />
     <b-container style="padding: 130px 0 100px 0" class="text-center">
-      <img
+      <!-- <img
         src="../assets/user.png"
         width="200"
         class="rounded-circle text-center ml-1 mb-2"
+      /> -->
+      <img
+        class="rounded-circle profile-img"
+        v-if="company.user_image"
+        :src="`${url}workers/${company.user_image}`"
       />
+
+      <img
+        v-else
+        src="../assets/user.png"
+        class="rounded-circle text-center profile-img"
+      />
+
       <h3>
         <strong>{{ company.user_name }}</strong>
       </h3>
@@ -50,6 +62,11 @@ import Footbar from '../components/_base/Footbar'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Company',
+  data() {
+    return {
+      url: process.env.VUE_APP_URL
+    }
+  },
   components: {
     Navbar,
     Footbar
@@ -65,4 +82,11 @@ export default {
   }
 }
 </script>
-<style scooped></style>
+<style scooped>
+.profile-img {
+  width: 160px;
+  height: 160px;
+  margin-top: 10px;
+  object-fit: cover;
+}
+</style>
