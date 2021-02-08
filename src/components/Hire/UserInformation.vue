@@ -1,7 +1,11 @@
 <template>
   <div class="user-information">
     <div class="image">
-      <img class="user-image" src="../../assets/user_image.png" alt="" />
+      <img
+        class="user-image"
+        src="../../assets/user_image.png"
+        alt=""
+      />
     </div>
     <p class="user-name">{{ userId.user_name }}</p>
     <p class="user-description">
@@ -26,6 +30,11 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'UserInformation',
+  data() {
+    return {
+
+    }
+  },
   created() {
     console.log(this.skills)
   },
