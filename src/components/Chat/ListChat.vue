@@ -36,7 +36,8 @@ export default {
   data() {
     return {
       chat: 1,
-      socket: io(process.env.VUE_APP_URL)
+      socket: io(process.env.VUE_APP_URL),
+      oldRoom: ''
     }
   },
   created() {
@@ -53,10 +54,23 @@ export default {
     ...mapActions(['getDetailChat']),
     ...mapMutations(['setReceiver', 'setChat']),
     sendData(id, userName) {
-      this.socket.emit('joinRoom', id)
-      this.getDetailChat(id).then(() => {
-        this.setReceiver(userName)
-      })
+      if (this.oldRoom) {
+        const newData = {
+          ...{ oldRoom: this.oldRoom },
+          ...{ room_chat: id }
+        }
+        this.socket.emit('changeRoom', newData)
+        this.getDetailChat(id).then(() => {
+          this.setReceiver(userName)
+          this.oldRoom = id
+        })
+      } else {
+        this.socket.emit('joinRoom', id)
+        this.getDetailChat(id).then(() => {
+          this.setReceiver(userName)
+          this.oldRoom = id
+        })
+      }
     }
   }
 }
