@@ -110,6 +110,12 @@ const routes = [
         /* webpackChunkName: "editprofile" */ '../views/EditProfileUser.vue'
       ),
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/confirmationemail/:id',
+    name: 'ConfirmationEmail',
+    component: () => import('../views/ConfirmationEmail.vue'),
+    meta: { requiresVisitor: true }
   }
 ]
 
