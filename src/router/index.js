@@ -32,7 +32,7 @@ const routes = [
     component: LandingPage
   },
   {
-    path: '/profile/:data',
+    path: '/profile',
     name: 'Profile',
     component: () =>
       import(/* webpackChunkName: "profile" */ '../views/Profile.vue'),
@@ -58,7 +58,7 @@ const routes = [
     meta: { requiresVisitor: true }
   },
   {
-    path: '/hire',
+    path: '/hire/:id',
     name: 'Hire',
     component: () =>
       import(/* webpackChunkName: "company" */ '../views/Hire.vue'),
@@ -110,6 +110,12 @@ const routes = [
         /* webpackChunkName: "editprofile" */ '../views/EditProfileUser.vue'
       ),
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/confirmationemail/:id',
+    name: 'ConfirmationEmail',
+    component: () => import('../views/ConfirmationEmail.vue'),
+    meta: { requiresVisitor: true }
   }
 ]
 

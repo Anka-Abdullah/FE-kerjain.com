@@ -7,10 +7,10 @@
         <div class="righted">
           <button class="btn-top" @click.prevent="toPage()">Perekrut</button>
         </div>
-        <h4>Halo, Pewpeople</h4>
+        <h4>Halo Talent</h4>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam natus
-          corrupti sunt fugit, eius odio!
+          Daftar sekarang untuk mendapatkan kesempatan bekerja dengan perusahaan
+          terbaik
         </p>
         <br />
         <b-form @submit.prevent="onSubmit">
@@ -66,7 +66,6 @@
           <button class="yellow" type="submit">Daftar</button>
           <br />
           <div class="centered">
-            <button @click="showData">show data</button>
             Anda sudah punya akun?
             <router-link to="/loginuser">Masuk disini</router-link>
           </div>

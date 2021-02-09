@@ -8,7 +8,8 @@ export default {
     detailChat: [],
     receiver: '',
     userById: [],
-    skillsUser: []
+    skillsUser: [],
+    userFrom: {}
   },
   mutations: {
     setAllChat(state, payload) {
@@ -28,6 +29,13 @@ export default {
     },
     setSkillsUser(state, payload) {
       state.skillsUser = payload.skills.split(',')
+    },
+    setUserFrom(state, payload) {
+      state.skillsUser = payload
+    },
+    setChat(state, payload) {
+      state.detailChat.push(payload)
+      console.log(state.detailChat)
     }
   },
   actions: {
@@ -62,7 +70,6 @@ export default {
           .get(`${process.env.VUE_APP_URL}hiring/getdetailchat/${payload}`)
           .then(result => {
             context.commit('setDetailChat', result.data.data)
-            context.commit('setReceiver', result.data.data[1].user_name)
             resolve(result)
           })
           .catch(err => {
@@ -71,18 +78,17 @@ export default {
       })
     },
     sendChatting(_context, payload) {
-      return new Promise(() => {
-        console.log('ok')
+      return new Promise((resolve, reject) => {
         axios
           .post(
             `${process.env.VUE_APP_URL}hiring/getdetailchat/${payload.room_chat}`,
             payload
           )
           .then(result => {
-            console.log(result)
+            resolve(result)
           })
           .catch(err => {
-            console.log(err)
+            reject(err)
           })
       })
     },
@@ -111,6 +117,19 @@ export default {
             reject(new Error(err))
           })
       })
+    },
+    getUserFrom(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}workers/${payload}`)
+          .then(result => {
+            context.commit('setUserById', result.data.data[0])
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
     }
   },
   getters: {
@@ -131,6 +150,9 @@ export default {
     },
     getSkillsUser(state) {
       return state.skillsUser
+    },
+    getUserFrom(state) {
+      return state.userFrom
     }
   }
 }

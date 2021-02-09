@@ -7,19 +7,18 @@
         <div class="righted">
           <button class="btn-top" @click.prevent="toPage()">Pekerja</button>
         </div>
-        <h4>Halo, Pewpeople</h4>
+        <h4>Halo recruiter</h4>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam natus
-          corrupti sunt fugit, eius odio!
+          Daftar sekarang untuk menemukan talent digital terbaik bersama kami
         </p>
         <br />
         <b-form @submit.prevent="onSubmit">
-          <b-form-group label="Nama" label-for="Name">
+          <b-form-group label="Nama Perusahaan" label-for="Name">
             <b-form-input
               id="Name"
               v-model="form.user_name"
               type="text"
-              placeholder="Masukkan nama"
+              placeholder="Masukkan nama perusahaan"
               required
             ></b-form-input>
           </b-form-group>
@@ -32,16 +31,7 @@
               required
             ></b-form-input>
           </b-form-group>
-          <b-form-group label="Perusahaan" label-for="perusahaan">
-            <b-form-input
-              id="perusahaan"
-              v-model="form.user_name"
-              type="text"
-              placeholder="Masukkan nama perusahaan       "
-              required
-            ></b-form-input>
-          </b-form-group>
-          <b-form-group label="Jabatan" label-for="jabatan">
+          <!-- <b-form-group label="Jabatan" label-for="jabatan">
             <b-form-input
               id="jabatan"
               v-model="form.user_name"
@@ -49,7 +39,7 @@
               placeholder="Posisi di perusahaan Anda"
               required
             ></b-form-input>
-          </b-form-group>
+          </b-form-group> -->
           <b-form-group label="No Handphone" label-for="Phone Number">
             <b-form-input
               id="Phone Number"

@@ -74,6 +74,7 @@ input:focus {
   background-color: #ffc95d;
   color: #ffffff;
   margin: 0px 10px 10px 0px;
+  font-size: 13px;
 }
 
 @media (max-width: 600px) {
