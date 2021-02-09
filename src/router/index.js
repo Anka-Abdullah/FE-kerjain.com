@@ -32,7 +32,14 @@ const routes = [
     component: LandingPage
   },
   {
-    path: '/profile',
+    path: '/myprofile',
+    name: 'MyProfile',
+    component: () =>
+      import(/* webpackChunkName: "profile" */ '../views/Profile.vue'),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/profile/:id',
     name: 'Profile',
     component: () =>
       import(/* webpackChunkName: "profile" */ '../views/Profile.vue'),

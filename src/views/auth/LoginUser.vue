@@ -9,7 +9,7 @@
         </div>
         <h4>Halo talent</h4>
         <p>
-          Dapatkan kesempatan bekerja dengan perusahaan terbaik hanya bersama.
+          Dapatkan kesempatan bekerja dengan perusahaan terbaik hanya bersama
           kami
         </p>
         <br />
@@ -82,7 +82,7 @@ export default {
       this.loginUser(this.form)
         .then(result => {
           this.successAlert(result.data.msg)
-          this.$router.push('/profile')
+          this.$router.push('/myprofile')
         })
         .catch(err => {
           console.log(err)

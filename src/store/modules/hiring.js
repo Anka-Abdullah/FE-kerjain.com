@@ -52,9 +52,11 @@ export default {
         axios
           .post(`${process.env.VUE_APP_URL}hiring/jobinvitation`, payload)
           .then(result => {
+            console.log(result)
             resolve(result.data)
           })
           .catch(err => {
+            console.log(err)
             reject(err)
           })
       })

@@ -79,10 +79,13 @@
                   <b-avatar v-else src="https://placekitten.com/300/300">
                   </b-avatar
                 ></template>
+                <b-dropdown-item @click="handleMyProfile"
+                  >My Profile</b-dropdown-item
+                >
                 <b-dropdown-item
                   v-if="user.user_role === 1"
                   @click="handleRecruiter"
-                  >Profile</b-dropdown-item
+                  >Edit Profile</b-dropdown-item
                 >
                 <b-dropdown-item
                   v-if="user.user_role === 0"
@@ -130,6 +133,13 @@ export default {
     ]),
     handleLogout() {
       this.logout()
+    },
+    handleMyProfile() {
+      if (this.user.user_role === 1) {
+        this.$router.push('Company')
+      } else {
+        this.$router.push('MyProfile')
+      }
     },
     handleWorker() {
       this.$router.push('EditProfileUser')
