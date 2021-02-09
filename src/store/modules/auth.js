@@ -84,6 +84,18 @@ export default {
           return Promise.reject(error)
         }
       )
+    },
+    verificationEmail(_context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(`${process.env.VUE_APP_URL}workers/activate/email/${payload}`)
+          .then(result => {
+            resolve(result)
+          })
+          .catch(err => {
+            reject(new Error(err))
+          })
+      })
     }
   },
   getters: {
