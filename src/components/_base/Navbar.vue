@@ -26,7 +26,7 @@
               <b-icon
                 @click="showNotification"
                 icon="bell"
-                class="bell-icon-btn"
+                class="bell-icon-btn mr-3"
               ></b-icon>
               <div
                 v-if="countNotif > 0"
@@ -60,7 +60,7 @@
                 </div>
               </div>
               <router-link to="/chat"
-                ><b-icon icon="chat-left-dots" class="mx-4"></b-icon
+                ><b-icon icon="chat-left-dots" class="mx-2"></b-icon
               ></router-link>
               <!-- <router-link to="/editprofile"> </router-link> -->
               <b-dropdown right variant="none" class="ml-auto" no-caret
@@ -68,6 +68,7 @@
                   <b-avatar
                     v-if="userId.user_image"
                     :src="url + 'workers/' + userId.user_image"
+                    class="user-img"
                   >
                   </b-avatar>
                   <b-avatar v-else src="https://placekitten.com/300/300">
@@ -84,7 +85,7 @@
                 <b-dropdown-item
                   v-if="user.user_role === 0"
                   @click="handleWorker"
-                  >Profile</b-dropdown-item
+                  >Edit Profile</b-dropdown-item
                 >
                 <b-dropdown-item v-if="user.user_id" @click="handleLogout"
                   >Logout</b-dropdown-item
@@ -164,6 +165,11 @@ export default {
 }
 </script>
 <style scoped>
+.user-img {
+  width: 30px;
+  height: 30px;
+}
+
 .bell-icon-btn,
 .icon-count {
   cursor: pointer;
@@ -191,6 +197,9 @@ export default {
   background: rgba(238, 237, 237, 0.9);
   border-radius: 5px;
   padding: 10px;
+  max-width: 250px;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .notif-card {
@@ -199,9 +208,6 @@ export default {
   border-radius: 5px;
   padding: 5px 10px;
   background-color: #fff;
-  max-width: 250px;
-  max-height: 400px;
-  overflow: auto;
 }
 
 .notif-card p {
