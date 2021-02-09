@@ -82,7 +82,7 @@ export default {
       this.loginUser(this.form)
         .then(result => {
           this.successAlert(result.data.msg)
-          this.$router.push('/')
+          this.$router.push('/profile')
         })
         .catch(err => {
           console.log(err)

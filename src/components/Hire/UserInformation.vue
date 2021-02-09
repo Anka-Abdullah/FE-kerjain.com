@@ -2,12 +2,17 @@
   <div class="user-information">
     <div class="image">
       <img
+        v-if="userId.user_image"
         class="user-image"
-        src="../../assets/user_image.png"
+        :src="url + 'workers/' + userId.user_image"
         alt=""
       />
+      <img v-else class="user-image" src="../../assets/user_image.png" alt="" />
     </div>
     <p class="user-name">{{ userId.user_name }}</p>
+    <p class="user-description">
+      <strong>{{ userId.user_jobdesc }}</strong>
+    </p>
     <p class="user-description">
       {{ userId.user_description }}
     </p>
@@ -32,7 +37,7 @@ export default {
   name: 'UserInformation',
   data() {
     return {
-
+      url: process.env.VUE_APP_URL
     }
   },
   created() {

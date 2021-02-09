@@ -52,7 +52,9 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { alert } from '../../mixins/alert'
 export default {
+  mixins: [alert],
   components: {},
   data() {
     return {
@@ -72,11 +74,12 @@ export default {
     onSubmit() {
       this.confirmPassUser(this.form)
         .then(result => {
-          alert(result.data.msg)
+          this.successAlert(result.data.msg)
+          this.$router.push('/loginuser')
         })
         .catch(err => {
           console.log(err)
-          alert(err.data.msg)
+          this.errorAlert(err.data.msg)
         })
     },
     showData() {

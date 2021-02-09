@@ -9,7 +9,9 @@ export default {
     receiver: '',
     userById: [],
     skillsUser: [],
-    userFrom: {}
+    userFrom: {},
+    notif: {},
+    countNotif: 0
   },
   mutations: {
     setAllChat(state, payload) {
@@ -36,6 +38,12 @@ export default {
     setChat(state, payload) {
       state.detailChat.push(payload)
       console.log(state.detailChat)
+    },
+    setNotifById(state, payload) {
+      state.notif = payload
+    },
+    setCountNotif(state, payload) {
+      state.countNotif = payload
     }
   },
   actions: {
@@ -130,6 +138,63 @@ export default {
             reject(error.response)
           })
       })
+    },
+    getNotifById(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}hiring/notif/get/${payload}`)
+          .then(result => {
+            context.commit('setNotifById', result.data.data)
+            console.log(result)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    getCountNotif(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}hiring/notif/count/${payload}`)
+          .then(result => {
+            context.commit('setCountNotif', result.data.data[0])
+            console.log(result)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    postNotif(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`${process.env.VUE_APP_URL}hiring/notif`, payload)
+          .then(result => {
+            console.log(result)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    patchNotif(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(
+            `${process.env.VUE_APP_URL}hiring/notif/patch/${payload.id}`,
+            payload.setData
+          )
+          .then(result => {
+            console.log(result)
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
     }
   },
   getters: {
@@ -153,6 +218,12 @@ export default {
     },
     getUserFrom(state) {
       return state.userFrom
+    },
+    getNotifById(state) {
+      return state.notif
+    },
+    getCountNotif(state) {
+      return state.countNotif
     }
   }
 }
