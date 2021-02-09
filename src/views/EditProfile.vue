@@ -102,8 +102,9 @@
 import Navbar from '../components/_base/Navbar'
 import Footbar from '../components/_base/Footbar'
 import { mapActions, mapGetters } from 'vuex'
-
+import { alert } from '../mixins/alert'
 export default {
+  mixins: [alert],
   name: 'EditProfile',
   components: {
     Navbar,
@@ -158,10 +159,10 @@ export default {
       }
       this.updateProfileRecruiters(data)
         .then(result => {
-          alert(result.data.msg)
+          this.successAlert(result.data.msg)
         })
         .catch(err => {
-          alert(err.data.msg)
+          this.errorAlert(err.data.msg)
         })
     },
     handleFile(event) {
