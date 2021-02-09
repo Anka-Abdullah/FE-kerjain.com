@@ -30,9 +30,10 @@
             <input id="fileUpload" type="file" @change="handleFile" hidden />
             <button
               @click="chooseFile"
-              class="button button-purple w-75 ml-4  my-4"
+              class="button btn-color button-light w-75  my-4"
             >
-              Choose photo
+              <b-icon icon="pencil-fill"></b-icon>
+              Edit
             </button>
             <h4>
               <strong>{{ data.user_name }}</strong>
@@ -63,6 +64,44 @@
               Batal
             </button></b-row
           >
+          <b-row>
+            <button
+              class="button button-purple w-75 mx-auto my-4"
+              id="show-btn"
+              @click="$bvModal.show('bv-modal-example')"
+            >
+              Ubah Password
+            </button>
+            <b-modal id="bv-modal-example" hide-footer>
+              <template #modal-title>
+                Ubah Password
+              </template>
+              <div class="d-block text-left">
+                <b-form-group label="Password Baru :" label-for="pass">
+                  <b-form-input
+                    id="pass"
+                    type="password"
+                    v-model="form.newPassword"
+                  ></b-form-input>
+                </b-form-group>
+                <b-form-group
+                  label="Konfirmasi Password Baru :"
+                  label-for="confirm-pass"
+                >
+                  <b-form-input
+                    id="confirm-pass"
+                    type="password"
+                    v-model="form.confirmPassword"
+                  ></b-form-input>
+                </b-form-group>
+                <div style="text-align:right">
+                  <button class="button-purple" @click="changePassword()">
+                    Simpan
+                  </button>
+                </div>
+              </div>
+            </b-modal>
+          </b-row>
         </b-col>
         <b-col lg="9" sm="12">
           <b-card class="shadow bg-white pb-5">
@@ -102,8 +141,9 @@
 import Navbar from '../components/_base/Navbar'
 import Footbar from '../components/_base/Footbar'
 import { mapActions, mapGetters } from 'vuex'
-
+import { alert } from '../mixins/alert'
 export default {
+  mixins: [alert],
   name: 'EditProfile',
   components: {
     Navbar,
@@ -117,7 +157,11 @@ export default {
         'Freelance'
       ],
       image: '',
-      url: process.env.VUE_APP_URL
+      url: process.env.VUE_APP_URL,
+      form: {
+        newPassword: '',
+        confirmPassword: ''
+      }
     }
   },
   created() {
@@ -133,7 +177,8 @@ export default {
     ...mapActions([
       'getRecruiterByIds',
       'updateProfileRecruiters',
-      'UpdateImageUsers'
+      'UpdateImageUsers',
+      'patchPasswordAllUserVuex'
     ]),
     updateProfile() {
       const {
@@ -158,10 +203,10 @@ export default {
       }
       this.updateProfileRecruiters(data)
         .then(result => {
-          alert(result.data.msg)
+          this.successAlert(result.data.msg)
         })
         .catch(err => {
-          alert(err.data.msg)
+          this.errorAlert(err.data.msg)
         })
     },
     handleFile(event) {
@@ -169,15 +214,32 @@ export default {
       const data = new FormData()
       data.append('user_image', user_image)
       const setData = { data, id: this.user.user_id }
-      this.UpdateImageUsers(setData).then(() => {
-        this.image = URL.createObjectURL(user_image)
-      })
+      this.UpdateImageUsers(setData)
+        .then(result => {
+          this.image = URL.createObjectURL(user_image)
+          this.successAlert(result.data.msg)
+        })
+        .catch(err => {
+          this.errorAlert(err.data.msg)
+        })
     },
     chooseFile() {
       document.getElementById('fileUpload').click()
     },
     askToCancel() {
-      this.getRecruiterByIds(this.user.user_id)
+      this.$router.push('/')
+    },
+    changePassword() {
+      this.patchPasswordAllUserVuex({ id: this.user.user_id, data: this.form })
+        .then(result => {
+          this.successAlert(result.data.msg)
+        })
+        .catch(err => {
+          this.errorAlert(err.data.msg)
+        })
+
+      this.form.newPassword = ''
+      this.form.confirmPassword = ''
     }
   }
 }
