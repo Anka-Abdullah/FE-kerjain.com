@@ -17,7 +17,7 @@
           <b-dropdown-item
             href="#"
             class="py-2 border-bottom"
-            @click="sort('user_name')"
+            @click="sort('user.user_name')"
             >Sortir berdasarkan nama</b-dropdown-item
           >
           <b-dropdown-item
