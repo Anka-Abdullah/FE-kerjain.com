@@ -98,7 +98,7 @@ export default {
       console.log(this.data)
     },
     hire() {
-      this.$router.push({ name: 'Hire', query: { data: this.data.user_id } })
+      this.$router.push({ name: 'Hire', params: { id: this.data.user_id } })
     },
     getUserData() {
       this.getUserByIds(this.data.user_id)
