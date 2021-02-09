@@ -18,7 +18,6 @@
           src="../../../src/assets/user.png"
           class="rounded-circle text-center profile-img"
         />
-        <!-- <img src="../../../src/assets/user_image.png" class="rounded-circle" /> -->
         <input id="fileUpload" type="file" @change="handleFile" hidden />
         <button
           @click="chooseFile"
@@ -57,7 +56,9 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { alert } from '../../mixins/alert'
 export default {
+  mixins: [alert],
   data() {
     return {
       image: '',
@@ -72,10 +73,10 @@ export default {
     updateProfile() {
       this.updateProfileUsers(this.data)
         .then(result => {
-          alert(result.data.msg)
+          this.successAlert(result.data.msg)
         })
         .catch(err => {
-          alert(err.data.msg)
+          this.errorAlert(err.data.msg)
         })
     },
     handleFile(event) {
@@ -83,9 +84,14 @@ export default {
       const data = new FormData()
       data.append('user_image', user_image)
       const setData = { data, id: this.data.user_id }
-      this.UpdateImageUsers(setData).then(() => {
-        this.image = URL.createObjectURL(user_image)
-      })
+      this.UpdateImageUsers(setData)
+        .then(result => {
+          this.image = URL.createObjectURL(user_image)
+          this.successAlert(result.data.msg)
+        })
+        .catch(err => {
+          this.errorAlert(err.data.msg)
+        })
     },
     chooseFile() {
       document.getElementById('fileUpload').click()
@@ -106,8 +112,8 @@ export default {
   text-align: center;
 }
 img {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
 }
 .btn-color {
   color: #9b9b9b;
