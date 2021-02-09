@@ -215,6 +215,7 @@
           v-model="form2.porto_image"
           class="mt-3"
           plain
+          required
         ></b-form-file>
         <hr class="my-4" />
         <button @click="postPorto()" class="btn-bottom">
@@ -250,7 +251,9 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import moment from 'moment'
+import { alert } from '../../mixins/alert'
 export default {
+  mixins: [alert],
   data() {
     return {
       job: [
@@ -325,11 +328,11 @@ export default {
       data.append('porto_image', porto_image)
       this.postPortos(data)
         .then(result => {
-          alert(result.data.msg)
+          this.successAlert(result.data.msg)
           this.getPortos(this.user.user_id)
         })
         .catch(err => {
-          alert(err.data.msg)
+          this.errorAlert(err.data.msg)
         })
     },
     delPorto(porto_id) {
@@ -340,11 +343,11 @@ export default {
       this.form.user_id = this.user.user_id
       this.postExps(this.form)
         .then(result => {
-          alert(result.data.msg)
+          this.successAlert(result.data.msg)
           this.getExps(this.user.user_id)
         })
         .catch(err => {
-          alert(err.data.msg)
+          this.errorAlert(err.data.msg)
         })
     },
     delExp(exp_id) {
