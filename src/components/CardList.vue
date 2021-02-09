@@ -9,6 +9,7 @@
           <strong>{{ data.user_name }}</strong>
         </h3>
         <h6 class="text-secondary">{{ data.user_field }}</h6>
+        <h6 class="text-secondary">{{ data.user_job_type }}</h6>
         <h6 class="text-secondary mb-3">
           <b-icon icon="geo-alt" class="mr-2"></b-icon>{{ data.user_location }}
         </h6>

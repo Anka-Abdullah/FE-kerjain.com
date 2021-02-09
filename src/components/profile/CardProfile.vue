@@ -28,6 +28,7 @@
         <button
           class="button button-purple w-75 mx-auto mb-4 mt-2"
           v-if="show == 1"
+          @click="hire"
         >
           Hire
         </button>
@@ -73,6 +74,11 @@ export default {
   },
   created() {
     this.cardSkills = this.data.skills.split(',')
+  },
+  methods: {
+    hire() {
+      this.$router.push({ name: 'Hire', query: { data: this.data } })
+    }
   }
 }
 </script>
