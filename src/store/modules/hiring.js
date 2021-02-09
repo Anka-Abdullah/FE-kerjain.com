@@ -147,7 +147,6 @@ export default {
           .get(`${process.env.VUE_APP_URL}hiring/notif/get/${payload}`)
           .then(result => {
             context.commit('setNotifById', result.data.data)
-            console.log(result)
             resolve(result)
           })
           .catch(error => {
@@ -160,8 +159,7 @@ export default {
         axios
           .get(`${process.env.VUE_APP_URL}hiring/notif/count/${payload}`)
           .then(result => {
-            context.commit('setCountNotif', result.data.data[0])
-            console.log(result)
+            context.commit('setCountNotif', result.data.data[0].total)
             resolve(result)
           })
           .catch(error => {
@@ -174,7 +172,6 @@ export default {
         axios
           .post(`${process.env.VUE_APP_URL}hiring/notif`, payload)
           .then(result => {
-            console.log(result)
             resolve(result)
           })
           .catch(error => {
@@ -186,11 +183,10 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `${process.env.VUE_APP_URL}hiring/notif/patch/${payload.id}`,
+            `${process.env.VUE_APP_URL}hiring/notif/patch/${payload}`,
             payload.setData
           )
           .then(result => {
-            console.log(result)
             resolve(result)
           })
           .catch(error => {

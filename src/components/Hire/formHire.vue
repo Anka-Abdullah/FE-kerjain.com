@@ -80,12 +80,18 @@ export default {
     ...mapGetters({ userId: 'getUserById' })
   },
   methods: {
-    ...mapActions(['sendJobInvitations']),
+    ...mapActions(['sendJobInvitations', 'postNotif']),
     sendHiring() {
       this.form.user_id_to = this.$route.params.id
       console.log(this.form)
       this.sendJobInvitations(this.form)
         .then(result => {
+          const setData = {
+            notif_to_id: this.form.user_id_to,
+            notif_from: this.form.name,
+            notif_purpose: this.form.perpose
+          }
+          this.postNotif(setData)
           this.successAlert(result.msg)
         })
         .catch(err => {

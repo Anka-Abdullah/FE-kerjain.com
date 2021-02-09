@@ -23,46 +23,40 @@
               </button></router-link
             >
             <h5 class="m-0 mt-1 text-center" v-if="show === 2">
-              <b-icon @click="showNotification" icon="bell"></b-icon>
+              <b-icon
+                @click="showNotification"
+                icon="bell"
+                class="bell-icon-btn"
+              ></b-icon>
               <div
-                v-if="countNotif.total > 0"
+                v-if="countNotif > 0"
                 class="icon-count rounded-circle text-center position-absolute"
               >
-                <p class="pt-1">{{ countNotif.total }}</p>
+                <p class="pt-1">{{ countNotif }}</p>
               </div>
               <div
                 v-if="showNotif === 1"
                 class="notif-wrapper position-absolute"
               >
-                <div class="notif-card">
-                  <div class="d-flex flex-row align-items-center">
-                    <div class="mr-2">
-                      <b-icon @click="showNotification" icon="bell"></b-icon>
+                <div
+                  v-for="(item, index) in notif"
+                  :key="index"
+                  class="notif-card"
+                >
+                  <router-link to="/chat">
+                    <div class="d-flex flex-row align-items-center">
+                      <div class="mr-2">
+                        <b-icon icon="bell" class="bell-icon"></b-icon>
+                      </div>
+                      <div class="text-left">
+                        <p>
+                          kamu mendapatkan pesan dari
+                          {{ item.notif_from }} untuk penawaran
+                          {{ item.notif_purpose }}, silahkan cek pesan anda
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p>ini notif 1</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="notif-card">
-                  <div class="d-flex flex-row align-items-center">
-                    <div class="mr-2">
-                      <b-icon @click="showNotification" icon="bell"></b-icon>
-                    </div>
-                    <div>
-                      <p>ini notif 1</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="notif-card">
-                  <div class="d-flex flex-row align-items-center">
-                    <div class="mr-2">
-                      <b-icon @click="showNotification" icon="bell"></b-icon>
-                    </div>
-                    <div>
-                      <p>ini notif 1</p>
-                    </div>
-                  </div>
+                  </router-link>
                 </div>
               </div>
               <router-link to="/chat"
@@ -152,16 +146,14 @@ export default {
     },
     showNotification() {
       this.showNotif === 0 ? (this.showNotif = 1) : (this.showNotif = 0)
-      console.log(this.showNotif)
+      this.patchNotif(this.user.user_id)
+      this.getCountNotification()
     },
     getNotification() {
       this.getNotifById(this.user.user_id)
     },
     getCountNotification() {
       this.getCountNotif(this.user.user_id)
-    },
-    patchNotification() {
-      this.patchNotif(this.user.user_id)
     }
   },
   created() {
@@ -172,11 +164,21 @@ export default {
 }
 </script>
 <style scoped>
+.bell-icon-btn,
+.icon-count {
+  cursor: pointer;
+}
+
+.bell-icon {
+  width: 20px;
+  height: 20px;
+}
+
 .icon-count {
   background-color: red;
   width: 18px;
   height: 18px;
-  margin-top: -20px;
+  margin-top: -28px;
   margin-left: 12px;
 }
 
@@ -196,11 +198,16 @@ export default {
   margin-bottom: 5px;
   border-radius: 5px;
   padding: 5px 10px;
+  background-color: #fff;
+  max-width: 250px;
+  max-height: 400px;
+  overflow: auto;
 }
 
 .notif-card p {
-  font-size: 13px;
+  font-size: 11px;
   margin-bottom: unset;
+  color: rgb(68, 68, 68);
 }
 
 .b-navbar {
