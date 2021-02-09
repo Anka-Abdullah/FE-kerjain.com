@@ -166,10 +166,21 @@
         <p>{{ item.exp_desc }}</p>
 
         <div style="text-align: right;">
-          <b-button @click="delExp(item.exp_id)" class="py-1" variant="danger">
+          <b-button v-b-modal="modalId2(index)" class="py-1" variant="danger">
             Hapus
           </b-button>
         </div>
+        <b-modal :id="'modal1' + index" hide-footer>
+          <template #modal-title> Hapus pengalaman kerja? </template>
+          <div class="text-center">
+            <b-button class="mt-3 mr-5" @click="$bvModal.hide('bv-modal')"
+              >Batal</b-button
+            >
+            <b-button class="mt-3" variant="danger" @click="delExp(item.exp_id)"
+              >Hapus</b-button
+            >
+          </div>
+        </b-modal>
         <hr />
       </b-container>
     </div>
@@ -236,13 +247,23 @@
         <div>
           <strong>{{ item.porto_name }}</strong>
         </div>
-        <b-button
-          @click="delPorto(item.porto_id)"
-          class="py-1"
-          variant="danger"
-        >
+        <b-button v-b-modal="modalId(index)" class="py-1" variant="danger">
           Hapus
         </b-button>
+        <b-modal :id="'modal' + index" hide-footer>
+          <template #modal-title> Hapus portofolio? </template>
+          <div class="text-center">
+            <b-button class="mt-3 mr-5" @click="$bvModal.hide('bv-modal')"
+              >Batal</b-button
+            >
+            <b-button
+              class="mt-3"
+              variant="danger"
+              @click="delPorto(item.porto_id)"
+              >Hapus</b-button
+            >
+          </div>
+        </b-modal>
       </b-container>
     </div>
   </div>
@@ -282,13 +303,12 @@ export default {
     }
   },
   created() {
+    this.getUserByIds(this.user.user_id)
     this.getSkill(this.user.user_id)
     this.getExps(this.user.user_id)
     this.getPortos(this.user.user_id)
   },
-  mounted() {
-    this.getUserByIds(this.user.user_id)
-  },
+  mounted() {},
   computed: {
     ...mapGetters({
       user: 'setUser',
@@ -311,6 +331,12 @@ export default {
       'getPortos',
       'delPortos'
     ]),
+    modalId(index) {
+      return 'modal' + index
+    },
+    modalId2(index) {
+      return 'modal1' + index
+    },
     postPorto() {
       this.form2.user_id = this.user.user_id
       const {

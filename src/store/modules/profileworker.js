@@ -87,8 +87,6 @@ export default {
     },
     UpdateImageUsers(context, payload) {
       return new Promise((resolve, reject) => {
-        console.log(payload.id)
-        console.log(payload)
         axios
           .patch(
             `${process.env.VUE_APP_URL}editPhoto/${payload.id}`,
@@ -209,6 +207,21 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .delete(`${process.env.VUE_APP_URL}porto/${payload}`)
+          .then(result => {
+            resolve(result)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
+    changePasswords(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(
+            `${process.env.VUE_APP_URL}workers/newPassword/${context.state.user.user_id}`,
+            payload
+          )
           .then(result => {
             resolve(result)
           })
