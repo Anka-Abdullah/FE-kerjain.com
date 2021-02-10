@@ -24,7 +24,7 @@
         placeholder="Enter something..."
         rows="1"
         max-rows="6"
-        style="overflow:hidden"
+        style="overflow-y:hidden"
       ></b-form-textarea>
     </div>
     <button @click="chatSend()" class="send-button">
@@ -109,20 +109,35 @@ textarea {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  height: 400px;
-  padding-bottom: 40px;
+  height: 360px;
+  padding-bottom: 80px;
+  padding-top: 10px;
 }
 .text-chatting {
   font-size: 13px !important;
   max-width: 280px;
   margin-right: 20px;
   float: right;
+  border-radius: 20px 20px 0px 20px;
+  background-color: #5e50a1;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .text-chatting-to {
   font-size: 13px !important;
   max-width: 280px;
   float: left;
   margin-left: 20px;
+  border-radius: 20px 20px 20px 0px;
+  background-color: #5e50a1;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .chat-area {
   position: absolute;
