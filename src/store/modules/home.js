@@ -40,12 +40,10 @@ export default {
           )
           .then(result => {
             resolve(result)
-            console.log(result)
             commit('setUsers', result.data)
           })
           .catch(err => {
             reject(err)
-            console.log(err)
           })
       })
     }
