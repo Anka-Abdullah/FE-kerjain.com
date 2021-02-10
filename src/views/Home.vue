@@ -9,17 +9,18 @@
     <b-container class="pt-5">
       <Sort />
       <b-card class="shadow m-0 border-0">
-        <Card />
-        <Card />
-        <Card />
+        <Card v-for="user in users" :key="user.user_id" :data="user" />
       </b-card>
       <b-pagination
+        v-if="!search"
         v-model="currentPage"
         pills
         :total-rows="rows"
         size="lg"
         align="center"
         class="my-5"
+        :per-page="limit"
+        @change="handlePageChange"
       ></b-pagination>
     </b-container>
     <Footbar />
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Navbar from '../components/_base/Navbar'
 import Sort from '../components/_base/SortBar'
 import Card from '../components/CardList'
@@ -39,6 +41,41 @@ export default {
     Sort,
     Footbar,
     Card
+  },
+  created() {
+    this.getUsers()
+  },
+  computed: {
+    ...mapGetters({
+      users: 'getDataUsers',
+      page: 'getPage',
+      limit: 'getLimit',
+      rows: 'getTotalRows',
+      search: 'setSearch',
+      sort: 'setSort'
+    }),
+    currentPage: {
+      get() {
+        return this.page
+      },
+      set(newPage) {
+        return newPage
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['getUsers']),
+    ...mapMutations(['resetPages', 'setPage', 'setSearch', 'setSort']),
+    handlePageChange(e) {
+      this.setPage(e)
+      this.setSearch(this.search)
+      this.setSort(this.sort)
+      this.getUsers()
+    }
+    // resetPage() {
+    //   this.resetPages()
+    //   this.getUsers()
+    // }
   }
 }
 </script>

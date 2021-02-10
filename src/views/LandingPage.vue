@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar :show="1" />
+    <Navbar :show="navbarShow" />
     <b-container>
       <b-row>
         <b-col>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Navbar from '../components/_base/Navbar'
 import Footbar from '../components/_base/Footbar'
 import Header from '../components/_base/landingPage/Header'
@@ -45,6 +46,19 @@ export default {
     Header,
     Opinion,
     FloatCard
+  },
+  data() {
+    return {
+      navbarShow: 1
+    }
+  },
+  computed: {
+    ...mapGetters({ user: 'setUser' })
+  },
+  created() {
+    if (this.user.user_id) {
+      this.navbarShow = 2
+    }
   }
 }
 </script>

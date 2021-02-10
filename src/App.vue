@@ -4,6 +4,20 @@
   </div>
 </template>
 
+<script>
+import { mapActions } from 'vuex'
+export default {
+  name: 'App',
+  created() {
+    this.interceptorRequest()
+    this.interceptorResponse()
+  },
+  methods: {
+    ...mapActions(['interceptorRequest', 'interceptorResponse'])
+  }
+}
+</script>
+
 <style>
 @font-face {
   font-family: 'b612regular';
@@ -60,6 +74,7 @@ input:focus {
   background-color: #ffc95d;
   color: #ffffff;
   margin: 0px 10px 10px 0px;
+  font-size: 13px;
 }
 
 @media (max-width: 600px) {
