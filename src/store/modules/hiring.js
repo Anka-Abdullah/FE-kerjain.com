@@ -23,7 +23,6 @@ export default {
     },
     setDetailChat(state, payload) {
       state.detailChat = payload
-      console.log(state.detailChat)
     },
     setReceiver(state, payload) {
       state.receiver = payload
@@ -39,7 +38,6 @@ export default {
     },
     setChat(state, payload) {
       state.detailChat.push(payload)
-      console.log(state.detailChat)
     },
     setNotifById(state, payload) {
       state.notif = payload
@@ -57,11 +55,9 @@ export default {
         axios
           .post(`${process.env.VUE_APP_URL}hiring/jobinvitation`, payload)
           .then(result => {
-            console.log(result)
             resolve(result.data)
           })
           .catch(err => {
-            console.log(err)
             reject(err)
           })
       })

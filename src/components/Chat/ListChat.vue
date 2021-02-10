@@ -52,11 +52,8 @@ export default {
   },
   created() {
     this.socket.on('chatMessage', data => {
-      console.log('dah Dapet data  nih')
-      console.log(data)
       this.setChat(data)
     })
-    console.log(this.allChat)
   },
   computed: {
     ...mapGetters({ allChat: 'getAllChats' })

@@ -20,9 +20,6 @@ import { mapActions } from 'vuex'
 export default {
   name: 'ConfirmationEmail',
   mixins: [alert],
-  created() {
-    console.log(this.$route.params.id)
-  },
   methods: {
     ...mapActions(['verificationEmail']),
     verifyEmail() {

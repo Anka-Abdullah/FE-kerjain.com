@@ -96,9 +96,6 @@ export default {
   },
   methods: {
     ...mapActions(['registerWorker']),
-    showData() {
-      console.log(this.form)
-    },
     toPage() {
       this.$router.push('registerRecruiter')
     },

@@ -119,11 +119,9 @@ export default {
     updateProfile() {
       this.updateProfileUsers(this.data)
         .then(result => {
-          console.log(result)
           this.successAlert(result.data.msg)
         })
         .catch(err => {
-          console.log(err)
           this.errorAlert(err.data.msg)
         })
     },

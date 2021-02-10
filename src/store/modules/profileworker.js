@@ -31,11 +31,9 @@ export default {
           .get(`${process.env.VUE_APP_URL}workers/${payload}`)
           .then(result => {
             context.commit('setUserById', result.data.data[0])
-            console.log(result)
             resolve(result)
           })
           .catch(error => {
-            console.log(error)
             reject(error.response)
           })
       })
@@ -61,7 +59,6 @@ export default {
             payload
           )
           .then(result => {
-            console.log(result)
             resolve(result)
           })
           .catch(error => {
@@ -77,7 +74,6 @@ export default {
             payload
           )
           .then(result => {
-            console.log(result)
             resolve(result)
           })
           .catch(error => {
@@ -93,11 +89,9 @@ export default {
             payload.data
           )
           .then(result => {
-            console.log(result)
             resolve(result)
           })
           .catch(error => {
-            console.log(error)
             reject(error.response)
           })
       })
@@ -117,7 +111,6 @@ export default {
     },
     postSkill(context, payload) {
       return new Promise((resolve, reject) => {
-        console.log(payload)
         axios
           .post(`${process.env.VUE_APP_URL}skills/`, payload)
           .then(result => {

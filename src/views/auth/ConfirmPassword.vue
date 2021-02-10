@@ -67,7 +67,6 @@ export default {
   },
   created() {
     this.form.key = this.$route.params.key
-    console.log(this.form.key)
   },
   methods: {
     ...mapActions(['confirmPassUser']),
@@ -78,12 +77,8 @@ export default {
           this.$router.push('/loginuser')
         })
         .catch(err => {
-          console.log(err)
           this.errorAlert(err.data.msg)
         })
-    },
-    showData() {
-      console.log(this.form)
     }
   }
 }

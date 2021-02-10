@@ -114,14 +114,12 @@ export default {
       return moment(String(time)).format('MMM YYYY')
     },
     showPorto(index) {
-      console.log('clicked')
       const indexNow = this.portoIndex
       if (indexNow != index) {
         this.portoIndex = index
       } else {
         this.portoIndex = 'a'
       }
-      console.log(this.portoIndex)
     }
   }
 }

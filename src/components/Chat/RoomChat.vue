@@ -82,7 +82,6 @@ export default {
           user_id_from: this.user.user_id
         }
       }
-      console.log(setData)
       this.sendChatting(this.chat).then(() => {
         this.socket.emit('roomMessage', setData)
         this.chat.chat_content = ''

@@ -31,7 +31,6 @@ export default {
             resolve(result)
           })
           .catch(error => {
-            console.log(error.response)
             reject(error.response)
           })
       })
@@ -46,7 +45,6 @@ export default {
             resolve(result)
           })
           .catch(error => {
-            console.log(error.response)
             reject(error.response)
           })
       })
@@ -57,11 +55,9 @@ export default {
           .get(`${process.env.VUE_APP_URL}workers/${payload}`)
           .then(result => {
             context.commit('setUserDetail', result.data.data[0])
-            console.log(result)
             resolve(result)
           })
           .catch(error => {
-            console.log(error)
             reject(error.response)
           })
       })
@@ -72,7 +68,6 @@ export default {
       router.push('/loginuser')
     },
     interceptorRequest(context) {
-      console.log('interceptor request works!')
       axios.interceptors.request.use(
         function(config) {
           config.headers.Authorization = `Bearer ${context.state.token}`
@@ -84,7 +79,6 @@ export default {
       )
     },
     interceptorResponse(context) {
-      console.log('interceptor request works!')
       axios.interceptors.response.use(
         function(response) {
           return response

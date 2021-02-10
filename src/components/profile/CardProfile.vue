@@ -108,9 +108,6 @@ export default {
   },
   methods: {
     ...mapActions(['getUserByIds', 'getSkill']),
-    showData() {
-      console.log(this.paramsId)
-    },
     hire() {
       this.$router.push({ name: 'Hire', params: { id: this.paramsId } })
     },

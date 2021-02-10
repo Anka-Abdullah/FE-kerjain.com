@@ -83,7 +83,6 @@ export default {
     ...mapActions(['sendJobInvitations', 'postNotif', 'getUserFrom']),
     sendHiring() {
       this.form.user_id_to = this.$route.params.id
-      console.log(this.form)
       this.sendJobInvitations(this.form)
         .then(result => {
           const setData = {

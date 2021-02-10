@@ -198,9 +198,7 @@ export default {
       data.append('user_instagram', user_instagram)
       data.append('user_phone', user_phone)
       data.append('user_linkedin', user_linkedin)
-      for (var pair of data.entries()) {
-        console.log(pair[0] + ', ' + pair[1])
-      }
+
       this.updateProfileRecruiters(data)
         .then(result => {
           this.successAlert(result.data.msg)

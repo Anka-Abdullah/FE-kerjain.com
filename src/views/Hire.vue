@@ -29,7 +29,6 @@ export default {
   created() {
     this.getUserInformation(this.$route.params.id)
     this.getSkillById(this.$route.params.id)
-    console.log(this.$route.params.id)
   },
   methods: {
     ...mapActions(['getUserInformation']),

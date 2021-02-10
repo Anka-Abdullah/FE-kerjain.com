@@ -40,9 +40,6 @@ export default {
       url: process.env.VUE_APP_URL
     }
   },
-  created() {
-    console.log(this.skills)
-  },
   computed: {
     ...mapGetters({ userId: 'getUserById', skills: 'getSkillsUser' })
   },
