@@ -83,7 +83,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ porto: 'getDataPortofolio', exp: 'getDataExperience' })
+    ...mapGetters({ porto: 'getDataPortofolio', exp: 'getDataExperience' }),
+    paramsId() {
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      } else {
+        return this.data.user_id
+      }
+    }
   },
   created() {
     this.getPortoData()
@@ -92,10 +99,10 @@ export default {
   methods: {
     ...mapActions(['getExp', 'getPorto']),
     getPortoData() {
-      this.getPorto(this.data.user_id)
+      this.getPorto(this.paramsId)
     },
     getExpData() {
-      this.getExp(this.data.user_id)
+      this.getExp(this.paramsId)
     },
     portofolio() {
       this.show = 'portofolio'

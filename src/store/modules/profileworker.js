@@ -1,7 +1,7 @@
 import axios from 'axios'
 export default {
   state: {
-    user: {},
+    userId: {},
     recruiter: {},
     skill: {},
     exps: {},
@@ -9,7 +9,7 @@ export default {
   },
   mutations: {
     setUserById(state, payload) {
-      state.user = payload
+      state.userId = payload
     },
     setRecruiterById(state, payload) {
       state.recruiter = payload
@@ -233,7 +233,7 @@ export default {
   },
   getters: {
     setUserId(state) {
-      return state.user
+      return state.userId
     },
     setRecruiterId(state) {
       return state.recruiter

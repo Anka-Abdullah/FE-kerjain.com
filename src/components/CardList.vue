@@ -40,7 +40,9 @@ export default {
   },
   methods: {
     choose() {
-      this.$router.push({ name: 'Profile', params: { data: this.data } })
+      this.$router.push({ name: 'Profile', params: { id: this.data.user_id } })
+      console.log('ini data')
+      console.log(this.data)
     }
   }
 }

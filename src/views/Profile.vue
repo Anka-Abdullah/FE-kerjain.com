@@ -31,7 +31,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ data: 'setUser' })
+    ...mapGetters({ data: 'setUser', dataId: 'setUserId' })
   },
   created() {
     this.data = this.$route.params.data

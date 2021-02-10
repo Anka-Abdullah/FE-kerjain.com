@@ -22,7 +22,7 @@
         class="rounded-circle text-center profile-img"
       />
 
-      <h3>
+      <h3 class="mt-2">
         <strong>{{ company.user_name }}</strong>
       </h3>
       <h6 class="text-secondary">{{ company.user_field }}</h6>
@@ -33,10 +33,12 @@
         <h6 class="text-secondary">
           {{ company.user_description }}
         </h6>
-        <button class="button button-purple w-75 mt-4" to="/EditProfile">
-          Edit Profile
-        </button>
-        <h6 class="text-secondary mt-5">
+        <router-link to="/EditProfile">
+          <button class="button button-purple w-75 mt-3">
+            Edit Profile
+          </button>
+        </router-link>
+        <h6 class="text-secondary mt-4">
           <b-icon icon="envelope" class="mr-2"></b-icon>{{ company.user_email }}
         </h6>
         <h6 class="text-secondary mt-4">

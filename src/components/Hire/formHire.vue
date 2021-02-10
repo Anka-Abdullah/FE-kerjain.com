@@ -80,7 +80,7 @@ export default {
     ...mapGetters({ userId: 'getUserById' })
   },
   methods: {
-    ...mapActions(['sendJobInvitations', 'postNotif']),
+    ...mapActions(['sendJobInvitations', 'postNotif', 'getUserFrom']),
     sendHiring() {
       this.form.user_id_to = this.$route.params.id
       console.log(this.form)
@@ -97,7 +97,13 @@ export default {
         .catch(err => {
           this.errorAlert(err.data.msg)
         })
+    },
+    getUser() {
+      this.getUserFrom(this.$route.params.id)
     }
+  },
+  created() {
+    this.getUser()
   }
 }
 </script>

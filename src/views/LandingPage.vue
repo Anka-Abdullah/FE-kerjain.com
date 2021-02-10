@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Navbar from '../components/_base/Navbar'
 import Footbar from '../components/_base/Footbar'
 import Header from '../components/_base/landingPage/Header'
@@ -50,15 +51,15 @@ export default {
     return {
       navbarShow: 1
     }
+  },
+  computed: {
+    ...mapGetters({ user: 'setUser' })
+  },
+  created() {
+    if (this.user.user_id) {
+      this.navbarShow = 2
+    }
   }
-  // created() {
-  //   let authCheck = localStorage.getItem('vuex')
-  //   authCheck = JSON.parse(authCheck)
-  //   authCheck = authCheck.Auth.user
-  //   if (authCheck) {
-  //     this.navbarShow = 2
-  //   }
-  // }
 }
 </script>
 

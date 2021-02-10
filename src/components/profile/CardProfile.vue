@@ -35,8 +35,15 @@
       </p>
       <b-row>
         <button
+          v-if="paramsId == data.user_id"
           class="button button-purple w-75 mx-auto mb-4 mt-2"
-          v-if="show == 1"
+          @click="editProfile"
+        >
+          Edit Profile
+        </button>
+        <button
+          v-else
+          class="button button-purple w-75 mx-auto mb-4 mt-2"
           @click="hire"
         >
           Hire
@@ -86,7 +93,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ user: 'setUserId', skill: 'getSkill' })
+    ...mapGetters({ user: 'setUserId', skill: 'getSkill' }),
+    paramsId() {
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      } else {
+        return this.data.user_id
+      }
+    }
   },
   created() {
     this.getUserData()
@@ -95,16 +109,19 @@ export default {
   methods: {
     ...mapActions(['getUserByIds', 'getSkill']),
     showData() {
-      console.log(this.data)
+      console.log(this.paramsId)
     },
     hire() {
-      this.$router.push({ name: 'Hire', params: { id: this.data.user_id } })
+      this.$router.push({ name: 'Hire', params: { id: this.paramsId } })
+    },
+    editProfile() {
+      this.$router.push({ name: 'EditProfileUser' })
     },
     getUserData() {
-      this.getUserByIds(this.data.user_id)
+      this.getUserByIds(this.paramsId)
     },
     getUserSkill() {
-      this.getSkill(this.data.user_id)
+      this.getSkill(this.paramsId)
     }
   }
 }

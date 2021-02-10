@@ -17,7 +17,7 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
-    meta: { requiresAuth: true }
+    meta: { requiresRecruiter: true }
   },
   {
     path: '/about',
@@ -36,21 +36,21 @@ const routes = [
     name: 'MyProfile',
     component: () =>
       import(/* webpackChunkName: "profile" */ '../views/Profile.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresWorker: true }
   },
   {
     path: '/profile/:id',
     name: 'Profile',
     component: () =>
       import(/* webpackChunkName: "profile" */ '../views/Profile.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresRecruiter: true }
   },
   {
     path: '/company',
     name: 'Company',
     component: () =>
       import(/* webpackChunkName: "company" */ '../views/Company.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresRecruiter: true }
   },
   {
     path: '/registerRecruiter',
@@ -69,7 +69,7 @@ const routes = [
     name: 'Hire',
     component: () =>
       import(/* webpackChunkName: "company" */ '../views/Hire.vue'),
-    meta: { requiresAuth: true }
+    meta: { requiresRecruiter: true }
   },
   {
     path: '/chat',
@@ -105,18 +105,14 @@ const routes = [
   {
     path: '/editprofile',
     name: 'EditProfile',
-    component: () =>
-      import(/* webpackChunkName: "editprofile" */ '../views/EditProfile.vue'),
-    meta: { requiresAuth: true }
+    component: () => import('../views/EditProfile.vue'),
+    meta: { requiresRecruiter: true }
   },
   {
     path: '/editprofileuser',
     name: 'EditProfileUser',
-    component: () =>
-      import(
-        /* webpackChunkName: "editprofile" */ '../views/EditProfileUser.vue'
-      ),
-    meta: { requiresAuth: true }
+    component: () => import('../views/EditProfileUser.vue'),
+    meta: { requiresWorker: true }
   },
   {
     path: '/confirmationemail/:id',
@@ -148,6 +144,22 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       next()
+    }
+  } else if (to.matched.some(record => record.meta.requiresRecruiter)) {
+    if (store.getters.isRecruiter) {
+      next()
+    } else {
+      next({
+        path: '/'
+      })
+    }
+  } else if (to.matched.some(record => record.meta.requiresWorker)) {
+    if (store.getters.isWorker) {
+      next()
+    } else {
+      next({
+        path: '/'
+      })
     }
   } else {
     next()

@@ -15,8 +15,8 @@
             <router-link v-if="!user.user_id" to="/loginuser"
               ><button class="button  button-white my-1" v-if="show === 1">
                 Masuk
-              </button></router-link
-            >
+              </button>
+            </router-link>
             <router-link v-if="!user.user_id" to="/registeruser"
               ><button class="button button-purple my-1" v-if="show === 1">
                 Daftar
@@ -113,7 +113,7 @@ export default {
   computed: {
     ...mapGetters({
       user: 'setUser',
-      userId: 'setUserId',
+      userId: 'getUserDetail',
       notif: 'getNotifById',
       countNotif: 'getCountNotif'
     })
@@ -121,7 +121,7 @@ export default {
   methods: {
     ...mapActions([
       'logout',
-      'getUserByIds',
+      'getUserDetail',
       'getNotifById',
       'getCountNotif',
       'patchNotif'
@@ -131,19 +131,19 @@ export default {
     },
     handleMyProfile() {
       if (this.user.user_role === 1) {
-        this.$router.push('Company')
+        this.$router.push('/company')
       } else {
-        this.$router.push('MyProfile')
+        this.$router.push('/myprofile')
       }
     },
     handleWorker() {
-      this.$router.push('EditProfileUser')
+      this.$router.push('/editprofileuser')
     },
     handleRecruiter() {
-      this.$router.push('EditProfile')
+      this.$router.push('/editprofile')
     },
     getUserData() {
-      this.getUserByIds(this.user.user_id)
+      this.getUserDetail(this.user.user_id)
     },
     showNotification() {
       this.showNotif === 0 ? (this.showNotif = 1) : (this.showNotif = 0)

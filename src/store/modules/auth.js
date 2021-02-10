@@ -4,6 +4,7 @@ import router from '../../router/index'
 export default {
   state: {
     user: {},
+    userDetail: {},
     token: localStorage.getItem('token') || null
   },
   mutations: {
@@ -14,6 +15,9 @@ export default {
     delUser(state) {
       state.user = {}
       state.token = null
+    },
+    setUserDetail(state, payload) {
+      state.userDetail = payload
     }
   },
   actions: {
@@ -43,6 +47,21 @@ export default {
           })
           .catch(error => {
             console.log(error.response)
+            reject(error.response)
+          })
+      })
+    },
+    getUserDetail(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${process.env.VUE_APP_URL}workers/${payload}`)
+          .then(result => {
+            context.commit('setUserDetail', result.data.data[0])
+            console.log(result)
+            resolve(result)
+          })
+          .catch(error => {
+            console.log(error)
             reject(error.response)
           })
       })
@@ -102,8 +121,17 @@ export default {
     setUser(state) {
       return state.user
     },
+    getUserDetail(state) {
+      return state.userDetail
+    },
     isLogin(state) {
       return state.token !== null // false
+    },
+    isRecruiter(state) {
+      return state.user.user_role === 1
+    },
+    isWorker(state) {
+      return state.user.user_role === 0
     }
   }
 }
