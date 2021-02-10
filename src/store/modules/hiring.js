@@ -11,7 +11,8 @@ export default {
     skillsUser: [],
     userFrom: {},
     notif: {},
-    countNotif: 0
+    countNotif: 0,
+    receiverImg: ''
   },
   mutations: {
     setAllChat(state, payload) {
@@ -44,6 +45,9 @@ export default {
     },
     setCountNotif(state, payload) {
       state.countNotif = payload
+    },
+    setReceiverImg(state, payload) {
+      state.receiverImg = payload
     }
   },
   actions: {
@@ -222,6 +226,9 @@ export default {
     },
     getCountNotif(state) {
       return state.countNotif
+    },
+    getReceiverImg(state) {
+      return state.receiverImg
     }
   }
 }

@@ -15,6 +15,13 @@
         @click="sendData(item.room_chat, item.user_name)"
       >
         <img
+          v-if="item.user_image"
+          class="user-image"
+          :src="`${url}fileUploadsApiKerjain/workers/${item.user_image}`"
+          alt=""
+        />
+        <img
+          v-else
           class="user-image"
           src="../../assets/gdpr_profile-picture 1.png"
           alt=""
@@ -37,7 +44,8 @@ export default {
     return {
       chat: 1,
       socket: io(process.env.VUE_APP_URL),
-      oldRoom: ''
+      oldRoom: '',
+      url: process.env.VUE_APP_URL
     }
   },
   created() {
@@ -46,14 +54,16 @@ export default {
       console.log(data)
       this.setChat(data)
     })
+    console.log(this.allChat)
   },
   computed: {
     ...mapGetters({ allChat: 'getAllChats' })
   },
   methods: {
     ...mapActions(['getDetailChat']),
-    ...mapMutations(['setReceiver', 'setChat']),
+    ...mapMutations(['setReceiver', 'setChat', 'setReceiverImg']),
     sendData(id, userName) {
+      this.setReceiverImg(this.allChat[0].user_image)
       if (this.oldRoom) {
         const newData = {
           ...{ oldRoom: this.oldRoom },
@@ -112,6 +122,10 @@ export default {
   padding-bottom: 10px;
   margin-top: -10px;
   cursor: pointer;
+}
+.chat-listing img {
+  width: 35px;
+  height: 35px;
 }
 .chat-listing:hover {
   background-color: rgb(228, 228, 228);

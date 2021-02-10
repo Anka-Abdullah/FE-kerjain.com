@@ -13,7 +13,7 @@
       <img
         class="rounded-circle profile-img"
         v-if="company.user_image"
-        :src="`${url}workers/${company.user_image}`"
+        :src="`${url}fileUploadsApiKerjain/workers/${company.user_image}`"
       />
 
       <img

@@ -10,7 +10,7 @@
         <img
           class="rounded-circle profile-img"
           v-else-if="data.user_image"
-          :src="`${url}workers/${data.user_image}`"
+          :src="`${url}fileUploadsApiKerjain/workers/${data.user_image}`"
         />
 
         <img

@@ -2,7 +2,16 @@
   <div>
     <b-row class="p-0 border-top border-bottom">
       <b-col lg="2" sm="12" class="text-center p-0 m-0">
-        <img src="../assets/user.png" width="200" class="rounded-circle m-0" />
+        <img
+          v-if="data.user_image"
+          :src="`${url}fileUploadsApiKerjain/workers/${data.user_image}`"
+          class="rounded-circle m-0 user-img mt-4"
+        />
+        <img
+          v-else
+          src="../assets/user.png"
+          class="rounded-circle m-0 user-img mt-4"
+        />
       </b-col>
       <b-col lg="8" sm="12" class="py-4 px-0 content">
         <h3>
@@ -32,7 +41,8 @@ export default {
   },
   data() {
     return {
-      cardSkills: []
+      cardSkills: [],
+      url: process.env.VUE_APP_URL
     }
   },
   created() {
@@ -48,6 +58,11 @@ export default {
 }
 </script>
 <style scoped>
+.user-img {
+  width: 100px;
+  height: 100px;
+}
+
 button {
   margin-top: 85px;
 }

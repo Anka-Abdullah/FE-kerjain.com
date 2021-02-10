@@ -4,7 +4,7 @@
       <img
         v-if="userId.user_image"
         class="user-image"
-        :src="url + 'workers/' + userId.user_image"
+        :src="url + 'fileUploadsApiKerjain/workers/' + userId.user_image"
         alt=""
       />
       <img v-else class="user-image" src="../../assets/user_image.png" alt="" />

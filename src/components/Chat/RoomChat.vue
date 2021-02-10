@@ -2,6 +2,12 @@
   <div class="room-chat" v-bind="receiver != ''">
     <div class="room-head">
       <img
+        v-if="receiverImg"
+        class="user-image"
+        :src="`${url}fileUploadsApiKerjain/workers/${receiverImg}`"
+      />
+      <img
+        v-else
         class="user-image"
         src="../../assets/gdpr_profile-picture 1.png"
         alt=""
@@ -46,17 +52,16 @@ export default {
         chat_content: '',
         user_id_to: 0,
         room_chat: 0
-      }
+      },
+      url: process.env.VUE_APP_URL
     }
-  },
-  created() {
-    console.log(this.detailChat)
   },
   computed: {
     ...mapGetters({
       user: 'setUser',
       detailChat: 'getDetailChat',
-      receiver: 'getReceiver'
+      receiver: 'getReceiver',
+      receiverImg: 'getReceiverImg'
     })
   },
   methods: {
@@ -81,6 +86,10 @@ export default {
 }
 </script>
 <style scoped>
+.user-image {
+  width: 40px;
+  height: 40px;
+}
 textarea {
   display: block;
   left: 0;

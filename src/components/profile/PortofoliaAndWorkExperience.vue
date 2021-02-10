@@ -24,7 +24,7 @@
               <img
                 class="porto-img"
                 v-if="item.porto_image"
-                :src="url + 'porto/' + item.porto_image"
+                :src="url + 'fileUploadsApiKerjain/porto/' + item.porto_image"
               />
               <img
                 v-else

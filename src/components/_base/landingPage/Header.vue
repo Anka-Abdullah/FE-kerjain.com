@@ -11,7 +11,7 @@
               temukan talent digital terbaik bersama kami, developer handal
               hingga designer keren semua ada disini.
             </p>
-            <router-link to="/home">
+            <router-link :to="user.user_role == 1 ? '/home' : '/myprofile'">
               <button class="button button-purple mt-3">
                 Mulai dari sekarang
               </button>
@@ -112,6 +112,15 @@
     </b-container>
   </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters({ user: 'setUser' })
+  }
+}
+</script>
 
 <style scoped>
 .row-1 {

@@ -4,7 +4,7 @@
       <div class="img-wrapper text-center">
         <img
           v-if="user.user_image"
-          :src="url + 'workers/' + user.user_image"
+          :src="url + 'fileUploadsApiKerjain/workers/' + user.user_image"
           width="200"
           class="rounded-circle profile-img text-center ml-1 mb-2"
         />
