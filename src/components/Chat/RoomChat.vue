@@ -47,8 +47,8 @@ export default {
   name: 'RoomChat',
   data() {
     return {
-      socket: io(process.env.VUE_APP_URL, {
-        path: 'socket.io'
+      socket: io.connect(process.env.VUE_APP_URL2, {
+        path: '/apikerjain/socket.io'
       }),
       chat: {
         chat_content: '',
@@ -69,7 +69,10 @@ export default {
   methods: {
     ...mapActions(['sendChatting']),
     chatSend() {
-      this.chat.user_id_to = this.detailChat[0].user_id_to
+      this.chat.user_id_to =
+        this.detailChat[0].user_id_to == this.user.user_id
+          ? this.detailChat[0].user_id_from
+          : this.detailChat[0].user_id_to
       this.chat.room_chat = this.detailChat[0].room_chat
       const setData = {
         ...{
@@ -79,6 +82,7 @@ export default {
           user_id_from: this.user.user_id
         }
       }
+      console.log(setData)
       this.sendChatting(this.chat).then(() => {
         this.socket.emit('roomMessage', setData)
         this.chat.chat_content = ''

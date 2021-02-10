@@ -57,7 +57,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `${process.env.VUE_APP_URL}workers/${context.state.user.user_id}`,
+            `${process.env.VUE_APP_URL}workers/${context.state.userId.user_id}`,
             payload
           )
           .then(result => {

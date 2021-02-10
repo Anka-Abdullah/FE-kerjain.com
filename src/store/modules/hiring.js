@@ -23,6 +23,7 @@ export default {
     },
     setDetailChat(state, payload) {
       state.detailChat = payload
+      console.log(state.detailChat)
     },
     setReceiver(state, payload) {
       state.receiver = payload

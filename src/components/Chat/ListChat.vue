@@ -43,7 +43,9 @@ export default {
   data() {
     return {
       chat: 1,
-      socket: io(process.env.VUE_APP_URL),
+      socket: io.connect(process.env.VUE_APP_URL2, {
+        path: '/apikerjain/socket.io'
+      }),
       oldRoom: '',
       url: process.env.VUE_APP_URL
     }
@@ -75,7 +77,9 @@ export default {
           this.oldRoom = id
         })
       } else {
-        this.socket.emit('joinRoom', id)
+        this.socket.emit('joinRoom', {
+          room: id
+        })
         this.getDetailChat(id).then(() => {
           this.setReceiver(userName)
           this.oldRoom = id
