@@ -47,7 +47,9 @@ export default {
   name: 'RoomChat',
   data() {
     return {
-      socket: io(process.env.VUE_APP_URL),
+      socket: io(process.env.VUE_APP_URL, {
+        path: 'socket.io'
+      }),
       chat: {
         chat_content: '',
         user_id_to: 0,
