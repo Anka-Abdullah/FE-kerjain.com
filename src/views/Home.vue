@@ -12,6 +12,7 @@
         <Card v-for="user in users" :key="user.user_id" :data="user" />
       </b-card>
       <b-pagination
+        v-if="!search"
         v-model="currentPage"
         pills
         :total-rows="rows"
@@ -66,7 +67,6 @@ export default {
     ...mapActions(['getUsers']),
     ...mapMutations(['resetPages', 'setPage', 'setSearch', 'setSort']),
     handlePageChange(e) {
-      console.log(e)
       this.setPage(e)
       this.setSearch(this.search)
       this.setSort(this.sort)
