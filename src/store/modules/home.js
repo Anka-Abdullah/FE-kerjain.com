@@ -32,7 +32,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(
-            `http://localhost:3000/home/home?${
+            `${process.env.VUE_APP_URL}home/home?${
               state.sort !== '' ? 'sort=' + state.sort : ''
             }${state.search !== '' ? '&search=' + state.search : ''}&page=${
               state.page

@@ -67,7 +67,9 @@
                 ><template slot="button-content">
                   <b-avatar
                     v-if="userId.user_image"
-                    :src="url + 'workers/' + userId.user_image"
+                    :src="
+                      url + 'fileUploadsApiKerjain/workers/' + userId.user_image
+                    "
                     class="user-img"
                   >
                   </b-avatar>
