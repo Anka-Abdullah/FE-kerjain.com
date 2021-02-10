@@ -1,10 +1,10 @@
 <template>
   <div class="form-hire">
     <b-form @submit.prevent="sendHiring">
-      <p class="form-title">Hubungi Nama User</p>
+      <p class="form-title">Hubungi {{ userId.user_name }}</p>
       <p class="form-desc">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis libero
-        culpa, dolore doloribus
+        Hubungi {{ userId.user_name }} untuk memberikan penawaran pekerjaan /
+        project
       </p>
       <div class="perpose">
         <p class="perpose-title">Tujuan tentang Pesan Ini</p>
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { alert } from '../../mixins/alert'
 export default {
   name: 'formHire',
@@ -76,13 +76,22 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters({ userId: 'getUserById' })
+  },
   methods: {
-    ...mapActions(['sendJobInvitations']),
+    ...mapActions(['sendJobInvitations', 'postNotif']),
     sendHiring() {
       this.form.user_id_to = this.$route.params.id
       console.log(this.form)
       this.sendJobInvitations(this.form)
         .then(result => {
+          const setData = {
+            notif_to_id: this.form.user_id_to,
+            notif_from: this.form.name,
+            notif_purpose: this.form.perpose
+          }
+          this.postNotif(setData)
           this.successAlert(result.msg)
         })
         .catch(err => {

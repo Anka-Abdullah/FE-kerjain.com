@@ -278,7 +278,12 @@ export default {
   data() {
     return {
       job: [
-        { text: 'Pilih satu job type', value: null },
+        {
+          text: 'Pilih satu job type',
+          value: null,
+          disabled: true,
+          selected: true
+        },
         'Fulltime',
         'Freelance'
       ],
@@ -371,6 +376,14 @@ export default {
         .then(result => {
           this.successAlert(result.data.msg)
           this.getExps(this.user.user_id)
+          this.form = {
+            user_id: '',
+            exp_position: '',
+            exp_company: '',
+            exp_desc: '',
+            exp_start: '',
+            exp_end: ''
+          }
         })
         .catch(err => {
           this.errorAlert(err.data.msg)
@@ -392,6 +405,7 @@ export default {
       ]
       this.postSkill(data)
       this.getSkill(this.user.user_id)
+      this.skill = ''
     },
     destroySkill(id) {
       const data = {

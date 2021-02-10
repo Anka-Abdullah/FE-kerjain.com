@@ -24,23 +24,15 @@ export default {
     },
     patchPasswordAllUserVuex(context, payload) {
       return new Promise((resolve, reject) => {
-        console.log('id change password')
-        console.log(payload.id)
-        console.log('data change password')
-        console.log(payload.data)
         axios
           .patch(
             `${process.env.VUE_APP_URL}workers/newPassword/${payload.id}`,
             payload.data
           )
           .then(result => {
-            console.log('result change password')
-            console.log(result)
             resolve(result)
           })
           .catch(error => {
-            console.log('error change password')
-            console.log(error)
             reject(error.response)
           })
       })
