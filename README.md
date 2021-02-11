@@ -7,7 +7,7 @@
     <a href="https://github.com/Cotllinz/SkyRouter_Fe/pulls">Request Feature</a>
   </p>
 
-![Image Banner](https://raw.githubusercontent.com/Anka-Abdullah/FE-kerjain.com/blob/main/src/assets/landingPage.png)
+![Image Banner](https://github.com/Anka-Abdullah/FE-kerjain.com/blob/main/src/assets/landingPage.png)
 
 ## About The Project
 
