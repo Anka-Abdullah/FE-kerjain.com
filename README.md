@@ -11,7 +11,13 @@
 
 ## About The Project
 
-Sky Router is a web based application. This application helps people to get airplane's ticket easily through searching and sorting feature. It will filter the ticket based on what the users want. Sky Router provides other best features for its users. There are updating profile, chatting, and online payment. Sky Router also implements many technologies for secure the users data.
+Banyaknya platform online pencarian kerja menjadi kabar baik tersendiri bagi para Jobseeker. Namun, tidak jarang platform
+pencarian kerja tersebut memilikitampilan yang cukup kompleks ditambah Bahasa yang digunakan adalah Bahasa Inggris.
+Beberapa dari mereka mungkin tidak memandang ini sebagai masalah. Namun beberapa yang lain menganggap hal
+tersebut sebagai masalah. Sehingga, hal seperti ini justru menghambat mereka. Kerjain.com hadir. Ialah sebuah aplikasi
+berbasis web yang mempermudah pencari kerja untuk menemukan kerjaan impiannya, serta mempermudah recruiter
+untuk menemukan talenta talenta yang mereka inginkan dengan tampilan yang sederhana dan mudah dipahami, serta
+menggunakan Bahasa Indonesia
 
 ## Built With
 
@@ -22,7 +28,7 @@ Sky Router is a web based application. This application helps people to get airp
 
 1. <a href="https://nodejs.org/en/download/">Node Js</a>
 2. Node_modules `npm install` or `yarn install`
-3. Backend API GDJ-Back-End [`here`](https://github.com/vincentJunior1/TimTamBe)
+3. Backend API GDJ-Back-End [`here`](https://github.com/vincentJunior1/Backend-Kerjain)
 
 ## Getting Started
 
